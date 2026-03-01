@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>רועי שוקרון - פאנל ניהול</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Chart.js for the graph -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Google Fonts: Rubik (Modern Hebrew Font) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* Base Styles from your main site */
+        body { font-family: 'Rubik', sans-serif; }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #444; }
+        
+        /* Glassmorphism utility */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        /* Glow border effect */
+        .card-glow-border {
+            background: linear-gradient(180deg, #3b82f6 0%, #1d4ed8 100%);
+            box-shadow: 0 0 40px -10px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Loading animation */
+        .skeleton {
+            animation: skeleton-loading 1s linear infinite alternate;
+        }
+        @keyframes skeleton-loading {
+            0% { background-color: rgba(255,255,255,0.05); }
+            100% { background-color: rgba(255,255,255,0.1); }
+        }
+    </style>
+    
+    <script>
+    // Tailwind Config
+    tailwind.config = {
+        theme: {
+            extend: {
+                fontFamily: {
+                    sans: ['Rubik', 'sans-serif'],
+                },
+                colors: {
+                    brand: {
+                        dark: '#050505',
+                        card: '#0a0a0a'
+                    }
+                }
+            }
+        }
+    };
+    </script>
+</head>
+<body class="bg-[#050505] text-slate-300 antialiased overflow-hidden flex h-screen selection:bg-blue-500/30 selection:text-blue-200">
+
+    <!-- Background Effects -->
+    <div class="fixed inset-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+        <div class="absolute top-[-20%] left-[20%] w-[600px] h-[600px] bg-blue-900/5 rounded-full blur-[120px] mix-blend-screen"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-indigo-900/5 rounded-full blur-[100px] mix-blend-screen"></div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="w-64 glass-card border-l border-white/5 flex flex-col h-full z-20 shrink-0">
+        <!-- Logo Area -->
+        <div class="h-20 flex items-center px-6 border-b border-white/5">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold text-xl card-glow-border">
+                    R
+                </div>
+                <div>
+                    <h1 class="font-bold text-white text-lg">רועי שוקרון</h1>
+                    <p class="text-xs text-slate-500">פאנל ניהול</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="flex-1 overflow-y-auto py-6 px-4 space-y-2">
+            <a href="#" class="flex items-center gap-3 px-4 py-3 bg-blue-600/10 text-blue-400 rounded-xl border border-blue-500/20 transition-colors">
+                <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+                <span class="font-medium">סקירה כללית</span>
+            </a>
+            
+            <a href="#" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-colors">
+                <i data-lucide="folder-kanban" class="w-5 h-5"></i>
+                <span class="font-medium">ניהול עבודות</span>
+            </a>
+
+            <a href="#" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-colors">
+                <i data-lucide="file-text" class="w-5 h-5"></i>
+                <span class="font-medium">עמודי נחיתה</span>
+            </a>
+
+            <a href="#" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-colors">
+                <i data-lucide="users" class="w-5 h-5"></i>
+                <span class="font-medium">לידים ופניות</span>
+                <span id="nav-leads-badge" class="mr-auto bg-blue-600 text-white text-xs font-bold px-2 py-0.5 rounded-full hidden">0</span>
+            </a>
+        </nav>
+
+        <!-- Bottom Actions -->
+        <div class="p-4 border-t border-white/5">
+            <a href="#" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-colors">
+                <i data-lucide="settings" class="w-5 h-5"></i>
+                <span class="font-medium">הגדרות</span>
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 text-red-400 hover:text-red-300 hover:bg-red-400/10 rounded-xl transition-colors mt-1">
+                <i data-lucide="log-out" class="w-5 h-5"></i>
+                <span class="font-medium">התנתק</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-full overflow-hidden relative z-10">
+        <!-- Header -->
+        <header class="h-20 flex items-center justify-between px-8 border-b border-white/5 glass-card shrink-0">
+            <h2 class="text-2xl font-bold text-white">שלום רועי 👋</h2>
+            
+            <div class="flex items-center gap-4">
+                <button class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-all relative">
+                    <i data-lucide="bell" class="w-5 h-5"></i>
+                    <span class="absolute top-2 right-2 w-2 h-2 bg-blue-500 rounded-full"></span>
+                </button>
+                <div class="h-8 w-px bg-white/10 mx-2"></div>
+                <div class="flex items-center gap-3 cursor-pointer">
+                    <img src="https://ui-avatars.com/api/?name=Roi+Chocron&background=2563eb&color=fff" alt="Profile" class="w-10 h-10 rounded-full border border-white/10">
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <div class="flex-1 overflow-y-auto p-8">
+            <div class="max-w-6xl mx-auto space-y-8">
+                
+                <!-- Stats Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Stat Card 1 -->
+                    <div class="glass-card p-6 rounded-2xl border border-white/5 hover:border-blue-500/30 transition-colors group">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <p class="text-sm font-medium text-slate-400 mb-1">כניסות לאתר (החודש)</p>
+                                <h3 id="stat-visits" class="text-3xl font-bold text-white"><span class="w-20 h-8 rounded skeleton inline-block"></span></h3>
+                            </div>
+                            <div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-500 group-hover:scale-110 transition-transform">
+                                <i data-lucide="mouse-pointer-click" class="w-6 h-6"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm">
+                            <span class="flex items-center text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded-md">
+                                <i data-lucide="trending-up" class="w-3 h-3 mr-1"></i> 12.5%
+                            </span>
+                            <span class="text-slate-500">לעומת חודש שעבר</span>
+                        </div>
+                    </div>
+
+                    <!-- Stat Card 2 -->
+                    <div class="glass-card p-6 rounded-2xl border border-white/5 hover:border-purple-500/30 transition-colors group">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <p class="text-sm font-medium text-slate-400 mb-1">פניות / לידים</p>
+                                <h3 id="stat-leads" class="text-3xl font-bold text-white"><span class="w-12 h-8 rounded skeleton inline-block"></span></h3>
+                            </div>
+                            <div class="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center text-purple-500 group-hover:scale-110 transition-transform">
+                                <i data-lucide="message-square-text" class="w-6 h-6"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm">
+                            <span class="flex items-center text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded-md">
+                                <i data-lucide="trending-up" class="w-3 h-3 mr-1"></i> 4.2%
+                            </span>
+                            <span class="text-slate-500">לעומת חודש שעבר</span>
+                        </div>
+                    </div>
+
+                    <!-- Stat Card 3 -->
+                    <div class="glass-card p-6 rounded-2xl border border-white/5 hover:border-emerald-500/30 transition-colors group">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <p class="text-sm font-medium text-slate-400 mb-1">זמן שהייה ממוצע</p>
+                                <h3 id="stat-time" class="text-3xl font-bold text-white flex items-baseline gap-1">
+                                    <span class="w-16 h-8 rounded skeleton inline-block"></span>
+                                </h3>
+                            </div>
+                            <div class="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center text-emerald-500 group-hover:scale-110 transition-transform">
+                                <i data-lucide="clock" class="w-6 h-6"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm">
+                            <span class="flex items-center text-red-400 bg-red-400/10 px-2 py-1 rounded-md">
+                                <i data-lucide="trending-down" class="w-3 h-3 mr-1"></i> 1.1%
+                            </span>
+                            <span class="text-slate-500">לעומת חודש שעבר</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chart Section -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-bold text-white">תנועת גולשים</h3>
+                        <select class="bg-black/50 border border-white/10 text-slate-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 outline-none">
+                            <option>7 ימים אחרונים</option>
+                            <option>30 ימים אחרונים</option>
+                            <option>החודש</option>
+                            <option>שנה נוכחית</option>
+                        </select>
+                    </div>
+                    <div class="h-80 w-full relative">
+                        <!-- Loading spinner for chart -->
+                        <div id="chart-loading" class="absolute inset-0 flex items-center justify-center bg-[#0a0a0a]/50 z-10 rounded-lg">
+                            <i data-lucide="loader-2" class="w-8 h-8 text-blue-500 animate-spin"></i>
+                        </div>
+                        <canvas id="trafficChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Recent Projects/Pages Table -->
+                <div class="glass-card rounded-2xl border border-white/5 overflow-hidden">
+                    <div class="p-6 border-b border-white/5 flex justify-between items-center bg-white/[0.02]">
+                        <h3 class="text-xl font-bold text-white">פרויקטים ועמודים אחרונים</h3>
+                        <button class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors shadow-lg shadow-blue-500/20">
+                            <i data-lucide="plus" class="w-4 h-4"></i>
+                            הוסף חדש
+                        </button>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-right text-slate-400">
+                            <thead class="text-xs uppercase bg-white/5 text-slate-300">
+                                <tr>
+                                    <th scope="col" class="px-6 py-4 rounded-tr-lg">שם הפרויקט</th>
+                                    <th scope="col" class="px-6 py-4">סוג</th>
+                                    <th scope="col" class="px-6 py-4">סטטוס</th>
+                                    <th scope="col" class="px-6 py-4">כניסות (סה"כ)</th>
+                                    <th scope="col" class="px-6 py-4 rounded-tl-lg text-center">פעולות</th>
+                                </tr>
+                            </thead>
+                            <tbody id="projects-table-body" class="divide-y divide-white/5">
+                                <!-- Table rows will be inserted here dynamically -->
+                                <tr>
+                                    <td colspan="5" class="px-6 py-8 text-center">
+                                        <div class="flex justify-center items-center gap-2 text-slate-500">
+                                            <i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i>
+                                            טוען נתונים...
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+            
+            <!-- Footer text -->
+            <div class="max-w-6xl mx-auto mt-8 text-center text-sm text-slate-600 pb-8">
+                מערכת ניהול - נבנתה עבור רועי שוקרון
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Initialize static Lucide Icons
+        lucide.createIcons();
+        let myChart = null; // Global chart variable
+
+        // Function to fetch data from our API (PHP or Mock)
+        async function loadDashboardData() {
+            try {
+                // משיכת הנתונים מקובץ ה-PHP האמיתי בשרת
+                const response = await fetch('api.php');
+                const result = await response.json();
+                
+                if(result.status === "error") {
+                    console.error("שגיאה מהשרת:", result.message);
+                    alert("שגיאה בהתחברות למסד הנתונים, בדוק את פרטי החיבור ב-api.php");
+                    return;
+                }
+
+                const data = result.data;
+                
+                // Once data is loaded, render the UI components
+                renderStats(data.stats);
+                renderChart(data.chart);
+                renderProjects(data.projects);
+
+            } catch (error) {
+                console.error("שגיאה בטעינת הנתונים:", error);
+                alert("אירעה שגיאה בטעינת הנתונים מהשרת.");
+            }
+        }
+
+        // --- Render Functions ---
+
+        function renderStats(stats) {
+            document.getElementById('stat-visits').innerText = stats.visits;
+            document.getElementById('stat-leads').innerText = stats.leads;
+            
+            // Notification badge update
+            const badge = document.getElementById('nav-leads-badge');
+            badge.innerText = "3"; // Example new leads
+            badge.classList.remove('hidden');
+
+            document.getElementById('stat-time').innerHTML = `${stats.avgTime} <span class="text-lg text-slate-500 font-normal">דק'</span>`;
+        }
+
+        function renderChart(chartData) {
+            // Hide loading overlay
+            document.getElementById('chart-loading').style.display = 'none';
+
+            const ctx = document.getElementById('trafficChart').getContext('2d');
+            
+            if (myChart) myChart.destroy(); // Destroy previous instance if exists
+
+            const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, 'rgba(59, 130, 246, 0.5)'); 
+            gradient.addColorStop(1, 'rgba(59, 130, 246, 0.0)');
+
+            Chart.defaults.color = '#64748b';
+            Chart.defaults.font.family = 'Rubik';
+
+            myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'],
+                    datasets: [{
+                        label: 'מספר כניסות',
+                        data: chartData,
+                        borderColor: '#3b82f6',
+                        backgroundColor: gradient,
+                        borderWidth: 3,
+                        pointBackgroundColor: '#0a0a0a',
+                        pointBorderColor: '#3b82f6',
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHoverRadius: 6,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(10, 10, 10, 0.9)',
+                            titleColor: '#fff',
+                            bodyColor: '#cbd5e1',
+                            borderColor: 'rgba(255,255,255,0.1)',
+                            borderWidth: 1,
+                            padding: 12,
+                            displayColors: false,
+                            rtl: true
+                        }
+                    },
+                    scales: {
+                        x: { grid: { display: false, drawBorder: false }, ticks: { font: { family: 'Rubik' } } },
+                        y: { grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false }, beginAtZero: true }
+                    },
+                    interaction: { intersect: false, mode: 'index' },
+                }
+            });
+        }
+
+        function renderProjects(projects) {
+            const tbody = document.getElementById('projects-table-body');
+            tbody.innerHTML = ''; // Clear current loading rows
+
+            if(projects.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="px-6 py-4 text-center">אין פרויקטים להצגה.</td></tr>`;
+                return;
+            }
+
+            projects.forEach(project => {
+                // Determine status colors
+                let statusClass = "bg-slate-500/10 text-slate-400 border-slate-500/20";
+                if(project.status === "פעיל באוויר") statusClass = "bg-emerald-500/10 text-emerald-400 border-emerald-500/20";
+                if(project.status === "בפיתוח") statusClass = "bg-orange-500/10 text-orange-400 border-orange-500/20";
+
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-white/[0.02] transition-colors";
+                tr.innerHTML = `
+                    <td class="px-6 py-4 font-medium text-white flex items-center gap-3">
+                        <div class="w-8 h-8 rounded bg-${project.color_theme}-500/20 flex items-center justify-center text-${project.color_theme}-400">
+                            <i data-lucide="${project.icon}" class="w-4 h-4"></i>
+                        </div>
+                        ${project.name}
+                    </td>
+                    <td class="px-6 py-4">${project.type}</td>
+                    <td class="px-6 py-4">
+                        <span class="${statusClass} px-2.5 py-1 rounded-full text-xs font-medium border">${project.status}</span>
+                    </td>
+                    <td class="px-6 py-4">${project.visits === 0 ? '--' : project.visits.toLocaleString()}</td>
+                    <td class="px-6 py-4 text-center flex justify-center gap-3">
+                        <button onclick="editProject(${project.id})" class="text-slate-400 hover:text-blue-400 transition-colors" title="ערוך"><i data-lucide="edit" class="w-4 h-4"></i></button>
+                        <button onclick="deleteProject(${project.id})" class="text-slate-400 hover:text-red-400 transition-colors" title="מחק"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            // Re-initialize Lucide icons for the dynamically created elements
+            lucide.createIcons();
+        }
+
+        // Action Handlers
+        function editProject(id) {
+            alert(`עריכת פרויקט מזהה: ${id} (כאן ייפתח פופ-אפ עריכה)`);
+        }
+
+        function deleteProject(id) {
+            if(confirm("האם אתה בטוח שברצונך למחוק פרויקט זה?")) {
+                alert(`מחיקת פרויקט ${id} התבצעה.`);
+                // In production, call your API delete endpoint here, then reload data.
+            }
+        }
+
+        // Start loading data when the page loads
+        document.addEventListener('DOMContentLoaded', loadDashboardData);
+
+    </script>
+</body>
+</html>

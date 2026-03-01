@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl" class="scroll-smooth">
+<head>
+    <!-- Unified Analytics Tracking Script (Copied from index) -->
+    <script>
+    (function() {
+    var ua = window.UnifiedAnalytics = window.UnifiedAnalytics || {};
+    ua.siteId = "c5fa21afc6ac4401";
+    ua.key = "cb9a3ecad8e0670e4face4de8adc6751";
+    ua.endpoint = "https://wmwotnmvxslmhinhtqkw.supabase.co/functions/v1/collect";
+    
+    function getVisitorId() {
+        var id = localStorage.getItem('ua_vid');
+        if (!id) {
+        id = 'v_' + Math.random().toString(36).substr(2, 9) + Date.now().toString(36);
+        localStorage.setItem('ua_vid', id);
+        }
+        return id;
+    }
+    
+    function getSessionId() {
+        var session = sessionStorage.getItem('ua_sid');
+        if (!session) {
+        session = 's_' + Math.random().toString(36).substr(2, 9) + Date.now().toString(36);
+        sessionStorage.setItem('ua_sid', session);
+        }
+        return session;
+    }
+    
+    function getDeviceType() {
+        var uaStr = navigator.userAgent;
+        if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(uaStr)) return 'tablet';
+        if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(uaStr)) return 'mobile';
+        return 'desktop';
+    }
+
+    function getBrowserInfo() {
+        var uaStr = navigator.userAgent || '';
+        var name = 'Unknown';
+        var version = '';
+        var m;
+        m = uaStr.match(/Edg\/([\d.]+)/); if (m) return { name: 'Edge', version: m[1] };
+        m = uaStr.match(/Edge\/([\d.]+)/); if (m) return { name: 'Edge', version: m[1] };
+        m = uaStr.match(/OPR\/([\d.]+)/); if (m) return { name: 'Opera', version: m[1] };
+        m = uaStr.match(/Opera\/([\d.]+)/); if (m) return { name: 'Opera', version: m[1] };
+        if (navigator.brave && typeof navigator.brave.isBrave === 'function') {
+            m = uaStr.match(/Chrome\/([\d.]+)/); return { name: 'Brave', version: m ? m[1] : '' };
+        }
+        m = uaStr.match(/Vivaldi\/([\d.]+)/); if (m) return { name: 'Vivaldi', version: m[1] };
+        m = uaStr.match(/SamsungBrowser\/([\d.]+)/); if (m) return { name: 'Samsung Browser', version: m[1] };
+        m = uaStr.match(/UCBrowser\/([\d.]+)/); if (m) return { name: 'UC Browser', version: m[1] };
+        m = uaStr.match(/Firefox\/([\d.]+)/); if (m) return { name: 'Firefox', version: m[1] };
+        m = uaStr.match(/Chrome\/([\d.]+)/);
+        if (m && !/Edg\//.test(uaStr) && !/OPR\//.test(uaStr)) return { name: 'Chrome', version: m[1] };
+        if (/Safari\//.test(uaStr) && /Version\//.test(uaStr) && !/Chrome\//.test(uaStr)) {
+            m = uaStr.match(/Version\/([\d.]+)/); return { name: 'Safari', version: m ? m[1] : '' };
+        }
+        if (/Trident\//.test(uaStr)) {
+            m = uaStr.match(/rv:([\d.]+)/); return { name: 'Internet Explorer', version: m ? m[1] : '11' };
+        }
+        m = uaStr.match(/MSIE ([\d.]+)/); if (m) return { name: 'Internet Explorer', version: m[1] };
+        return { name: name, version: version };
+    }
+
+    function getNormalizedPageUrl() {
+        var href = window.location.href;
+        var qIndex = href.indexOf('?');
+        var hIndex = href.indexOf('#');
+        var end = href.length;
+        if (qIndex !== -1) end = qIndex;
+        else if (hIndex !== -1) end = hIndex;
+        return href.substring(0, end);
+    }
+
+    function buildQueryString(params) {
+        var parts = [];
+        for (var key in params) {
+            if (params.hasOwnProperty(key)) {
+                parts.push(encodeURIComponent(key) + '=' + encodeURIComponent(params[key]));
+            }
+        }
+        return parts.join('&');
+    }
+
+    function findClosest(el, selector) {
+        while (el && el !== document) {
+            var matches = el.matches || el.msMatchesSelector || el.webkitMatchesSelector;
+            if (matches) {
+                try { if (matches.call(el, selector)) return el; } catch (e) {}
+            }
+            el = el.parentElement || el.parentNode;
+        }
+        return null;
+    }
+
+    function mergeObjects(target, source) {
+        if (source) {
+            for (var key in source) {
+                if (source.hasOwnProperty(key)) target[key] = source[key];
+            }
+        }
+        return target;
+    }
+    
+    function track(type, data) {
+        var browser = getBrowserInfo();
+        var fullUrl = window.location.href;
+        var normalizedUrl = getNormalizedPageUrl();
+
+        var eventData = { full_url: fullUrl, browser_name: browser.name, browser_version: browser.version };
+        mergeObjects(eventData, data || {});
+
+        var payload = {
+            site_id: ua.siteId, key: ua.key, event_type: type, page_url: normalizedUrl,
+            page_title: document.title, referrer: document.referrer, user_agent: navigator.userAgent,
+            device_type: getDeviceType(), visitor_id: getVisitorId(), session_id: getSessionId(),
+            event_data: eventData, timestamp: new Date().toISOString()
+        };
+
+        function tryPixelFallback() {
+            try {
+                var params = {
+                    site_id: payload.site_id || '', key: payload.key || '', event_type: payload.event_type || '',
+                    page_url: payload.page_url || '', page_title: payload.page_title || '', referrer: payload.referrer || '',
+                    user_agent: payload.user_agent || '', device_type: payload.device_type || '', visitor_id: payload.visitor_id || '',
+                    session_id: payload.session_id || '', timestamp: payload.timestamp || '',
+                    ed: JSON.stringify({ full_url: fullUrl, browser_name: browser.name, browser_version: browser.version })
+                };
+                var img = new Image(); img.src = ua.endpoint + '?' + buildQueryString(params);
+            } catch (e) {}
+        }
+
+        function sendViaFetch() {
+            try {
+                return fetch(ua.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), credentials: 'omit'
+                }).then(function() {}, function() { if (type === 'pageview') tryPixelFallback(); });
+            } catch (e) { if (type === 'pageview') tryPixelFallback(); }
+        }
+
+        try {
+            if (navigator.sendBeacon) {
+                var ok = navigator.sendBeacon(ua.endpoint, JSON.stringify(payload));
+                if (!ok) sendViaFetch();
+            } else { sendViaFetch(); }
+        } catch (e) { if (type === 'pageview') tryPixelFallback(); }
+    }
+    
+    ua.track = track;
+    track('pageview');
+    })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="מדריך פרומפטים לבניית אתרים בינה מלאכותית - אינטראקטיבי.">
+
+    <title>רועי שוקרון - מדריך פרומפטים אינטראקטיבי</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    
+    <!-- GSAP Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Google Fonts: Rubik -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* Base Styles */
+        body { font-family: 'Rubik', sans-serif; }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #444; }
+        
+        /* Glassmorphism utility */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        /* Glow border effect */
+        .card-glow-border {
+            background: linear-gradient(180deg, #3b82f6 0%, #1d4ed8 100%);
+            box-shadow: 0 0 40px -10px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Canvas Background */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -5;
+            opacity: 0;
+        }
+
+        /* Code Block formatting */
+        .prompt-text {
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        
+        /* Wizard Steps */
+        .wizard-step {
+            display: none;
+        }
+        .wizard-step.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Dynamic input styling inside prompt */
+        .dynamic-value {
+            color: #60a5fa; /* Tailwind blue-400 */
+            font-weight: 500;
+        }
+    </style>
+    
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                fontFamily: {
+                    sans: ['Rubik', 'sans-serif'],
+                }
+            }
+        }
+    };
+    </script>
+</head>
+<body class="bg-[#050505] text-slate-300 antialiased selection:bg-blue-500/30 selection:text-blue-200 overflow-x-hidden">
+
+    <!-- Background Effects Container -->
+    <div class="fixed inset-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+        <canvas id="bg-canvas"></canvas>
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent via-[#050505]/50 to-[#050505]"></div>
+        <div class="absolute top-[-20%] left-[20%] w-[600px] h-[600px] bg-blue-900/10 rounded-full blur-[120px] mix-blend-screen"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-indigo-900/10 rounded-full blur-[100px] mix-blend-screen"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed z-50 w-full border-white/5 border-b top-0 backdrop-blur-md bg-[#050505]/80 transition-all duration-300">
+        <div class="flex h-24 max-w-7xl mx-auto px-6 items-center justify-between">
+            <a href="/index.html" class="block hover:opacity-80 transition-opacity">
+                <!-- LOGO -->
+                <img src="/logo.svg" alt="ROI Chocron Logo" class="h-14 w-auto object-contain" onerror="this.outerHTML='<span class=\'text-2xl font-bold text-white\'>רועי שוקרון</span>'">
+            </a>
+            
+            <div class="hidden md:flex items-center gap-8 text-lg font-medium text-slate-400">
+                <a href="index.html#services" class="hover:text-white transition-colors relative group">
+                    שירותים
+                    <span class="absolute -bottom-1 right-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full"></span>
+                </a>
+                <a href="index.html#process" class="hover:text-white transition-colors relative group">
+                    תהליך
+                    <span class="absolute -bottom-1 right-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full"></span>
+                </a>
+                <a href="index.html#work" class="hover:text-white transition-colors relative group">
+                    עבודות
+                    <span class="absolute -bottom-1 right-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full"></span>
+                </a>
+                <a href="index.html#faq" class="hover:text-white transition-colors relative group">
+                    שאלות
+                    <span class="absolute -bottom-1 right-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full"></span>
+                </a>
+            </div>
+
+            <a href="https://wa.me/972502808448" target="_blank" class="flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2.5 rounded-lg text-base font-medium text-white transition-all hover:scale-105 active:scale-95">
+                וואטסאפ
+            </a>
+        </div>
+    </nav>
+
+    <!-- Inner Page Header -->
+    <header class="pt-40 pb-12 relative overflow-hidden border-b border-white/5 bg-gradient-to-b from-blue-900/10 to-transparent">
+        <div class="max-w-4xl mx-auto px-6 text-center z-10 relative">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-blue-600/20 text-blue-500 mb-6 border border-blue-500/20">
+                <i data-lucide="bot" class="w-8 h-8"></i>
+            </div>
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.2] mb-6">
+                מדריך פרומפטים אינטראקטיבי
+            </h1>
+            <p class="text-lg sm:text-xl text-slate-400 leading-relaxed font-light">
+                הזינו את הנתונים, הפרומפט יתעדכן בזמן אמת, וכל מה שיישאר לכם זה להעתיק וליצור.
+            </p>
+        </div>
+    </header>
+
+    <!-- Wizard Section -->
+    <section class="py-12 relative z-10" id="wizard-container">
+        <div class="max-w-5xl mx-auto px-6">
+            
+            <!-- Stepper Navigation -->
+            <div class="flex items-center justify-between mb-12 relative">
+                <div class="absolute left-0 top-1/2 -translate-y-1/2 w-full h-0.5 bg-white/10 -z-10"></div>
+                <div class="absolute right-0 top-1/2 -translate-y-1/2 h-0.5 bg-blue-500 -z-10 transition-all duration-500" id="stepper-progress" style="width: 0%;"></div>
+                
+                <!-- Steps Dots -->
+                <button onclick="goToStep(0)" class="step-dot flex flex-col items-center gap-2 group outline-none" data-step="0">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center border-2 border-blue-500 bg-blue-500 text-white font-bold transition-all shadow-[0_0_15px_rgba(59,130,246,0.5)]">0</div>
+                    <span class="text-xs font-medium text-blue-400 absolute -bottom-6">התחלה</span>
+                </button>
+                <button onclick="goToStep(1)" class="step-dot flex flex-col items-center gap-2 group outline-none" data-step="1">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center border-2 border-white/20 bg-[#050505] text-slate-400 font-bold transition-all group-hover:border-blue-400">1</div>
+                    <span class="text-xs font-medium text-slate-500 absolute -bottom-6 transition-all">אפיון</span>
+                </button>
+                <button onclick="goToStep(2)" class="step-dot flex flex-col items-center gap-2 group outline-none" data-step="2">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center border-2 border-white/20 bg-[#050505] text-slate-400 font-bold transition-all group-hover:border-blue-400">2</div>
+                    <span class="text-xs font-medium text-slate-500 absolute -bottom-6 transition-all">עיצוב Hero</span>
+                </button>
+                <button onclick="goToStep(3)" class="step-dot flex flex-col items-center gap-2 group outline-none" data-step="3">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center border-2 border-white/20 bg-[#050505] text-slate-400 font-bold transition-all group-hover:border-blue-400">3</div>
+                    <span class="text-xs font-medium text-slate-500 absolute -bottom-6 transition-all">קוד Hero</span>
+                </button>
+                <button onclick="goToStep(4)" class="step-dot flex flex-col items-center gap-2 group outline-none" data-step="4">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center border-2 border-white/20 bg-[#050505] text-slate-400 font-bold transition-all group-hover:border-blue-400">4</div>
+                    <span class="text-xs font-medium text-slate-500 absolute -bottom-6 transition-all">שאר האתר</span>
+                </button>
+                <button onclick="goToStep(5)" class="step-dot flex flex-col items-center gap-2 group outline-none" data-step="5">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center border-2 border-white/20 bg-[#050505] text-slate-400 font-bold transition-all group-hover:border-blue-400">5</div>
+                    <span class="text-xs font-medium text-slate-500 absolute -bottom-6 transition-all">ייצוא</span>
+                </button>
+            </div>
+
+            <!-- ================= STEP 0 ================= -->
+            <div id="step-0" class="wizard-step active mt-8">
+                <div class="text-center mb-10">
+                    <div class="relative w-full max-w-3xl mx-auto aspect-video rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-blue-900/20 mb-10 bg-[#080808]">
+                        <!-- החליפו את YOUR_VIDEO_ID ב-ID של סרטון היוטיוב שלכם -->
+                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+
+                    <div class="glass-card p-8 md:p-10 rounded-3xl border-blue-500/20 bg-blue-600/5 relative overflow-hidden text-center flex flex-col items-center">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-indigo-500"></div>
+                        <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-blue-500/10 text-blue-400 mb-6 border border-blue-500/20">
+                            <i data-lucide="sparkles" class="w-7 h-7"></i>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">שלב 0: אפיון האתר (השלב המקדים)</h2>
+                        <p class="text-slate-400 mb-8 max-w-2xl mx-auto text-lg leading-relaxed">
+                            לפני שניגשים לבניית האתר עם הפרומפטים, עליכם ליצור אפיון מדויק. הכנתי עבורכם מודל מותאם אישית (Gem) שיעשה את העבודה ויכין את התשתית. הפיקו משם את שאלון האפיון וחיזרו לכאן.
+                        </p>
+                        <!-- החליפו את YOUR_GEM_LINK בקישור ל-Gem שלכם -->
+                        <a href="https://gemini.google.com/gem/1wHff-wEGtpqSrIVAsfLBfuPeVLqlTepf?usp=sharing" target="_blank" class="inline-flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 border border-white/20 text-white px-8 py-4 rounded-xl font-medium transition-all mb-8">
+                            <span>מעבר ל-Gem האפיון ב-Gemini</span>
+                            <i data-lucide="external-link" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="flex justify-end mt-8">
+                    <button onclick="goToStep(1)" class="bg-blue-600 hover:bg-blue-500 text-white px-8 py-3.5 rounded-xl font-medium transition-all shadow-[0_0_20px_rgba(37,99,235,0.3)] hover:shadow-[0_0_30px_rgba(37,99,235,0.5)] hover:-translate-y-1 flex items-center gap-2">
+                        התחל את המדריך (שלב 1) <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ================= STEP 1 ================= -->
+            <div id="step-1" class="wizard-step mt-8">
+                <div class="glass-card p-6 md:p-10 rounded-3xl">
+                    <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">1. יצירת רשימת הקטעים והרכיבים</h2>
+                    <p class="text-slate-400 mb-6">פרומפט מיועד להגדרת האפיון המבני של האתר מתוך שאלון אפיון שבוצע.</p>
+
+                    <!-- User Input Area -->
+                    <div class="mb-8 p-6 bg-[#080808] border border-white/10 rounded-2xl shadow-inner">
+                        <label class="flex items-center gap-2 text-sm font-medium text-blue-400 mb-3">
+                            <i data-lucide="pen-line" class="w-4 h-4"></i>
+                            הדביקו כאן את שאלון האפיון שנוצר ב-Gem:
+                        </label>
+                        <textarea id="input-p1" rows="4" class="w-full bg-[#111] border border-white/5 rounded-xl p-4 text-slate-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all placeholder:text-slate-600 resize-y" placeholder="הדביקו את הטקסט כאן... הטקסט יתעדכן אוטומטית בפרומפט למטה." oninput="updateDynamicText('p1', this.value, '[צירוף שאלון אפיון מהGem]')"></textarea>
+                    </div>
+
+                    <div class="flex gap-2 mb-6 border-b border-white/10 pb-4">
+                        <button onclick="switchTab('prompt1', 'he')" id="btn-prompt1-he" class="px-5 py-2.5 text-sm font-medium rounded-xl bg-blue-600 text-white transition-all shadow-lg shadow-blue-600/20">עברית</button>
+                        <button onclick="switchTab('prompt1', 'en')" id="btn-prompt1-en" class="px-5 py-2.5 text-sm font-medium rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all">English</button>
+                    </div>
+
+                    <div class="relative bg-[#080808] rounded-2xl border border-white/5 overflow-hidden group">
+                        <button onclick="copyToClipboard('prompt1')" class="absolute top-4 left-4 p-2.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-all flex items-center gap-2 z-10 border border-white/5 backdrop-blur-md">
+                            <i data-lucide="copy" class="w-4 h-4" id="icon-prompt1"></i>
+                            <span class="text-xs font-medium" id="text-copy-prompt1">העתק פרומפט מכן</span>
+                        </button>
+
+                        <div id="content-prompt1-he" class="p-6 md:p-8 pt-16 md:pt-8 text-slate-300 text-sm md:text-base leading-relaxed prompt-text font-mono dir-rtl">להלן שאלון אפיון לדף הבית: 
+<span id="p1-input-he" class="dynamic-value">[צירוף שאלון אפיון מהGem]</span>
+
+בהתבסס על הנתונים שאספק לך, בנה עבורי אפיון מבני מלא לדף הבית של האתר.
+
+המטרה שלך היא להגדיר בצורה מדויקת ומקצועית:
+- רשימה מסודרת של כל הסקשנים (Sections) שצריכים להופיע בדף הבית, לפי סדר לוגי שמוביל את המשתמש לפעולה.
+- עבור כל סקשן – רשימה מלאה ומפורטת של כל הרכיבים (Components) שחייבים להופיע בו.
+
+פירוט מלא של כל רכיב:
+1. סוג הרכיב (כותרת, טקסט, כפתור, תמונה, אייקון, טופס, כרטיס, רשימה, וידאו, המלצה וכו')
+2. מטרת הרכיב (מה הוא אמור לגרום למשתמש להבין / להרגיש / לעשות)
+3. האם הוא רכיב מניע לפעולה (CTA) ואם כן – איזה סוג פעולה
+4. היררכיה טקסטואלית (H1 / H2 / H3 / פסקה / תיאור קצר / מיקרו-קופי)
+5. אינטראקציה נדרשת (קישור, פתיחת טאב חדש, גלילה לאזור, פתיחת מודאל, שליחת טופס וכו')
+
+הנחיות חשובות:
+- אל תתייחס כלל לעיצוב, צבעים, פונטים או סגנון ויזואלי.
+- אל תציע אנימציות או אפקטים גרפיים.
+- התמקד אך ורק במבנה, בהיררכיה ובפסיכולוגיית המרה.
+- ודא שבכל אזור יש היגיון שיווקי ברור.
+- ודא שיש מספר נקודות CTA לאורך הדף ולא רק אחת.
+- חשוב במונחים של מסע משתמש (User Journey) מדף נחיתה ועד פעולה סופית.
+
+המטרה הסופית: לקבל אפיון טכני-מבני מלא שאפשר להעביר ישירות למעצב / למפתח / לכלי AI ליצירת אתר – בלי להשאיר מקום לניחושים.</div>
+
+                        <div id="content-prompt1-en" class="hidden p-6 md:p-8 pt-16 md:pt-8 text-slate-300 text-sm md:text-base leading-relaxed prompt-text font-mono dir-ltr text-left" dir="ltr">Below is a homepage characterization questionnaire: 
+<span id="p1-input-en" class="dynamic-value">[Attaching a characterization questionnaire from Gem]</span>
+
+Based on the information I provide, create a complete structural specification for the homepage.
+
+Your task is to define, in a precise and professional manner:
+- A logically ordered list of all the sections that should appear on the homepage, structured according to a clear user journey that leads toward conversion.
+- For each section – provide a complete and detailed list of all required components.
+
+For each component – specify:
+1. Component type (headline, paragraph, button, image, icon, form, card, list, testimonial, video, etc.)
+2. Purpose of the component (what the user should understand / feel / do)
+3. Whether it is a call-to-action (CTA), and if so, what type of action it triggers
+4. Text hierarchy (H1 / H2 / H3 / paragraph / short description / microcopy)
+5. Required interaction (internal link, external link, scroll to section, modal popup, form submission, etc.)
+
+Important instructions:
+- Do not focus on design, colors, fonts, or visual style.
+- Do not suggest animations or graphic effects.
+- Focus strictly on structure, hierarchy, conversion psychology, and user flow.
+- Ensure each section has a clear strategic purpose.
+- Include multiple CTA points throughout the page.
+- Think in terms of user journey, from first impression to final action.
+
+Final goal: Deliver a complete structural blueprint that can be directly handed to a designer, developer, or AI website builder — with zero ambiguity and no missing components.</div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between mt-8">
+                    <button onclick="goToStep(0)" class="text-slate-400 hover:text-white px-6 py-3 rounded-xl font-medium transition-all flex items-center gap-2 border border-white/10 hover:bg-white/5">
+                        <i data-lucide="arrow-right" class="w-5 h-5"></i> חזור
+                    </button>
+                    <button onclick="goToStep(2)" class="bg-blue-600 hover:bg-blue-500 text-white px-8 py-3 rounded-xl font-medium transition-all shadow-lg shadow-blue-600/30 flex items-center gap-2">
+                        שלב 2: תמונת Hero <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ================= STEP 2 ================= -->
+            <div id="step-2" class="wizard-step mt-8">
+                <div class="glass-card p-6 md:p-10 rounded-3xl">
+                    <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">2. יצירת התמונה (Hero Section)</h2>
+                    <p class="text-slate-400 mb-6">פרומפט ליצירת תמונת קונספט לעיצוב העליון של האתר במודלים כמו Nano Banana Pro.</p>
+
+                    <!-- User Input Area -->
+                    <div class="mb-8 p-6 bg-[#080808] border border-white/10 rounded-2xl shadow-inner">
+                        <label class="flex items-center gap-2 text-sm font-medium text-blue-400 mb-3">
+                            <i data-lucide="layout-template" class="w-4 h-4"></i>
+                            הדביקו כאן את רשימת הרכיבים של ה-Hero (שהתקבלה משלב 1):
+                        </label>
+                        <textarea id="input-p2" rows="4" class="w-full bg-[#111] border border-white/5 rounded-xl p-4 text-slate-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all placeholder:text-slate-600 resize-y" placeholder="הדביקו את רשימת הרכיבים כאן..." oninput="updateDynamicText('p2', this.value, '[הדבק כאן את רשימת הרכיבים]')"></textarea>
+                    </div>
+
+                    <div class="flex gap-2 mb-6 border-b border-white/10 pb-4">
+                        <button onclick="switchTab('prompt2', 'he')" id="btn-prompt2-he" class="px-5 py-2.5 text-sm font-medium rounded-xl bg-blue-600 text-white transition-all shadow-lg shadow-blue-600/20">עברית</button>
+                        <button onclick="switchTab('prompt2', 'en')" id="btn-prompt2-en" class="px-5 py-2.5 text-sm font-medium rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all">English</button>
+                    </div>
+
+                    <div class="relative bg-[#080808] rounded-2xl border border-white/5 overflow-hidden group">
+                        <button onclick="copyToClipboard('prompt2')" class="absolute top-4 left-4 p-2.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-all flex items-center gap-2 z-10 border border-white/5 backdrop-blur-md">
+                            <i data-lucide="copy" class="w-4 h-4" id="icon-prompt2"></i>
+                            <span class="text-xs font-medium" id="text-copy-prompt2">העתק פרומפט מכן</span>
+                        </button>
+
+                        <div id="content-prompt2-he" class="p-6 md:p-8 pt-16 md:pt-8 text-slate-300 text-sm md:text-base leading-relaxed prompt-text font-mono dir-rtl">להלן רשימת הרכיבים המדויקת של ה-Hero Section: 
+<span id="p2-input-he" class="dynamic-value">[הדבק כאן את רשימת הרכיבים]</span>
+
+צור פרומפט עבור Nano Banana Pro ליצירת תמונה של Hero Section בפורמט תצוגת דסקטופ.
+
+הנחיות מחייבות לפרומפט:
+- התמונה חייבת להיות בפורמט רוחבי של דסקטופ (יחס מסך רחב, לא מובייל ולא טאבלט).
+- יש להציג Hero Section כפריסה מלאה לרוחב (full-width desktop layout).
+- אין ליצור גרסת מובייל.
+- אין להציג מחשב, מסך, מובייל, מסגרת דפדפן, UI של מערכת הפעלה או mockup.
+- אין להוסיף שורת כתובת, טאבים או אלמנטים מערכתיים.
+- התמונה צריכה להיות עיצוב נקי של ההירו בלבד כקנבס מלא.
+
+מבחינת רכיבים:
+- יש לכלול אך ורק את הרכיבים שסופקו ברשימה.
+- אין להוסיף רכיבים נוספים.
+- אין להשמיט רכיבים.
+- כל הטקסטים חייבים להופיע במלואם (ללא lorem ipsum או placeholder).
+
+מבחינת עיצוב:
+- אין להגדיר פונטים, צבעים, טיפוגרפיה או סגנון עיצובי.
+- אין להגדיר מיקומים מדויקים של רכיבים.
+- אין להכתיב פריסה.
+- המודל יבחר באופן עצמאי את העיצוב, המיקום וההיררכיה בצורה מקצועית.
+
+המטרה: לקבל תמונת Hero Section מלאה בפורמט דסקטופ רחב, שמכילה בדיוק את רשימת הרכיבים שסופקה, כאשר כל החלטות העיצוב נשארות בידי המודל.</div>
+
+                        <div id="content-prompt2-en" class="hidden p-6 md:p-8 pt-16 md:pt-8 text-slate-300 text-sm md:text-base leading-relaxed prompt-text font-mono dir-ltr text-left" dir="ltr">Below is the exact list of components for the Hero Section: 
+<span id="p2-input-en" class="dynamic-value">[Insert component list]</span>
+
+Create a prompt for Nano Banana Pro to generate a Hero Section image in desktop display format.
+
+Mandatory constraints:
+- The image must be in a wide desktop aspect ratio (landscape orientation).
+- It must represent a full-width desktop hero layout.
+- Do not generate a mobile or tablet version.
+- Do not display any device mockup, monitor, browser frame, operating system UI, or software interface.
+- Do not include browser bars, tabs, or system controls.
+- The image must be a clean full-canvas hero section only.
+
+Component requirements:
+- Include only the provided list of components.
+- Do not add extra elements.
+- Do not remove any components.
+- All text must appear fully (no placeholder or lorem ipsum text).
+
+Design control:
+- Do not define fonts, colors, typography, or visual style.
+- Do not define positioning or layout structure.
+- Allow the model to determine layout, hierarchy, and visual execution autonomously.
+
+Objective: Generate a full-width desktop Hero Section image that includes exactly the specified components, with all design decisions handled by the model.</div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between mt-8">
+                    <button onclick="goToStep(1)" class="text-slate-400 hover:text-white px-6 py-3 rounded-xl font-medium transition-all flex items-center gap-2 border border-white/10 hover:bg-white/5">
+                        <i data-lucide="arrow-right" class="w-5 h-5"></i> חזור
+                    </button>
+                    <button onclick="goToStep(3)" class="bg-blue-600 hover:bg-blue-500 text-white px-8 py-3 rounded-xl font-medium transition-all shadow-lg shadow-blue-600/30 flex items-center gap-2">
+                        שלב 3: קוד Hero <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ================= STEP 3 ================= -->
+            <div id="step-3" class="wizard-step mt-8">
+                <div class="glass-card p-6 md:p-10 rounded-3xl">
+                    <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">3. בניית עיצוב ה-Hero בקוד</h2>
+                    <p class="text-slate-400 mb-6">לאחר שיש תמונה של העיצוב, מעלים אותה לכלי ה-AI ומשתמשים בפרומפט הזה.</p>
+                    
+                    <div class="mb-6 flex items-center gap-3 p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-xl text-yellow-500 text-sm">
+                        <i data-lucide="image-plus" class="w-5 h-5 flex-shrink-0"></i>
+                        <span>בשלב זה אין צורך בהזנת טקסט. פשוט צרפו את התמונה שנוצרה והעתיקו את הפרומפט.</span>
+                    </div>
+
+                    <div class="flex gap-2 mb-6 border-b border-white/10 pb-4">
+                        <button onclick="switchTab('prompt3', 'he')" id="btn-prompt3-he" class="px-5 py-2.5 text-sm font-medium rounded-xl bg-blue-600 text-white transition-all shadow-lg shadow-blue-600/20">עברית</button>
+                        <button onclick="switchTab('prompt3', 'en')" id="btn-prompt3-en" class="px-5 py-2.5 text-sm font-medium rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all">English</button>
+                    </div>
+
+                    <div class="relative bg-[#080808] rounded-2xl border border-white/5 overflow-hidden group">
+                        <button onclick="copyToClipboard('prompt3')" class="absolute top-4 left-4 p-2.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-all flex items-center gap-2 z-10 border border-white/5 backdrop-blur-md">
+                            <i data-lucide="copy" class="w-4 h-4" id="icon-prompt3"></i>
+                            <span class="text-xs font-medium" id="text-copy-prompt3">העתק פרומפט</span>
+                        </button>
+
+                        <div id="content-prompt3-he" class="p-6 md:p-8 pt-16 md:pt-8 text-slate-300 text-sm md:text-base leading-relaxed prompt-text font-mono dir-rtl">צירפתי תמונה של Hero Section.
+בנה את ה-Hero Section בקוד אחד לאחד בהתאם לתמונה.
+
+הנחיות מחייבות:
+- יש לשחזר את המבנה, הפריסה וההיררכיה בדיוק כפי שמופיעים בתמונה.
+- אין לשנות מיקומים של רכיבים.
+- אין לשנות יחס גדלים בין רכיבים.
+- אין להוסיף רכיבים חדשים.
+- אין להסיר רכיבים קיימים.
+- אין לשנות טקסטים.
+- אין לנסח מחדש כותרות.
+- אין לשפר או “לעדכן” את העיצוב.
+- אין להוסיף אנימציות אם אינן מופיעות בתמונה.
+- אין לבצע פרשנות יצירתית.
+
+דרישות טכניות:
+- הפלט חייב להיות קוד מלא של ה-Hero Section בלבד.
+- יש להשתמש במבנה סמנטי תקין (section, h1, h2, p, button וכו').
+- יש להקפיד על היררכיית HTML נכונה.
+- יש לכתוב קוד נקי, מסודר ומוכן לשימוש.
+- יש להתאים לפריסת דסקטופ רחבה.
+- אין לכלול מסגרת דפדפן, mockup או אלמנטים חיצוניים.
+
+המטרה: לקבל מימוש קוד מדויק ככל האפשר של ה-Hero Section כפי שהוא מופיע בתמונה, ללא כל סטייה יצירתית.</div>
+
+                        <div id="content-prompt3-en" class="hidden p-6 md:p-8 pt-16 md:pt-8 text-slate-300 text-sm md:text-base leading-relaxed prompt-text font-mono dir-ltr text-left" dir="ltr">I have attached an image of a Hero Section.
+Build the Hero Section in code exactly as shown in the image.
+
+Strict requirements:
+- Replicate the structure, layout, and hierarchy exactly as displayed.
+- Do not change element positioning.
+- Do not modify size proportions.
+- Do not add new components.
+- Do not remove existing components.
+- Do not change any text.
+- Do not rephrase headlines.
+- Do not “improve” or redesign anything.
+- Do not add animations unless they clearly appear in the image.
+- No creative reinterpretation.
+
+Technical requirements:
+- Output must include only the Hero Section code.
+- Use proper semantic HTML structure (section, h1, h2, p, button, etc.).
+- Maintain correct HTML hierarchy.
+- Produce clean, production-ready code.
+- Desktop layout only (wide format).
+- Do not include browser frames, mockups, or external UI elements.
+
+Objective: Generate an accurate 1:1 coded implementation of the provided Hero Section with zero creative deviation.</div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between mt-8">
+                    <button onclick="goToStep(2)" class="text-slate-400 hover:text-white px-6 py-3 rounded-xl font-medium transition-all flex items-center gap-2 border border-white/10 hover:bg-white/5">
+                        <i data-lucide="arrow-right" class="w-5 h-5"></i> חזור
+                    </button>
+                    <button onclick="goToStep(4)" class="bg-blue-600 hover:bg-blue-500 text-white px-8 py-3 rounded-xl font-medium transition-all shadow-lg shadow-blue-600/30 flex items-center gap-2">
+                        שלב 4: שאר האתר <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ================= STEP 4 ================= -->
+            <div id="step-4" class="wizard-step mt-8">
+                <div class="glass-card p-6 md:p-10 rounded-3xl">
+                    <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">4. בניית שאר הרכיבים באתר</h2>
+                    <p class="text-slate-400 mb-6">לאחר בניית ההירו בקוד, מזינים את רשימת הרכיבים שנותרה לאפיון כדי להשלים את הדף באותה שפה עיצובית.</p>
+
+                    <!-- User Input Area -->
+                    <div class="mb-8 p-6 bg-[#080808] border border-white/10 rounded-2xl shadow-inner">
+                        <label class="flex items-center gap-2 text-sm font-medium text-blue-400 mb-3">
+                            <i data-lucide="list-tree" class="w-4 h-4"></i>
+                            הדביקו כאן את רשימת הרכיבים לשאר האתר (ללא ההירו):
+                        </label>
+                        <textarea id="input-p4" rows="4" class="w-full bg-[#111] border border-white/5 rounded-xl p-4 text-slate-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all placeholder:text-slate-600 resize-y" placeholder="הדביקו את רשימת הרכיבים שכאן..." oninput="updateDynamicText('p4', this.value, '[הדבק כאן את רשימת הרכיבים]')"></textarea>
+                    </div>
+
+                    <div class="flex gap-2 mb-6 border-b border-white/10 pb-4">
+                        <button onclick="switchTab('prompt4', 'he')" id="btn-prompt4-he" class="px-5 py-2.5 text-sm font-medium rounded-xl bg-blue-600 text-white transition-all shadow-lg shadow-blue-600/20">עברית</button>
+                        <button onclick="switchTab('prompt4', 'en')" id="btn-prompt4-en" class="px-5 py-2.5 text-sm font-medium rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all">English</button>
+                    </div>
+
+                    <div class="relative bg-[#080808] rounded-2xl border border-white/5 overflow-hidden group">
+                        <button onclick="copyToClipboard('prompt4')" class="absolute top-4 left-4 p-2.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-all flex items-center gap-2 z-10 border border-white/5 backdrop-blur-md">
+                            <i data-lucide="copy" class="w-4 h-4" id="icon-prompt4"></i>
+                            <span class="text-xs font-medium" id="text-copy-prompt4">העתק פרומפט מכן</span>
+                        </button>
+
+                        <div id="content-prompt4-he" class="p-6 md:p-8 pt-16 md:pt-8 text-slate-300 text-sm md:text-base leading-relaxed prompt-text font-mono dir-rtl">הנה רשימת הרכיבים של שאר הקטעים באתר (ללא ה־Hero Section): 
+<span id="p4-input-he" class="dynamic-value">[הדבק כאן את רשימת הרכיבים]</span>
+
+כבר בנית Hero Section בקוד. עכשיו בנה את שאר הקטעים של דף הבית בהתאם לרשימת הרכיבים, ובאותו סגנון עיצובי, שפה ויזואלית ורמת גימור של ה־Hero Section שנבנה.
+
+כללי עבודה מחייבים:
+אחידות מלאה עם ההירו
+- שמור על אותה שפת עיצוב, אותה היררכיית רכיבים, אותו “פיל” ואותה רמת פרימיום.
+- אל תחליף סגנון באמצע הדף.
+
+רכיבים ותוכן
+- בכל סקשן יש לכלול *רק* את הרכיבים שברשימה (לא להוסיף ולא להשמיט).
+- אם חסר טקסט מדויק לרכיב כלשהו — השתמש בטקסט הגיוני ורלוונטי שמוביל לפעולה (לא lorem ipsum), ושמור על עקביות טון מול ההירו.
+
+מבנה הדף
+- בנה את כל הסקשנים כ־sections מלאים, בסדר לוגי שמוביל להמרה.
+- דסקטופ קודם (Desktop-first) עם התאמה רספונסיבית מלאה לטאבלט ומובייל.
+
+אנימציות GSAP – חובה
+- שלב GSAP בצורה מקצועית, לא “קישוטית”.
+- חובה לכלול:
+  1. אנימציות Scroll-based באמצעות ScrollTrigger (כניסות, reveal, stagger, parallax עדין אם מתאים).
+  2. אנימציות שאינן רק לגלילה: hover אינטראקטיבי, focus states, micro-interactions לכפתורים/כרטיסים, פתיחה/סגירה של אלמנטים (למשל FAQ אם קיים), אנימציות לטעינה/מעבר.
+- האנימציות צריכות להיות חלקות, מדויקות, ולא להפריע לקריאות/שימושיות.
+
+ביצועים ונגישות
+- הקפד על ביצועים: מינימום רינדורים כבדים, שימוש חכם ב־will-change רק כשצריך, והפחתת אנימציות במובייל אם זה פוגע.
+- תמוך ב־prefers-reduced-motion: אם המשתמש מבקש להפחית אנימציה — צמצם/כבה אנימציות בצורה מכבדת.
+- שמור על סמנטיקה ונגישות: כותרות נכונות, aria כשצריך, ניווט מקלדת תקין, כפתורים אמיתיים לפעולות.
+
+תוצרים
+- הפלט חייב להיות קוד מלא ומוכן להרצה של שאר הסקשנים + האנימציות.
+- כל קטע צריך להיות מסומן בבירור עם הערה/כותרת בקוד כדי לדעת איפה מתחיל/נגמר כל section.
+- אל תשנה את קוד ההירו שכבר נבנה, אלא אם נדרש ממש כדי לשמור אחידות מערכתית (ואז ציין בדיוק מה שינית ולמה).
+
+מטרה: לייצר דף בית שלם (מלבד ההירו שכבר קיים) שנראה מקצועי, אחיד, “פרימיום”, עם GSAP איכותי לגלילה וגם לאינטראקציות נוספות — ומבוסס בדיוק על רשימת הרכיבים שסופקה.</div>
+
+                        <div id="content-prompt4-en" class="hidden p-6 md:p-8 pt-16 md:pt-8 text-slate-300 text-sm md:text-base leading-relaxed prompt-text font-mono dir-ltr text-left" dir="ltr">Here is the component list for the rest of the website sections (excluding the Hero Section): 
+<span id="p4-input-en" class="dynamic-value">[Paste the component list here]</span>
+
+You already built the Hero Section in code. Now build the remaining homepage sections based on the component list, using the same design language, visual system, and level of polish as the existing Hero Section.
+
+Mandatory rules:
+Full consistency with the Hero
+- Keep the same design language, hierarchy, premium feel, and overall UI system.
+- Do not switch styles midway down the page.
+
+Components & content
+- Each section must include *only* the components in the provided list (do not add or remove items).
+- If any component is missing exact copy, generate realistic conversion-focused copy (no lorem ipsum) while staying consistent with the hero tone.
+
+Page structure
+- Build each section as a complete <section> in a logical conversion-driven order.
+- Desktop-first layout, fully responsive for tablet and mobile.
+
+GSAP animations — required
+- Implement GSAP professionally (not decorative only).
+- Must include:
+  1. Scroll-based animations using ScrollTrigger (reveal, stagger, subtle parallax if appropriate).
+  2. Non-scroll animations: interactive hover micro-interactions, focus states, button/card interactions, open/close motions (e.g., FAQ if applicable), transitions and loading/motion details.
+- Animations must be smooth, readable, and not harm usability.
+
+Performance & accessibility
+- Keep performance in mind: avoid heavy reflows, use will-change only when needed, reduce motion complexity on mobile if necessary.
+- Support prefers-reduced-motion: gracefully reduce/disable motion when requested.
+- Maintain semantic structure and accessibility: proper heading order, ARIA where needed, keyboard navigation, real buttons for actions.
+
+Deliverables
+- Output must be runnable, production-ready code for all remaining sections + animations.
+- Clearly label each section in code (comments or headings).
+- Do not modify the already-built hero code unless strictly necessary for system consistency — if you must, explicitly list what changed and why.
+
+Goal: Produce the rest of the homepage (excluding the existing hero) with a consistent premium UI, strong conversion flow, and high-quality GSAP animations for both scroll and non-scroll interactions — strictly based on the provided component list.</div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between mt-8">
+                    <button onclick="goToStep(3)" class="text-slate-400 hover:text-white px-6 py-3 rounded-xl font-medium transition-all flex items-center gap-2 border border-white/10 hover:bg-white/5">
+                        <i data-lucide="arrow-right" class="w-5 h-5"></i> חזור
+                    </button>
+                    <button onclick="goToStep(5)" class="bg-blue-600 hover:bg-blue-500 text-white px-8 py-3 rounded-xl font-medium transition-all shadow-lg shadow-blue-600/30 flex items-center gap-2">
+                        שלב 5: ייצוא לאתר <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ================= STEP 5 ================= -->
+            <div id="step-5" class="wizard-step mt-8">
+                <div class="glass-card p-6 md:p-10 rounded-3xl">
+                    <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">5. העברה של האתר ל-Lovable / כלי פיתוח</h2>
+                    <p class="text-slate-400 mb-6">כאשר יש קובץ HTML מלא שעובד, פרומפט זה ישמש לייבוא שלו לכלי פיתוח מתקדמים מבלי לשבור את העיצוב.</p>
+
+                    <div class="mb-6 flex items-center gap-3 p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-xl text-yellow-500 text-sm">
+                        <i data-lucide="code" class="w-5 h-5 flex-shrink-0"></i>
+                        <span>בשלב זה אין צורך להזין טקסט, פשוט צרפו את קובץ ה-HTML הסופי לכלי ה-AI יחד עם הפרומפט.</span>
+                    </div>
+
+                    <div class="flex gap-2 mb-6 border-b border-white/10 pb-4">
+                        <button onclick="switchTab('prompt5', 'he')" id="btn-prompt5-he" class="px-5 py-2.5 text-sm font-medium rounded-xl bg-blue-600 text-white transition-all shadow-lg shadow-blue-600/20">עברית</button>
+                        <button onclick="switchTab('prompt5', 'en')" id="btn-prompt5-en" class="px-5 py-2.5 text-sm font-medium rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all">English</button>
+                    </div>
+
+                    <div class="relative bg-[#080808] rounded-2xl border border-white/5 overflow-hidden group">
+                        <button onclick="copyToClipboard('prompt5')" class="absolute top-4 left-4 p-2.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-all flex items-center gap-2 z-10 border border-white/5 backdrop-blur-md">
+                            <i data-lucide="copy" class="w-4 h-4" id="icon-prompt5"></i>
+                            <span class="text-xs font-medium" id="text-copy-prompt5">העתק פרומפט</span>
+                        </button>
+
+                        <div id="content-prompt5-he" class="p-6 md:p-8 pt-16 md:pt-8 text-slate-300 text-sm md:text-base leading-relaxed prompt-text font-mono dir-rtl">צירפתי קובץ HTML של אתר קיים.
+המשימה שלך: לשחזר את האתר אצלך כך שייראה ויתנהג אחד לאחד כמו המקור, כולל כל הסקשנים, הרכיבים, הטקסטים, התמונות, האייקונים, הרקעים, והאנימציות — ללא שום שינוי.
+
+כללים מחייבים (אפס סטייה):
+דיוק 1:1
+- שחזר בדיוק את המראה וההתנהגות: פריסה, מרווחים, היררכיה, סדר קטעים, גדלים, יישור, וטקסטים.
+- אין “שיפור”, אין “רענון”, אין “עיצוב מחדש”.
+
+לא להוסיף ולא להחסיר
+- אל תוסיף שום דבר שלא קיים במקור (רכיבים/סקשנים/אפקטים/טקסטים).
+- אל תחסיר שום דבר שקיים.
+- אל תשנה ניסוחים, כותרות, טקסטים, תוויות כפתורים או סדר.
+
+תמונות ונכסים
+- כל התמונות/אייקונים/רקעים/קבצים חיצוניים שמופיעים במקור חייבים להופיע גם אצלך.
+- אם נכס חסר בפועל אצלך — השתמש בפתרון זמני שמחזיק *את אותו מקום/גודל/יחס* עד שאספק את הקובץ, בלי לשנות את המבנה או העימוד.
+
+אנימציות ואינטראקציות
+- שחזר את כל האנימציות בדיוק כפי שבמקור: גלילה, כניסות, hover, transitions, timing, easing, stagger וכל אינטראקציה.
+- אל תשנה מהירות, עקומות תנועה או טריגרים.
+- שחזר גם אינטראקציות שאינן גלילה (hover/click/focus/open-close וכו').
+
+רספונסיביות
+- אם במקור יש התנהגות רספונסיבית — שחזר אותה אחד לאחד.
+- אל תשנה את הדרך שבה האתר נשבר/מסתדר במסכים שונים.
+
+חופש בטכנולוגיה
+- אתה יכול להשתמש בכל טכנולוגיה/שיטה/ייצוא שאתה רוצה — *לא אכפת לי איך זה נבנה או איך זה מיוצא*, כל עוד התוצאה הסופית תואמת אחד לאחד למקור.
+
+בדיקת הצלחה:
+כשמשווים את האתר המקורי לשחזור *בצד לצד*, זה צריך להיראות ולהרגיש *זהה לחלוטין*.</div>
+
+                        <div id="content-prompt5-en" class="hidden p-6 md:p-8 pt-16 md:pt-8 text-slate-300 text-sm md:text-base leading-relaxed prompt-text font-mono dir-ltr text-left" dir="ltr">I attached an HTML file of an existing website.
+Your task: rebuild the website so it looks and behaves exactly the same (1:1) as the original, including all sections, components, text, images, icons, backgrounds, and animations — with zero changes.
+
+Strict rules (no deviation):
+Exact 1:1 fidelity
+- Match the visuals and behavior precisely: layout, spacing, hierarchy, section order, sizing, alignment, and all copy.
+- No “improvements”, no refresh, no redesign.
+
+Do not add or remove anything
+- Do not add any new sections/components/effects/text.
+- Do not remove anything present in the original.
+- Do not rephrase copy, change labels, or reorder elements.
+
+Images & assets
+- All images/icons/backgrounds/external assets used in the original must appear in the rebuild.
+- If an asset is missing on your side, use a temporary replacement that preserves the *exact same slot/size/aspect ratio* until I provide the real file — without changing layout.
+
+Animations & interactions
+- Reproduce all animations exactly: scroll behavior, reveals, hover interactions, transitions, timing, easing, stagger, and triggers.
+- Do not change animation speed, easing curves, or triggers.
+- Include non-scroll interactions as well (hover/click/focus/open-close, etc.).
+
+Responsiveness
+- If the original has responsive behavior, recreate it exactly.
+- Do not change how it adapts across screen sizes.
+
+No technology constraints
+- You may use any technology/method/export/hosting you want — *I don’t care how it’s built*, as long as the final output matches the original 1:1.
+
+Success criteria:
+When comparing the original and the rebuilt version *side by side*, they should be visually and behaviorally indistinguishable.</div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between mt-8">
+                    <button onclick="goToStep(4)" class="text-slate-400 hover:text-white px-6 py-3 rounded-xl font-medium transition-all flex items-center gap-2 border border-white/10 hover:bg-white/5">
+                        <i data-lucide="arrow-right" class="w-5 h-5"></i> חזור
+                    </button>
+                    <button onclick="alert('הגעת לסוף המדריך! בהצלחה בפיתוח.')" class="bg-green-600 hover:bg-green-500 text-white px-8 py-3 rounded-xl font-medium transition-all shadow-lg shadow-green-600/30 flex items-center gap-2">
+                        סיום <i data-lucide="check-circle" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-16 bg-[#030303] relative z-40 border-t border-white/5 mt-12" id="footer">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-12">
+            
+            <div class="space-y-4">
+                <a href="index.html" class="block">
+                    <!-- LOGO in Footer -->
+                    <img src="logo.svg" alt="ROI Chocron Logo" class="h-12 w-auto object-contain opacity-80" onerror="this.outerHTML='<span class=\'text-xl font-bold text-white opacity-80\'>רועי שוקרון</span>'">
+                </a>
+            </div>
+
+            <div class="">
+                <h4 class="text-white font-semibold mb-4 text-lg">קישורים מהירים</h4>
+                <ul class="space-y-3 text-slate-500">
+                    <li><a href="index.html#work" class="hover:text-blue-400 transition-colors">עבודות</a></li>
+                    <li><a href="index.html#services" class="hover:text-blue-400 transition-colors">שירותים</a></li>
+                    <li><a href="index.html#process" class="hover:text-blue-400 transition-colors">תהליך העבודה</a></li>
+                </ul>
+            </div>
+
+            <div class="">
+                <h4 class="text-white font-semibold mb-4 text-lg">יצירת קשר</h4>
+                <ul class="space-y-3 text-slate-500">
+                    <li class="flex items-center gap-2">
+                        <i data-lucide="mail" class="w-5 h-5"></i>
+                        <a href="mailto:roi.chocron7@gmail.com" class="hover:text-white transition-colors">roi.chocron7@gmail.com</a>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <i data-lucide="phone" class="w-5 h-5"></i>
+                        <a href="tel:0502808448" class="hover:text-white transition-colors">050-280-8448</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="">
+                <h4 class="text-white font-semibold mb-4 text-lg">רשתות חברתיות</h4>
+                <div class="flex gap-4">
+                    <a href="https://www.instagram.com/roi.chocron?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+                        <i data-lucide="instagram" class="w-5 h-5"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/רועי-שוקרון-828079345" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+                        <i data-lucide="linkedin" class="w-5 h-5"></i>
+                    </a>
+                    <a href="https://www.youtube.com/@%D7%A8%D7%95%D7%A2%D7%99%D7%A9%D7%95%D7%A7%D7%A8%D7%95%D7%9F55" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+                        <i data-lucide="youtube" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 pt-12 mt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-sm text-slate-600">
+            <p>רועי שוקרון - עיצוב ובניית אתרים</p>
+            <div class="flex gap-6 mt-4 md:mt-0">
+                <a href="/privacypolicy" class="hover:text-slate-400">מדיניות הפרטיות</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Initialize Scripts -->
+    <script>
+        // Icons
+        lucide.createIcons();
+
+        // --- Wizard Logic ---
+        function goToStep(stepIndex) {
+            // Hide all steps
+            document.querySelectorAll('.wizard-step').forEach(step => {
+                step.classList.remove('active');
+            });
+            
+            // Show target step
+            document.getElementById(`step-${stepIndex}`).classList.add('active');
+
+            // Update Progress Bar
+            const totalSteps = 5;
+            const progressPercentage = (stepIndex / totalSteps) * 100;
+            document.getElementById('stepper-progress').style.width = `${progressPercentage}%`;
+
+            // Update Dots styling
+            document.querySelectorAll('.step-dot').forEach(dot => {
+                const dotIndex = parseInt(dot.getAttribute('data-step'));
+                const circle = dot.querySelector('div');
+                const text = dot.querySelector('span');
+
+                if (dotIndex <= stepIndex) {
+                    // Completed or active
+                    circle.className = 'w-10 h-10 rounded-full flex items-center justify-center border-2 border-blue-500 bg-blue-500 text-white font-bold transition-all shadow-[0_0_15px_rgba(59,130,246,0.5)]';
+                    text.className = 'text-xs font-medium text-blue-400 absolute -bottom-6 transition-all';
+                } else {
+                    // Future
+                    circle.className = 'w-10 h-10 rounded-full flex items-center justify-center border-2 border-white/20 bg-[#050505] text-slate-400 font-bold transition-all group-hover:border-blue-400';
+                    text.className = 'text-xs font-medium text-slate-500 absolute -bottom-6 transition-all';
+                }
+            });
+
+            // Scroll to top of wizard smoothly
+            document.getElementById('wizard-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // --- Dynamic Text Input Logic ---
+        function updateDynamicText(promptId, value, placeholder) {
+            const heSpan = document.getElementById(`${promptId}-input-he`);
+            const enSpan = document.getElementById(`${promptId}-input-en`);
+            
+            const textToSet = value.trim() !== '' ? `\n\n${value}\n\n` : placeholder;
+            
+            if (heSpan) heSpan.innerText = textToSet;
+            if (enSpan) enSpan.innerText = textToSet;
+        }
+
+        // --- Tabs Logic ---
+        function switchTab(promptId, lang) {
+            const heBtn = document.getElementById(`btn-${promptId}-he`);
+            const enBtn = document.getElementById(`btn-${promptId}-en`);
+            const heContent = document.getElementById(`content-${promptId}-he`);
+            const enContent = document.getElementById(`content-${promptId}-en`);
+
+            const activeClasses = ['bg-blue-600', 'text-white', 'shadow-lg', 'shadow-blue-600/20'];
+            const inactiveClasses = ['text-slate-400', 'hover:text-white', 'hover:bg-white/5'];
+
+            if (lang === 'he') {
+                heContent.classList.remove('hidden');
+                enContent.classList.add('hidden');
+                
+                heBtn.classList.remove(...inactiveClasses);
+                heBtn.classList.add(...activeClasses);
+                
+                enBtn.classList.remove(...activeClasses);
+                enBtn.classList.add(...inactiveClasses);
+
+                document.getElementById(`content-${promptId}-he`).parentElement.setAttribute('data-active-lang', 'he');
+            } else {
+                enContent.classList.remove('hidden');
+                heContent.classList.add('hidden');
+                
+                enBtn.classList.remove(...inactiveClasses);
+                enBtn.classList.add(...activeClasses);
+                
+                heBtn.classList.remove(...activeClasses);
+                heBtn.classList.add(...inactiveClasses);
+
+                document.getElementById(`content-${promptId}-he`).parentElement.setAttribute('data-active-lang', 'en');
+            }
+        }
+
+        // Initialize default active state
+        document.querySelectorAll('[data-active-lang]').forEach(el => el.setAttribute('data-active-lang', 'he'));
+        document.querySelectorAll('.group').forEach(el => el.setAttribute('data-active-lang', 'he'));
+
+        // --- Copy Logic ---
+        function copyToClipboard(promptId) {
+            const container = document.getElementById(`content-${promptId}-he`).parentElement;
+            const activeLang = container.getAttribute('data-active-lang') || 'he';
+            
+            const textElement = document.getElementById(`content-${promptId}-${activeLang}`);
+            const textToCopy = textElement.innerText || textElement.textContent;
+
+            const textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.position = "fixed";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                const successful = document.execCommand('copy');
+                if(successful) {
+                    const iconEl = document.getElementById(`icon-${promptId}`);
+                    const textEl = document.getElementById(`text-copy-${promptId}`);
+                    
+                    iconEl.outerHTML = '<svg id="icon-'+promptId+'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-green-500"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+                    textEl.innerText = "הועתק בהצלחה!";
+                    textEl.classList.add("text-green-500");
+
+                    setTimeout(() => {
+                        const newIconEl = document.getElementById(`icon-${promptId}`);
+                        newIconEl.outerHTML = '<i id="icon-'+promptId+'" data-lucide="copy" class="w-4 h-4"></i>';
+                        lucide.createIcons();
+                        textEl.innerText = "העתק פרומפט מוכן";
+                        textEl.classList.remove("text-green-500");
+                    }, 2500);
+                }
+            } catch (err) {
+                console.error('Fallback: Oops, unable to copy', err);
+            }
+
+            document.body.removeChild(textArea);
+        }
+
+        // --------------------------------------------------------
+        // CANVAS BACKGROUND ANIMATION
+        // --------------------------------------------------------
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let waves = [];
+        const waveCount = 5;
+        
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            initWaves();
+        }
+        window.addEventListener('resize', resize);
+
+        class Wave {
+            constructor(index, total) {
+                this.index = index;
+                this.total = total;
+                this.phase = Math.random() * Math.PI * 2;
+                this.speed = 0.002 + Math.random() * 0.004; 
+                const blue = 100 + Math.random() * 100;
+                this.color = `rgba(${10 + index * 10}, ${20 + index * 10}, ${blue}, ${0.15 - (index * 0.02)})`;
+                this.y = height * (0.4 + (index / total) * 0.4);
+                this.amplitude = 50 + Math.random() * 100;
+                this.frequency = 0.002 + Math.random() * 0.003;
+            }
+            update() { this.phase += this.speed; }
+            draw() {
+                ctx.beginPath();
+                ctx.moveTo(0, height);
+                for (let x = 0; x <= width; x += 10) {
+                    const sine = Math.sin(x * this.frequency + this.phase);
+                    ctx.lineTo(x, this.y + sine * this.amplitude);
+                }
+                ctx.lineTo(width, height);
+                ctx.closePath();
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+        }
+
+        function initWaves() {
+            waves = [];
+            for (let i = 0; i < waveCount; i++) waves.push(new Wave(i, waveCount));
+        }
+        
+        resize();
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, width, height);
+            ctx.globalCompositeOperation = 'source-over'; 
+            waves.forEach(wave => { wave.update(); wave.draw(); });
+            requestAnimationFrame(animateCanvas);
+        }
+        animateCanvas();
+
+        // --------------------------------------------------------
+        // GSAP ANIMATIONS
+        // --------------------------------------------------------
+        document.addEventListener("DOMContentLoaded", (event) => {
+            gsap.registerPlugin(ScrollTrigger);
+            gsap.to("#bg-canvas", { opacity: 1, duration: 2, ease: "power2.inOut" });
+        });
+    </script>
+</body>
+</html>
