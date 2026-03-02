@@ -1,100 +1,98 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-    <!-- Analytics Tracking Code -->
-<script>
-(function() {
-  'use strict';
-  var id = 'b86806be7d4e8e98';
-  var endpoint = 'https://vtbpfkuteansazuqslre.supabase.co/functions/v1/collect';
-  
-  function getFingerprint() {
-    var canvas = document.createElement('canvas');
-    var ctx = canvas.getContext('2d');
-    ctx.textBaseline = 'top';
-    ctx.font = '14px Arial';
-    ctx.fillText('analytics', 2, 2);
-    var hash = canvas.toDataURL().split('').reduce(function(a, b) {
-      a = ((a << 5) - a) + b.charCodeAt(0);
-      return a & a;
-    }, 0);
-    var nav = [navigator.userAgent, navigator.language, screen.width + 'x' + screen.height, new Date().getTimezoneOffset()].join('|');
-    return Math.abs(hash) + '_' + nav.split('').reduce(function(a, b) {
-      a = ((a << 5) - a) + b.charCodeAt(0);
-      return a & a;
-    }, 0);
-  }
-  
-  function getBrowser() {
-    var ua = navigator.userAgent;
-    if (ua.indexOf('Edg') > -1) return 'Edge';
-    if (ua.indexOf('Firefox') > -1) return 'Firefox';
-    if (ua.indexOf('Chrome') > -1) return 'Chrome';
-    if (ua.indexOf('Safari') > -1) return 'Safari';
-    if (ua.indexOf('Opera') > -1 || ua.indexOf('OPR') > -1) return 'Opera';
-    return 'Other';
-  }
-  
-  function getDevice() {
-    var ua = navigator.userAgent;
-    if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) return 'tablet';
-    if (/Mobile|iP(hone|od)|Android|BlackBerry|IEMobile/.test(ua)) return 'mobile';
-    return 'desktop';
-  }
-  
-  function getOS() {
-    var ua = navigator.userAgent;
-    if (ua.indexOf('Win') > -1) return 'Windows';
-    if (ua.indexOf('Mac') > -1) return 'MacOS';
-    if (ua.indexOf('Linux') > -1) return 'Linux';
-    if (ua.indexOf('Android') > -1) return 'Android';
-    if (ua.indexOf('like Mac') > -1) return 'iOS';
-    return 'Other';
-  }
-  
-  var start = Date.now();
-  var fp = getFingerprint();
-  var sent = false;
-  var geo = { country: '', city: '' };
-  
-  // Get geo info from client side
-  fetch('https://ipapi.co/json/', { mode: 'cors' })
-    .then(function(r) { return r.json(); })
-    .then(function(d) { 
-      geo.country = d.country_name || ''; 
-      geo.city = d.city || ''; 
-    })
-    .catch(function() {});
-  
-  function track(retry) {
-    if (sent && !retry) return;
-    var url = endpoint + '?t=' + id + '&u=' + encodeURIComponent(location.pathname + location.search) + '&r=' + encodeURIComponent(document.referrer) + '&f=' + fp + '&b=' + getBrowser() + '&o=' + getOS() + '&d=' + getDevice() + '&p=' + encodeURIComponent(document.title) + '&s=' + Math.round((Date.now() - start) / 1000) + '&c=' + encodeURIComponent(geo.country) + '&y=' + encodeURIComponent(geo.city) + '&_=' + Date.now();
-    
-    fetch(url, { method: 'GET', mode: 'cors', credentials: 'omit' })
-      .then(function(r) { 
-        if (r.ok) sent = true; 
-        else if (!retry) setTimeout(function() { track(true); }, 1000);
-      })
-      .catch(function() { 
-        if (!retry) setTimeout(function() { track(true); }, 1000);
-      });
-  }
-  
-  if (document.readyState === 'complete') {
-    setTimeout(track, 500);
-  } else {
-    window.addEventListener('load', function() { setTimeout(track, 500); });
-  }
-  window.addEventListener('beforeunload', function() { track(); });
-})();
-</script>
+    <!-- The analytics script is kept as is, as the "unified" script for replacement was not provided. -->
+    <script>
+    (function() {
+      'use strict';
+      var id = 'b86806be7d4e8e98';
+      var endpoint = 'https://vtbpfkuteansazuqslre.supabase.co/functions/v1/collect';
+      
+      function getFingerprint() {
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext('2d');
+        ctx.textBaseline = 'top';
+        ctx.font = '14px Arial';
+        ctx.fillText('analytics', 2, 2);
+        var hash = canvas.toDataURL().split('').reduce(function(a, b) {
+          a = ((a << 5) - a) + b.charCodeAt(0);
+          return a & a;
+        }, 0);
+        var nav = [navigator.userAgent, navigator.language, screen.width + 'x' + screen.height, new Date().getTimezoneOffset()].join('|');
+        return Math.abs(hash) + '_' + nav.split('').reduce(function(a, b) {
+          a = ((a << 5) - a) + b.charCodeAt(0);
+          return a & a;
+        }, 0);
+      }
+      
+      function getBrowser() {
+        var ua = navigator.userAgent;
+        if (ua.indexOf('Edg') > -1) return 'Edge';
+        if (ua.indexOf('Firefox') > -1) return 'Firefox';
+        if (ua.indexOf('Chrome') > -1) return 'Chrome';
+        if (ua.indexOf('Safari') > -1) return 'Safari';
+        if (ua.indexOf('Opera') > -1 || ua.indexOf('OPR') > -1) return 'Opera';
+        return 'Other';
+      }
+      
+      function getDevice() {
+        var ua = navigator.userAgent;
+        if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) return 'tablet';
+        if (/Mobile|iP(hone|od)|Android|BlackBerry|IEMobile/.test(ua)) return 'mobile';
+        return 'desktop';
+      }
+      
+      function getOS() {
+        var ua = navigator.userAgent;
+        if (ua.indexOf('Win') > -1) return 'Windows';
+        if (ua.indexOf('Mac') > -1) return 'MacOS';
+        if (ua.indexOf('Linux') > -1) return 'Linux';
+        if (ua.indexOf('Android') > -1) return 'Android';
+        if (ua.indexOf('like Mac') > -1) return 'iOS';
+        return 'Other';
+      }
+      
+      var start = Date.now();
+      var fp = getFingerprint();
+      var sent = false;
+      var geo = { country: '', city: '' };
+      
+      // Get geo info from client side
+      fetch('https://ipapi.co/json/', { mode: 'cors' })
+        .then(function(r) { return r.json(); })
+        .then(function(d) { 
+          geo.country = d.country_name || ''; 
+          geo.city = d.city || ''; 
+        })
+        .catch(function() {});
+      
+      function track(retry) {
+        if (sent && !retry) return;
+        var url = endpoint + '?t=' + id + '&u=' + encodeURIComponent(location.pathname + location.search) + '&r=' + encodeURIComponent(document.referrer) + '&f=' + fp + '&b=' + getBrowser() + '&o=' + getOS() + '&d=' + getDevice() + '&p=' + encodeURIComponent(document.title) + '&s=' + Math.round((Date.now() - start) / 1000) + '&c=' + encodeURIComponent(geo.country) + '&y=' + encodeURIComponent(geo.city) + '&_=' + Date.now();
+        
+        fetch(url, { method: 'GET', mode: 'cors', credentials: 'omit' })
+          .then(function(r) { 
+            if (r.ok) sent = true; 
+            else if (!retry) setTimeout(function() { track(true); }, 1000);
+          })
+          .catch(function() { 
+            if (!retry) setTimeout(function() { track(true); }, 1000);
+          });
+      }
+      
+      if (document.readyState === 'complete') {
+        setTimeout(track, 500);
+      } else {
+        window.addEventListener('load', function() { setTimeout(track, 500); });
+      }
+      window.addEventListener('beforeunload', function() { track(); });
+    })();
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 - העמוד לא נמצא | רועי שוקרון</title>
-    <!-- SEO Meta Tags -->
+    <title>404 - העמוד לא נמצא | רועי שוקרון - בניית ופיתוח אתרים</title>
+    <meta name="description" content="העמוד שחיפשת לא נמצא באתר של רועי שוקרון. חזור לדף הבית למציאת מידע רלוונטי על בניית אתרים, פיתוח אתרים ודפי נחיתה לעסקים.">
     <meta name="robots" content="noindex, follow">
-    <meta name="description" content="העמוד שחיפשת לא נמצא באתר של רועי שוקרון. חזור לדף הבית של רועי שוקרון בונה אתרים מומחה.">
-    <meta name="keywords" content="404, עמוד לא נמצא, שגיאה, רועי שוקרון, בניית אתרים, חזרה לדף הבית">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -201,7 +199,7 @@
 
         <!-- Logo -->
         <div class="gsap-elem opacity-0 transform translate-y-4">
-            <img src="/logo.svg" alt="ROI Chocron Logo" class="h-20 w-auto object-contain mx-auto opacity-90 hover:opacity-100 transition-opacity" width="200" height="80">
+            <img src="/logo.svg" alt="ROI Chocron Logo - בניית ופיתוח אתרים" class="h-20 w-auto object-contain mx-auto opacity-90 hover:opacity-100 transition-opacity" width="80" height="80">
         </div>
 
         <!-- 404 Number -->
