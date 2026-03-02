@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="רועי שוקרון - מומחה לבניית אתרים מהירים וממירים בתל אביב והמרכז. פיתוח אתרי תדמית, חנויות וירטואליות ודפי נחיתה לעסקים קטנים ובינוניים. קבלו פניות ולקוחות חדשים!">
+    <meta name="keywords" content="בניית אתרים, פיתוח אתרים, עיצוב אתרים, דפי נחיתה, חנויות וירטואליות, אתרי תדמית, בניית אתרים לעסקים, אתר איקומרס, אתר מהיר, אתרים ממוקדי המרה, אפיון אתרים, UX/UI, בניית אתרים בתל אביב, בניית אתרים במרכז, רועי שוקרון, Roi Chocron">
+    <link rel="canonical" href="https://www.roichocron.com/index.html">
+
+    <!-- Open Graph Tags for Social Sharing -->
+    <meta property="og:title" content="רועי שוקרון - בניית אתרים שמביאים לקוחות">
+    <meta property="og:description" content="רועי שוקרון - מומחה לבניית אתרים מהירים וממירים בתל אביב והמרכז. פיתוח אתרי תדמית, חנויות וירטואליות ודפי נחיתה לעסקים קטנים ובינוניים. קבלו פניות ולקוחות חדשים!">
+    <meta property="og:image" content="https://www.roichocron.com/visual of roi.png">
+    <meta property="og:url" content="https://www.roichocron.com/index.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="he_IL">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@roichocron">
+    <meta name="twitter:title" content="רועי שוקרון - בניית אתרים שמביאים לקוחות">
+    <meta name="twitter:description" content="רועי שוקרון - מומחה לבניית אתרים מהירים וממירים בתל אביב והמרכז. פיתוח אתרי תדמית, חנויות וירטואליות ודפי נחיתה לעסקים קטנים ובינוניים. קבלו פניות ולקוחות חדשים!">
+    <meta name="twitter:image" content="https://www.roichocron.com/visual of roi.png">
+
+    <title>רועי שוקרון - בניית אתרים בתל אביב והמרכז | דפי נחיתה ואתרי תדמית ממוקדי המרה</title>
+    
+    <!-- Unified Analytics Tracking Script -->
+    <script>
+    (function() {
+    var ua = window.UnifiedAnalytics = window.UnifiedAnalytics || {};
+    ua.siteId = "c5fa21afc6ac4401";
+    ua.key = "cb9a3ecad8e0670e4face4de8adc6751";
+    ua.endpoint = "https://wmwotnmvxslmhinhtqkw.supabase.co/functions/v1/collect";
+    
+    // Generate visitor ID
+    function getVisitorId() {
+        var id = localStorage.getItem('ua_vid');
+        if (!id) {
+        id = 'v_' + Math.random().toString(36).substr(2, 9) + Date.now().toString(36);
+        localStorage.setItem('ua_vid', id);
+        }
+        return id;
+    }
+    
+    // Generate session ID
+    function getSessionId() {
+        var session = sessionStorage.getItem('ua_sid');
+        if (!session) {
+        session = 's_' + Math.random().toString(36).substr(2, 9) + Date.now().toString(36);
+        sessionStorage.setItem('ua_sid', session);
+        }
+        return session;
+    }
+    
+    // Detect device type
+    function getDeviceType() {
+        var uaStr = navigator.userAgent;
+        if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(uaStr)) return 'tablet';
+        if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(uaStr)) return 'mobile';
+        return 'desktop';
+    }
+
+    // Detect browser name/version (best-effort, comprehensive)
+    function getBrowserInfo() {
+        var uaStr = navigator.userAgent || '';
+        var name = 'Unknown';
+        var version = '';
+        var m;
+
+        // Order matters - check more specific browsers first
+        // Edge (Chromium-based)
+        m = uaStr.match(/Edg\/([\d.]+)/);
+        if (m) { return { name: 'Edge', version: m[1] }; }
+        // Edge Legacy
+        m = uaStr.match(/Edge\/([\d.]+)/);
+        if (m) { return { name: 'Edge', version: m[1] }; }
+        // Opera
+        m = uaStr.match(/OPR\/([\d.]+)/);
+        if (m) { return { name: 'Opera', version: m[1] }; }
+        m = uaStr.match(/Opera\/([\d.]+)/);
+        if (m) { return { name: 'Opera', version: m[1] }; }
+        // Brave
+        if (navigator.brave && typeof navigator.brave.isBrave === 'function') {
+        m = uaStr.match(/Chrome\/([\d.]+)/);
+        return { name: 'Brave', version: m ? m[1] : '' };
+        }
+        // Vivaldi
+        m = uaStr.match(/Vivaldi\/([\d.]+)/);
+        if (m) { return { name: 'Vivaldi', version: m[1] }; }
+        // Samsung Browser
+        m = uaStr.match(/SamsungBrowser\/([\d.]+)/);
+        if (m) { return { name: 'Samsung Browser', version: m[1] }; }
+        // UC Browser
+        m = uaStr.match(/UCBrowser\/([\d.]+)/);
+        if (m) { return { name: 'UC Browser', version: m[1] }; }
+        // Firefox
+        m = uaStr.match(/Firefox\/([\d.]+)/);
+        if (m) { return { name: 'Firefox', version: m[1] }; }
+        // Chrome (check after other Chromium-based browsers)
+        m = uaStr.match(/Chrome\/([\d.]+)/);
+        if (m && !/Edg\//.test(uaStr) && !/OPR\//.test(uaStr)) { 
+        return { name: 'Chrome', version: m[1] }; 
+        }
+        // Safari
+        if (/Safari\//.test(uaStr) && /Version\//.test(uaStr) && !/Chrome\//.test(uaStr)) {
+        m = uaStr.match(/Version\/([\d.]+)/);
+        return { name: 'Safari', version: m ? m[1] : '' };
+        }
+        // Internet Explorer
+        if (/Trident\//.test(uaStr)) {
+        m = uaStr.match(/rv:([\d.]+)/);
+        return { name: 'Internet Explorer', version: m ? m[1] : '11' };
+        }
+        m = uaStr.match(/MSIE ([\d.]+)/);
+        if (m) { return { name: 'Internet Explorer', version: m[1] }; }
+
+        return { name: name, version: version };
+    }
+
+    // Normalize URL - remove query params and hash (ES5 compatible)
+    function getNormalizedPageUrl() {
+        var href = window.location.href;
+        var qIndex = href.indexOf('?');
+        var hIndex = href.indexOf('#');
+        var end = href.length;
+        if (qIndex !== -1) {
+        end = qIndex;
+        } else if (hIndex !== -1) {
+        end = hIndex;
+        }
+        return href.substring(0, end);
+    }
+
+    // Build query string (ES5 compatible replacement for URLSearchParams)
+    function buildQueryString(params) {
+        var parts = [];
+        for (var key in params) {
+        if (params.hasOwnProperty(key)) {
+            parts.push(encodeURIComponent(key) + '=' + encodeURIComponent(params[key]));
+        }
+        }
+        return parts.join('&');
+    }
+
+    // Find closest ancestor matching selector (ES5 polyfill for Element.closest)
+    function findClosest(el, selector) {
+        while (el && el !== document) {
+        var matches = el.matches || el.msMatchesSelector || el.webkitMatchesSelector;
+        if (matches) {
+            try {
+            if (matches.call(el, selector)) {
+                return el;
+            }
+            } catch (e) {
+            // selector not supported, skip
+            }
+        }
+        el = el.parentElement || el.parentNode;
+        }
+        return null;
+    }
+
+    // Merge objects (ES5 compatible replacement for Object.assign)
+    function mergeObjects(target, source) {
+        if (source) {
+        for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+            target[key] = source[key];
+            }
+        }
+        }
+        return target;
+    }
+    
+    // Send event
+    function track(type, data) {
+        var browser = getBrowserInfo();
+        var fullUrl = window.location.href;
+        var normalizedUrl = getNormalizedPageUrl();
+
+        var eventData = {
+        full_url: fullUrl,
+        browser_name: browser.name,
+        browser_version: browser.version
+        };
+        mergeObjects(eventData, data || {});
+
+        var payload = {
+        site_id: ua.siteId,
+        key: ua.key,
+        event_type: type,
+        page_url: normalizedUrl,
+        page_title: document.title,
+        referrer: document.referrer,
+        user_agent: navigator.userAgent,
+        device_type: getDeviceType(),
+        visitor_id: getVisitorId(),
+        session_id: getSessionId(),
+        event_data: eventData,
+        timestamp: new Date().toISOString()
+        };
+
+        function tryPixelFallback() {
+        try {
+            var params = {
+            site_id: payload.site_id || '',
+            key: payload.key || '',
+            event_type: payload.event_type || '',
+            page_url: payload.page_url || '',
+            page_title: payload.page_title || '',
+            referrer: payload.referrer || '',
+            user_agent: payload.user_agent || '',
+            device_type: payload.device_type || '',
+            visitor_id: payload.visitor_id || '',
+            session_id: payload.session_id || '',
+            timestamp: payload.timestamp || '',
+            ed: JSON.stringify({
+                full_url: fullUrl,
+                browser_name: browser.name,
+                browser_version: browser.version
+            })
+            };
+
+            var img = new Image();
+            img.src = ua.endpoint + '?' + buildQueryString(params);
+        } catch (e) {
+            // ignore
+        }
+        }
+
+        function sendViaFetch() {
+        try {
+            return fetch(ua.endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+            credentials: 'omit'
+            }).then(function() {}, function() {
+            if (type === 'pageview') tryPixelFallback();
+            });
+        } catch (e) {
+            if (type === 'pageview') tryPixelFallback();
+        }
+        }
+
+        try {
+        if (navigator.sendBeacon) {
+            var ok = navigator.sendBeacon(ua.endpoint, JSON.stringify(payload));
+            if (!ok) sendViaFetch();
+        } else {
+            sendViaFetch();
+        }
+        } catch (e) {
+        if (type === 'pageview') tryPixelFallback();
+        }
+    }
+    
+    ua.track = track;
+    
+    // Track page view
+    track('pageview');
+    
+    // Track scroll depth
+    var scrollMarks = [25, 50, 75, 100];
+    var scrollTracked = {};
+    
+    function trackScroll() {
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        var scrollPercent = Math.round((scrollTop / docHeight) * 100);
+        
+        for (var i = 0; i < scrollMarks.length; i++) {
+        var mark = scrollMarks[i];
+        if (scrollPercent >= mark && !scrollTracked[mark]) {
+            scrollTracked[mark] = true;
+            track('scroll', { depth: mark });
+        }
+        }
+    }
+    
+    window.addEventListener('scroll', trackScroll, false);
+    
+    // Track clicks with position for heatmaps
+    document.addEventListener('click', function(e) {
+        var el = findClosest(e.target, 'a, button, [data-track]');
+        if (!el) return;
+        
+        // Get click position relative to document
+        var scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        var elText = el.textContent || el.innerText || '';
+        var data = {
+        tag: el.tagName.toLowerCase(),
+        text: elText.replace(/\s+/g, ' ').substring(0, 100),
+        href: el.href || null,
+        click_x: Math.round(e.clientX + scrollLeft),
+        click_y: Math.round(e.clientY + scrollTop),
+        viewport_width: window.innerWidth,
+        viewport_height: window.innerHeight
+        };
+        
+        // Check for CTA clicks
+        var href = (el.href || '').toLowerCase();
+        if (href.indexOf('wa.me') !== -1 || href.indexOf('whatsapp') !== -1) {
+        data.cta_type = 'whatsapp';
+        track('cta_click', data);
+        } else if (href.indexOf('tel:') !== -1) {
+        data.cta_type = 'phone';
+        track('cta_click', data);
+        } else if (href.indexOf('mailto:') !== -1) {
+        data.cta_type = 'email';
+        track('cta_click', data);
+        } else {
+        track('click', data);
+        }
+    }, false);
+    
+    // Track form submissions
+    document.addEventListener('submit', function(e) {
+        var form = e.target;
+        track('form_submit', {
+        form_id: form.id || null,
+        form_name: form.name || null,
+        form_action: form.action || null
+        });
+    }, false);
+    })();
+    </script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest" defer></script>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    
+    <!-- GSAP Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+
+    <!-- Google Fonts: Rubik (Modern Hebrew Font) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+
+    <style>
+        /* Base Styles */
+        body { font-family: 'Rubik', sans-serif; }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #444; }
+        
+        /* Glassmorphism utility */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        /* Glow border effect */
+        .card-glow-border {
+            background: linear-gradient(180deg, #3b82f6 0%, #1d4ed8 100%);
+            box-shadow: 0 0 40px -10px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Initial states for GSAP to prevent flash of unstyled content */
+        .gsap-hero-elem, 
+        .gsap-fade-up,
+        .service-card,
+        .process-step,
+        .pricing-card,
+        .faq-item,
+        .cta-content {
+            opacity: 0; 
+            /* GSAP will handle the transform */
+        }
+
+        /* Project Card Stacking Effect */
+        .project-panel {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            /* Added shadow for separation */
+            box-shadow: 0 -20px 50px rgba(0,0,0,0.8); 
+        }
+
+        /* Canvas Background */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -5; /* Above the blobs, below content */
+            opacity: 0; /* Starts hidden, fades in */
+        }
+        
+        /* Cookie banner animations and helpers */
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .animate-slide-up {
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .fade-out {
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+        }
+    </style>
+    
+    <script>
+    // Tailwind Config for 3D Transforms
+    tailwind.config = {
+        theme: {
+            extend: {
+                fontFamily: {
+                    sans: ['Rubik', 'sans-serif'],
+                }
+            }
+        },
+        plugins: [
+            function({ addUtilities }) {
+                // Simplified 3D utilities for the card effect
+                addUtilities({
+                    '.perspective-1000': { perspective: '1000px' },
+                    '.transform-style-3d': { transformStyle: 'preserve-3d' },
+                    '.rotate-y-12': { transform: 'rotateY(12deg)' },
+                    '.rotate-x-12': { transform: 'rotateX(12deg)' },
+                    '.rotate-y-6': { transform: 'rotateY(6deg)' },
+                });
+            }
+        ]
+    };
+    </script>
+
+    <!-- Schema.org JSON-LD for LocalBusiness -->
+    <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "LocalBusiness",
+      "name": "רועי שוקרון - בניית ופיתוח אתרים",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "רחוב לדוגמה 10", 
+        "addressLocality": "תל אביב", 
+        "addressRegion": "מחוז תל אביב", 
+        "postalCode": "6000000",
+        "addressCountry": "ישראל"
+      },
+      "telephone": "+972-50-280-8448",
+      "email": "roi.chocron7@gmail.com",
+      "url": "https://www.roichocron.com",
+      "image": "https://www.roichocron.com/visual of roi.png",
+      "priceRange": "$$",
+      "openingHours": [
+        "Mo-Th 09:00-17:00",
+        "Fr 09:00-13:00"
+      ],
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "32.0853", 
+        "longitude": "34.7818" 
+      },
+      "sameAs": [
+        "https://www.instagram.com/roi.chocron",
+        "https://www.linkedin.com/in/רועי-שוקרון-828079345",
+        "https://www.youtube.com/@%D7%A8%D7%95%D7%A2%D7%99%D7%A9%D7%95%D7%A7%D7%A8%D7%95%D7%9F55",
+        "https://wa.me/972502808448"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "שירותי בניית אתרים",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "פיתוח אתרים",
+              "description": "דפי נחיתה, אתרי תדמית ואפליקציות ווב — מותאמים אישית כדי להוביל בשוק שלך.",
+              "url": "https://www.roichocron.com/#services"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "דפי נחיתה",
+              "description": "דפים ממירים שנבנו בקוד נקי לטעינה מהירה ואיסוף לידים איכותיים.",
+              "url": "https://www.roichocron.com/#services"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "חנויות וירטואליות",
+              "description": "אתרי איקומרס מתקדמים שמעוצבים להציג את המוצרים שלך בצורה מושלמת.",
+              "url": "https://www.roichocron.com/#services"
+            }
+          }
+        ]
+      }
+    }
+    </script>
+</head>
+<body class="bg-[#050505] text-slate-300 antialiased selection:bg-blue-500/30 selection:text-blue-200 overflow-x-hidden">
+
+    <!-- Background Effects Container -->
+    <div class="fixed inset-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+        
+        <!-- Canvas for Dark Waves -->
+        <canvas id="bg-canvas"></canvas>
+
+        <!-- Static Radial Gradients for subtle color spots -->
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent via-[#050505]/50 to-[#050505]"></div>
+        <div class="absolute top-[-20%] left-[20%] w-[600px] h-[600px] bg-blue-900/10 rounded-full blur-[120px] mix-blend-screen"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-indigo-900/10 rounded-full blur-[100px] mix-blend-screen"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed z-50 w-full border-white/5 border-b top-0 backdrop-blur-md bg-[#050505]/80 transition-all duration-300">
+        <div class="flex h-24 max-w-7xl mx-auto px-6 items-center justify-between">
+            <a href="https://www.roichocron.com" class="block hover:opacity-80 transition-opacity">
+                <!-- LOGO -->
+                <img src="/logo.svg" alt="לוגו רועי שוקרון - מומחה לבניית אתרים" class="h-14 w-auto object-contain" width="70" height="14">
+            </a>
+            
+            <!-- MENU -->
+            <div class="hidden md:flex items-center gap-8 text-lg font-medium text-slate-400">
+                <a href="#services" class="hover:text-white transition-colors relative group">
+                    שירותים
+                    <span class="absolute -bottom-1 right-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#process" class="hover:text-white transition-colors relative group">
+                    תהליך
+                    <span class="absolute -bottom-1 right-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#work" class="hover:text-white transition-colors relative group">
+                    עבודות
+                    <span class="absolute -bottom-1 right-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#faq" class="hover:text-white transition-colors relative group">
+                    שאלות
+                    <span class="absolute -bottom-1 right-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full"></span>
+                </a>
+            </div>
+
+            <!-- WhatsApp button: visible on all screen sizes (replaces mobile hamburger) -->
+            <a href="https://wa.me/972502808448" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2.5 rounded-lg text-base font-medium text-white transition-all hover:scale-105 active:scale-95">
+                וואטסאפ
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="h-screen min-h-[700px] flex items-center relative overflow-hidden pt-24">
+        <div class="grid lg:grid-cols-2 gap-16 max-w-7xl mx-auto px-6 items-center w-full">
+            
+            <!-- Hero Content -->
+            <div class="z-10 relative space-y-8">
+                <div class="gsap-hero-elem inline-flex items-center px-4 py-2 rounded-full bg-white/5 border border-white/10 text-slate-300 text-sm font-medium backdrop-blur-sm">
+                    מהיר. נקי. ממוקד המרה.
+                </div>
+
+                <h1 class="gsap-hero-elem text-5xl sm:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-[1.1]">
+                    אני בונה אתרים <br class="hidden lg:block">
+                    שמביאים לקוחות.
+                </h1>
+
+                <div class="gsap-hero-elem space-y-4">
+                    <p class="text-lg sm:text-xl text-slate-400 max-w-lg leading-relaxed font-light">
+                        דפי נחיתה, אתרי תדמית ומסחר אלקטרוני — מעוצבים עם חווית משתמש מדויקת ובנויים למהירות.
+                    </p>
+                    <p class="text-sm text-slate-500">
+                        תהליך ברור • מחיר שקוף • עמידה בזמנים
+                    </p>
+                </div>
+
+                <div class="gsap-hero-elem flex flex-col sm:flex-row gap-4 pt-2">
+                    
+                    <button onclick='window.open("https://wa.me/972502808448", "_blank")' class="bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-xl font-medium flex items-center justify-center gap-2 transition-all shadow-lg shadow-blue-600/20 hover:shadow-blue-600/40 hover:-translate-y-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 0 5.414 0 12.05c0 2.123.555 4.197 1.61 6.06L0 24l6.096-1.6c1.801.98 3.834 1.496 5.95 1.5h.005c6.634 0 12.05-5.414 12.05-12.05 0-3.217-1.252-6.242-3.522-8.513z"/>
+                        </svg>
+                        <span>דברו איתי</span>
+                    </button>
+                    <a href="#work" class="bg-[#111] hover:bg-[#1a1a1a] border border-white/10 text-white px-8 py-4 rounded-xl font-medium flex items-center justify-center gap-2 transition-all hover:-translate-y-1">
+                        צפו בעבודות
+                    </a>
+                </div>
+                
+                <div class="gsap-hero-elem flex items-center gap-2 text-sm text-slate-500 mt-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="clock" class="w-4 h-4"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="10"></circle></svg>
+                    עסק שומר שבת
+                </div>
+            </div>
+
+            <!-- Hero Image / Visual -->
+            <div class="hidden lg:flex w-full h-[600px] relative perspective-1000 items-center justify-center gsap-hero-image opacity-0">
+                <div class="absolute inset-0 bg-blue-600/10 blur-[120px] rounded-full pointer-events-none"></div>
+                
+                <div class="relative w-[400px] h-[520px] rotate-3 transition-transform hover:rotate-2 duration-700 ease-out group">
+                    <div class="card-glow-border rounded-[2.5rem] p-[3px] absolute inset-0">
+                        <div class="w-full h-full rounded-[2.3rem] overflow-hidden bg-[#0a0a0a] relative">
+                            <img src="/visual of roi.png" alt="רועי שוקרון מומחה לבניית, פיתוח ועיצוב אתרים מהירים" class="w-full h-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-105" width="400" height="520">
+                            <div class="bg-gradient-to-t from-[#050505]/60 via-transparent to-transparent absolute inset-0"></div>
+                        </div>
+                    </div>
+
+                    <!-- Floating Badges -->
+                    <div class="badge-float -right-12 glass-card flex flex-col bg-[#0a0a0a]/80 w-36 border-[#2962e4] rounded-2xl p-5 absolute top-8 shadow-2xl items-center justify-center">
+                        <span class="text-xs font-medium text-white mb-1">Lighthouse</span>
+                        <span class="text-4xl font-bold text-white tracking-tight">90+</span>
+                    </div>
+
+                    <div class="badge-float -left-6 glass-card bg-[#0a0a0a]/80 border-[#2962e4] rounded-xl p-3 absolute top-24 shadow-xl">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="smartphone" class="w-6 h-6 text-slate-300"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"></rect><path d="M12 18h.01"></path></svg>
+                    </div>
+
+                    <div class="badge-float -left-10 glass-card bg-[#0a0a0a]/80 border-[#2962e4] rounded-full px-4 py-2 absolute top-40 shadow-xl">
+                        <span class="text-sm font-medium text-white">התאמה למובייל</span>
+                    </div>
+
+                    <div class="badge-float -left-6 glass-card flex flex-col gap-2 bg-[#0a0a0a]/80 border-[#2962e4] rounded-2xl p-4 absolute bottom-16 shadow-2xl items-center">
+                        <div class="p-2 rounded-full bg-white/5 text-blue-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="search" class="w-5 h-5"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg>
+                        </div>
+                        <span class="text-xs font-medium text-white">מוכן ל-SEO</span>
+                    </div>
+
+                    <div class="badge-float -right-10 glass-card flex bg-[#0a0a0a]/80 border-[#2962e4] rounded-xl px-4 py-3 absolute bottom-24 shadow-2xl gap-3 items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="zap" class="w-5 h-5 text-slate-300"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                        <span class="text-sm font-medium text-white">טעינה מהירה</span>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Services Section -->
+    <section class="pt-24 pb-24 relative" id="services">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 gsap-fade-up">
+                <h2 class="text-3xl md:text-5xl font-bold text-white tracking-tight mb-4">שירותים: בניית אתרים, דפי נחיתה וחנויות וירטואליות</h2>
+                <p class="text-xl text-slate-400">פתרונות עיצוב ופיתוח אתרים מקצה לקצה.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Service 1 -->
+                <div class="service-card glass-card p-8 rounded-3xl group hover:bg-white/5 transition-colors border border-white/5 hover:border-blue-500/30">
+                    <div class="w-14 h-14 bg-blue-600/20 text-blue-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="code-2"><path d="m18 16 4-4-4-4"></path><path d="m6 8-4 4 4 4"></path><path d="m14.5 4-5 16"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-white mb-3">פיתוח אתרים מותאמים אישית</h3>
+                    <p class="text-slate-400 leading-relaxed text-lg">דפי נחיתה, אתרי תדמית ואפליקציות ווב — מותאמים אישית כדי להוביל בשוק שלך.</p>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="service-card glass-card p-8 rounded-3xl group hover:bg-white/5 transition-colors relative overflow-hidden border border-white/5 hover:border-blue-500/30">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 blur-3xl rounded-full"></div>
+                    <div class="w-14 h-14 bg-blue-600/20 text-blue-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="layout"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M3 9h18"></path><path d="M9 21V9"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-white mb-3">בניית דפי נחיתה ממירים</h3>
+                    <p class="text-slate-400 leading-relaxed text-lg">דפים ממירים שנבנו בקוד נקי לטעינה מהירה ואיסוף לידים איכותיים.</p>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="service-card glass-card p-8 rounded-3xl group hover:bg-white/5 transition-colors border border-white/5 hover:border-blue-500/30">
+                    <div class="w-14 h-14 bg-blue-600/20 text-blue-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="shopping-cart"><circle cx="8" cy="21" r="1"></circle><circle cx="19" cy="21" r="1"></circle><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-white mb-3">הקמת חנויות וירטואליות</h3>
+                    <p class="text-slate-400 leading-relaxed text-lg">אתרי איקומרס מתקדמים שמעוצבים להציג את המוצרים שלך בצורה מושלמת.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process" class="py-24 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20 gsap-fade-up">
+                <h2 class="text-3xl md:text-5xl font-bold text-white tracking-tight mb-4">תהליך העבודה לבניית אתר</h2>
+            </div>
+
+            <div class="relative">
+                <!-- Connecting Line (Desktop) -->
+                <div class="hidden md:block absolute top-10 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-blue-900/50 to-transparent"></div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-8 relative z-10">
+                    <!-- Steps -->
+                    <div class="process-step flex flex-col items-center text-center group cursor-pointer">
+                        <div class="w-20 h-20 bg-[#0a0a0a] border border-blue-500/30 rounded-full flex items-center justify-center mb-4 group-hover:border-blue-500 transition-colors shadow-[0_0_15px_rgba(59,130,246,0.1)] group-hover:scale-110 duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="phone" class="text-blue-500"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"></path></svg>
+                        </div>
+                        <div class="text-sm font-mono text-blue-500 mb-2 font-bold">01</div>
+                        <h4 class="text-xl font-semibold text-white">שיחת היכרות ואפיון אתר</h4>
+                    </div>
+
+                    <div class="process-step flex flex-col items-center text-center group cursor-pointer">
+                        <div class="w-20 h-20 bg-[#0a0a0a] border border-white/10 rounded-full flex items-center justify-center mb-4 group-hover:border-white/30 transition-colors group-hover:scale-110 duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="pen-tool" class="text-slate-400 group-hover:text-white"><path d="M15.707 21.293a1 1 0 0 1-1.414 0l-1.586-1.586a1 1 0 0 1 0-1.414l5.586-5.586a1 1 0 0 1 1.414 0l1.586 1.586a1 1 0 0 1 0 1.414z"></path><path d="m18 13-1.375-6.874a1 1 0 0 0-.746-.776L3.235 2.028a1 1 0 0 0-1.207 1.207L5.35 15.879a1 1 0 0 0 .776.746L13 18"></path><path d="m2.3 2.3 7.286 7.286"></path><circle cx="11" cy="11" r="2"></circle></svg>
+                        </div>
+                        <div class="text-sm font-mono text-slate-500 mb-2 font-bold">02</div>
+                        <h4 class="text-xl font-semibold text-white">עיצוב UI/UX מקצועי</h4>
+                    </div>
+
+                    <div class="process-step flex flex-col items-center text-center group cursor-pointer">
+                        <div class="w-20 h-20 bg-[#0a0a0a] border border-white/10 rounded-full flex items-center justify-center mb-4 group-hover:border-white/30 transition-colors group-hover:scale-110 duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="code" class="text-slate-400 group-hover:text-white"><path d="m16 18 6-6-6-6"></path><path d="m8 6-6 6 6 6"></path></svg>
+                        </div>
+                        <div class="text-sm font-mono text-slate-500 mb-2 font-bold">03</div>
+                        <h4 class="text-xl font-semibold text-white">פיתוח ובניית קוד נקי</h4>
+                    </div>
+
+                    <div class="process-step flex flex-col items-center text-center group cursor-pointer">
+                        <div class="w-20 h-20 bg-[#0a0a0a] border border-white/10 rounded-full flex items-center justify-center mb-4 group-hover:border-white/30 transition-colors group-hover:scale-110 duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="refresh-cw" class="text-slate-400 group-hover:text-white"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M8 16H3v5"></path></svg>
+                        </div>
+                        <div class="text-sm font-mono text-slate-500 mb-2 font-bold">04</div>
+                        <h4 class="text-xl font-semibold text-white">בדיקות ודיוקים אחרונים</h4>
+                    </div>
+
+                    <div class="process-step flex flex-col items-center text-center group cursor-pointer">
+                        <div class="w-20 h-20 bg-[#0a0a0a] border border-white/10 rounded-full flex items-center justify-center mb-4 group-hover:border-white/30 transition-colors group-hover:scale-110 duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="rocket" class="text-slate-400 group-hover:text-white"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg>
+                        </div>
+                        <div class="text-sm font-mono text-slate-500 mb-2 font-bold">05</div>
+                        <h4 class="text-xl font-semibold text-white">השקה וקידום אתר</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW Work Section (Full Screen Stacking Cards) -->
+    <section id="work" class="relative">
+        
+        <!-- Header for Work Section -->
+        <div class="py-24 text-center sticky top-0 bg-[#050505] z-0">
+             <h2 class="text-3xl md:text-5xl font-bold text-white tracking-tight mb-2">עבודות נבחרות - תיק עבודות בניית אתרים</h2>
+             <p class="text-slate-400 text-lg">גללו למטה כדי לראות את הפרויקטים שלנו</p>
+             <a href="#work-1" class="mt-8 animate-bounce text-slate-500 hover:text-white transition-all hover:scale-110 cursor-pointer block p-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto"><path d="m6 9 6 6 6-6"/></svg>
+             </a>
+        </div>
+
+        <!-- Project 1 -->
+        <div id="work-1" class="project-panel bg-[#080808] z-10 border-t border-white/10 relative overflow-hidden">
+             <!-- Wave/Glow Background -->
+             <div class="absolute inset-0 bg-blue-900/10 pointer-events-none" style="background-image: radial-gradient(circle at 70% 50%, rgba(29, 78, 216, 0.15) 0%, transparent 50%);"></div>
+
+            <div class="max-w-7xl mx-auto px-6 w-full h-full flex flex-col-reverse lg:flex-row items-center justify-center gap-12 lg:gap-24 relative z-10">
+                
+                <!-- Text Content -->
+                <div class="w-full lg:w-1/3 space-y-6 project-text opacity-0 translate-y-10">
+                    <div class="inline-flex px-4 py-1.5 rounded-full text-sm font-medium bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                        אתר AI & קוד
+                    </div>
+                    <h3 class="text-4xl md:text-6xl font-bold text-white">DJ Josh Ben - אתר תדמית</h3>
+                    <p class="text-slate-400 text-lg md:text-xl leading-relaxed">
+                        אתר תדמית ל-DJ המשלב עיצוב מודרני עם אלמנטים שנוצרו בבינה מלאכותית. האתר מדגיש את האווירה והמוזיקה ויוצר חוויה ויזואלית סוחפת.
+                    </p>
+                    <a href="https://joshbenmusic.com/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-white font-medium hover:text-blue-400 transition-colors text-lg group">
+                        צפייה באתר
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-[4px] transition-transform rotate-180"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+
+                    </a>
+                </div>
+
+                <!-- Mockup Visual -->
+                <div class="w-full lg:w-2/3 perspective-1000 project-visual opacity-0 scale-90">
+                    <div class="relative rounded-xl bg-[#111] border border-white/10 shadow-2xl shadow-blue-900/20 rotate-y-6 rotate-x-12 transform-style-3d hover:rotate-y-0 hover:rotate-x-0 transition-transform duration-700 ease-out">
+                         <!-- Browser Bar -->
+                         <div class="h-12 border-b border-white/5 bg-white/[0.02] flex items-center px-4 gap-2 rounded-t-xl">
+                            <div class="flex gap-1.5">
+                                <div class="w-3 h-3 rounded-full bg-[#ff5f57]"></div>
+                                <div class="w-3 h-3 rounded-full bg-[#febc2e]"></div>
+                                <div class="w-3 h-3 rounded-full bg-[#28c840]"></div>
+                            </div>
+                            <div class="ml-4 h-6 w-1/3 rounded-full bg-white/5"></div>
+                        </div>
+                        <!-- Image -->
+                        <div class="aspect-video w-full overflow-hidden rounded-b-xl relative group">
+                            <div class="absolute inset-0 bg-blue-900/10 mix-blend-overlay z-10"></div>
+                            <img src="/photos/josh(desktop).png" alt="פרויקט בניית אתר תדמית וקידום ל-DJ Josh Ben" class="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-1000" width="800" height="450">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project-panel bg-[#070707] z-20 border-t border-white/10 relative overflow-hidden">
+             <!-- Wave/Glow Background -->
+             <div class="absolute inset-0 bg-purple-900/10 pointer-events-none" style="background-image: radial-gradient(circle at 30% 50%, rgba(147, 51, 234, 0.15) 0%, transparent 50%);"></div>
+
+            <div class="max-w-7xl mx-auto px-6 w-full h-full flex flex-col-reverse lg:flex-row items-center justify-center gap-12 lg:gap-24 relative z-10">
+                
+                <!-- Text Content -->
+                <div class="w-full lg:w-1/3 space-y-6 project-text opacity-0 translate-y-10">
+                    <div class="inline-flex px-4 py-1.5 rounded-full text-sm font-medium bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                        React & Tailwind & AI
+                    </div>
+                    <h3 class="text-4xl md:text-6xl font-bold text-white">Luxury Watch Store - אתר חנות שעונים</h3>
+                    <p class="text-slate-400 text-lg md:text-xl leading-relaxed">
+                        אתר לרשת מכוני כושר שכונתיים עם עיצוב משוגע שנבנה באמצעות טכנולוגיות מתקדמות תוך שימוש בטכנולוגיות מתקדמות לקיצור תהליכים באמצעות בינה מלאכותית
+                    </p>
+                    <a href="https://motion-scroll-dream.lovable.app" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-white font-medium hover:text-purple-400 transition-colors text-lg group">
+                        צפייה באתר
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-[4px] transition-transform rotate-180"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                    </a>
+                </div>
+
+                <!-- Mockup Visual -->
+                <div class="w-full lg:w-2/3 perspective-1000 project-visual opacity-0 scale-90">
+                    <div class="relative rounded-xl bg-[#111] border border-white/10 shadow-2xl shadow-purple-900/20 rotate-y-6 rotate-x-12 transform-style-3d hover:rotate-y-0 hover:rotate-x-0 transition-transform duration-700 ease-out">
+                         <!-- Browser Bar -->
+                         <div class="h-12 border-b border-white/5 bg-white/[0.02] flex items-center px-4 gap-2 rounded-t-xl">
+                            <div class="flex gap-1.5">
+                                <div class="w-3 h-3 rounded-full bg-[#ff5f57]"></div>
+                                <div class="w-3 h-3 rounded-full bg-[#febc2e]"></div>
+                                <div class="w-3 h-3 rounded-full bg-[#28c840]"></div>
+                            </div>
+                            <div class="ml-4 h-6 w-1/3 rounded-full bg-white/5"></div>
+                        </div>
+                        <!-- Image -->
+                        <div class="aspect-video w-full overflow-hidden rounded-b-xl relative group">
+                            <div class="absolute inset-0 bg-purple-900/10 mix-blend-overlay z-10"></div>
+                            <img src="/photos/gym2(desktop).png" alt="פרויקט בניית אתר לחנות שעוני יוקרה" class="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-1000" width="800" height="450">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="project-panel bg-[#060606] z-30 border-t border-white/10 relative overflow-hidden">
+             <!-- Wave/Glow Background -->
+             <div class="absolute inset-0 bg-emerald-900/10 pointer-events-none" style="background-image: radial-gradient(circle at 70% 50%, rgba(16, 185, 129, 0.15) 0%, transparent 50%);"></div>
+
+            <div class="max-w-7xl mx-auto px-6 w-full h-full flex flex-col-reverse lg:flex-row items-center justify-center gap-12 lg:gap-24 relative z-10">
+                
+                <!-- Text Content -->
+                <div class="w-full lg:w-1/3 space-y-6 project-text opacity-0 translate-y-10">
+                    <div class="inline-flex px-4 py-1.5 rounded-full text-sm font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                        E-Commerce
+                    </div>
+                    <h3 class="text-4xl md:text-6xl font-bold text-white">Shoes Brand - חנות נעליים וירטואלית</h3>
+                    <p class="text-slate-400 text-lg md:text-xl leading-relaxed">
+                        אתר מותג נעליים עם דגש על המרות. דפי מוצר מפורטים, עגלת קניות חכמה ומערכת ניהול תוכן קלה לתפעול.
+                    </p>
+                    <a href="https://scroll-whisperer-magic.lovable.app" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-white font-medium hover:text-emerald-400 transition-colors text-lg group">
+                        צפייה באתר
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-[4px] transition-transform rotate-180"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                    </a>
+                </div>
+
+                <!-- Mockup Visual -->
+                <div class="w-full lg:w-2/3 perspective-1000 project-visual opacity-0 scale-90">
+                    <div class="relative rounded-xl bg-[#111] border border-white/10 shadow-2xl shadow-emerald-900/20 rotate-y-6 rotate-x-12 transform-style-3d hover:rotate-y-0 hover:rotate-x-0 transition-transform duration-700 ease-out">
+                         <!-- Browser Bar -->
+                         <div class="h-12 border-b border-white/5 bg-white/[0.02] flex items-center px-4 gap-2 rounded-t-xl">
+                            <div class="flex gap-1.5">
+                                <div class="w-3 h-3 rounded-full bg-[#ff5f57]"></div>
+                                <div class="w-3 h-3 rounded-full bg-[#febc2e]"></div>
+                                <div class="w-3 h-3 rounded-full bg-[#28c840]"></div>
+                            </div>
+                            <div class="ml-4 h-6 w-1/3 rounded-full bg-white/5"></div>
+                        </div>
+                        <!-- Image -->
+                        <div class="aspect-video w-full overflow-hidden rounded-b-xl relative group">
+                             <div class="absolute inset-0 bg-emerald-900/10 mix-blend-overlay z-10"></div>
+                            <img src="/photos/Shoes(desktop)1.png" alt="פרויקט בניית אתר איקומרס למותג נעליים" class="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-1000" width="800" height="450">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-24 border-t border-white/5 bg-[#050505] relative z-40">
+        <div class="max-w-3xl mx-auto px-6">
+            <div class="text-center mb-16 gsap-fade-up">
+                <h2 class="text-3xl md:text-5xl font-bold text-white tracking-tight">שאלות נפוצות על בניית ועיצוב אתרים</h2>
+            </div>
+
+            <div class="space-y-4">
+                <div class="faq-item glass-card rounded-xl overflow-hidden">
+                    <details class="group p-5 [&_summary::-webkit-details-marker]:hidden">
+                        <summary class="flex items-center justify-between cursor-pointer text-white font-medium text-lg">
+                            <h3 class="font-medium text-lg text-white">מי זה רועי שוקרון, מומחה לבניית אתרים?</h3>
+                            <span class="mr-4 transition-transform duration-300 group-open:rotate-180">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-down" class="text-slate-400"><path d="m6 9 6 6 6-6"/></svg>
+                            </span>
+                        </summary>
+                        <div class="mt-4 text-slate-400 leading-relaxed">
+                            אני בונה, מפתח ומעצב אתרים ומערכות לעסקים שמביאים לקוחות ויעזרו לכם להמיר לידים בצורה יותר טובה. מתמחה בבניית אתרים מהירים וממוקדי המרה.
+                        </div>
+                    </details>
+                </div>
+
+                <div class="faq-item glass-card rounded-xl overflow-hidden">
+                    <details class="group p-5 [&_summary::-webkit-details-marker]:hidden">
+                        <summary class="flex items-center justify-between cursor-pointer text-white font-medium text-lg">
+                            <h3 class="font-medium text-lg text-white">כמה סבבי תיקונים כלולים בתהליך בניית האתר?</h3>
+                            <span class="mr-4 transition-transform duration-300 group-open:rotate-180">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-down" class="text-slate-400"><path d="m6 9 6 6 6-6"/></svg>
+                            </span>
+                        </summary>
+                        <div class="mt-4 text-slate-400 leading-relaxed">
+                            בדרך כלל כלול 2 סבבי תיקונים אלא אם סיכמנו אחרת, כדי להבטיח את שביעות רצונכם המלאה מעיצוב ופיתוח האתר.
+                        </div>
+                    </details>
+                </div>
+
+                <div class="faq-item glass-card rounded-xl overflow-hidden">
+                    <details class="group p-5 [&_summary::-webkit-details-marker]:hidden">
+                        <summary class="flex items-center justify-between cursor-pointer text-white font-medium text-lg">
+                            <h3 class="font-medium text-lg text-white">באילו טכנולוגיות אני משתמש לבניית אתרים?</h3>
+                            <span class="mr-4 transition-transform duration-300 group-open:rotate-180">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-down" class="text-slate-400"><path d="m6 9 6 6 6-6"/></svg>
+                            </span>
+                        </summary>
+                        <div class="mt-4 text-slate-400 leading-relaxed">
+                            אני עובד בעיקר עם טכנולוגיות פשוטות כמו HTML, CSS, JS ו-PHP אבל גם בטכנולוגיות מתקדמות כמו Tailwind css, React, next.js ועוד, כדי לבנות אתרים מודרניים ויעילים.
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schema.org JSON-LD for FAQPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "מי זה רועי שוקרון, מומחה לבניית אתרים?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "אני בונה, מפתח ומעצב אתרים ומערכות לעסקים שמביאים לקוחות ויעזרו לכם להמיר לידים בצורה יותר טובה. מתמחה בבניית אתרים מהירים וממוקדי המרה."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "כמה סבבי תיקונים כלולים בתהליך בניית האתר?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "בדרך כלל כלול 2 סבבי תיקונים אלא אם סיכמנו אחרת, כדי להבטיח את שביעות רצונכם המלאה מעיצוב ופיתוח האתר."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "באילו טכנולוגיות אני משתמש לבניית אתרים?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "אני עובד בעיקר עם טכנולוגיות פשוטות כמו HTML, CSS, JS ו-PHP אבל גם בטכנולוגיות מתקדמות כמו Tailwind css, React, next.js ועוד, כדי לבנות אתרים מודרניים ויעילים."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- NEW HUGE CTA Section -->
+    <section class="py-32 relative overflow-hidden bg-gradient-to-br from-blue-900 to-[#050505] z-40 border-t border-white/5">
+        <!-- Decoration -->
+        <div class="absolute top-0 right-0 w-full h-full opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4yKSIvPjwvc3ZnPg==')]"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-500/20 blur-[120px] rounded-full pointer-events-none"></div>
+
+        <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
+            <div class="cta-content space-y-8">
+                <h2 class="text-5xl md:text-7xl font-bold text-white tracking-tight leading-tight">
+                    מוכנים להזניק <br> את העסק שלכם עם אתר חדש?
+                </h2>
+                <p class="text-xl md:text-2xl text-blue-100/80 max-w-2xl mx-auto font-light">
+                    בואו נדבר על הפרויקט הבא שלכם. שיחת ייעוץ קצרה, ללא התחייבות, לבניית אתר מנצח.
+                </p>
+                
+                <div class="pt-6">
+                    <button onclick='window.open("https://wa.me/972502808448", "_blank")' class="group relative inline-flex items-center gap-3 bg-white text-blue-900 px-10 py-5 rounded-full text-xl font-bold hover:scale-105 transition-transform duration-300 shadow-[0_0_40px_-10px_rgba(255,255,255,0.5)]">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="#25D366" stroke="none" class="group-hover:rotate-12 transition-transform duration-300">
+                             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 0 5.414 0 12.05c0 2.123.555 4.197 1.61 6.06L0 24l6.096-1.6c1.801.98 3.834 1.496 5.95 1.5h.005c6.634 0 12.05-5.414 12.05-12.05 0-3.217-1.252-6.242-3.522-8.513z"/>
+                        </svg>
+                        שלחו לי הודעה עכשיו
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-16 bg-[#030303] relative z-40" id="footer">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-12">
+            
+            <div class="space-y-4">
+                <a href="https://www.roichocron.com" class="block">
+                    <!-- LOGO in Footer -->
+                    <img src="/logo.svg" alt="לוגו רועי שוקרון - בונה אתרים" class="h-12 w-auto object-contain opacity-80" width="60" height="12">
+                </a>
+                <p class="text-slate-500 text-sm max-w-xs">
+                    רועי שוקרון - מומחה לבניית אתרים מהירים, ממוקדי המרה ומותאמים אישית לעסקים קטנים ובינוניים בתל אביב והמרכז.
+                </p>
+            </div>
+
+            <div class="">
+                <h4 class="text-white font-semibold mb-4 text-lg">קישורים מהירים</h4>
+                <ul class="space-y-3 text-slate-500">
+                    <li><a href="#work" class="hover:text-blue-400 transition-colors">עבודות בניית אתרים</a></li>
+                    <li><a href="#services" class="hover:text-blue-400 transition-colors">שירותי פיתוח אתרים</a></li>
+                    <li><a href="#process" class="hover:text-blue-400 transition-colors">תהליך העבודה</a></li>
+                </ul>
+            </div>
+
+            <div class="">
+                <h4 class="text-white font-semibold mb-4 text-lg">יצירת קשר</h4>
+                <ul class="space-y-3 text-slate-500">
+                    <li class="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="mail"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path><rect x="2" y="4" width="20" height="16" rx="2"></rect></svg>
+                        <a href="mailto:roi.chocron7@gmail.com" class="hover:text-white transition-colors">roi.chocron7@gmail.com</a>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                        <a href="tel:0502808448" class="hover:text-white transition-colors">050-280-8448</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="">
+                <h4 class="text-white font-semibold mb-4 text-lg">רשתות חברתיות</h4>
+                <div class="flex gap-4">
+                    <a href="https://www.instagram.com/roi.chocron?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/רועי-שוקרון-828079345" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    </a>
+                    <a href="https://www.youtube.com/@%D7%A8%D7%95%D7%A2%D7%99%D7%A9%D7%95%D7%A7%D7%A8%D7%95%D7%9F55" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="youtube"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"></path><path d="m10 15 5-3-5-3z"></path></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 pt-12 mt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-sm text-slate-600">
+            <p>&copy; 2024 רועי שוקרון - עיצוב ובניית אתרים. כל הזכויות שמורות.</p>
+            <div class="flex gap-6 mt-4 md:mt-0">
+                <a href="/privacypolicy" class="hover:text-slate-400">מדיניות הפרטיות</a>
+            </div>
+        </div>
+    </footer>
+    <!-- Cookie Consent Banner (appears on first visit) -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 right-0 z-50 p-4 md:p-6 flex justify-center items-end md:items-center pointer-events-none">
+        <div class="glass-card w-full max-w-5xl rounded-2xl p-6 md:p-8 flex flex-col lg:flex-row gap-6 items-start lg:items-center justify-between pointer-events-auto animate-slide-up border-t border-white/10 shadow-2xl">
+            <div class="flex gap-5 items-start">
+                <div class="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center shrink-0 text-blue-400 border border-blue-500/20">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="cookie"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"></path><path d="M8.5 8.5v.01"></path><path d="M16 15.5v.01"></path><path d="M12 12v.01"></path><path d="M11 17v.01"></path><path d="M7 14v.01"></path></svg>
+                </div>
+                <div>
+                    <h3 class="text-white font-semibold text-lg mb-1">אנחנו מעריכים את הפרטיות שלך</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed max-w-xl">
+                        אנחנו משתמשים בעוגיות (Cookies) כדי לשפר את חווית הגלישה, לנתח את התנועה באתר ולהתאים אישית את התוכן עבורך. 
+                        למידע נוסף ניתן לקרוא את <a href="/privacypolicy" class="text-blue-400 hover:text-blue-300 underline underline-offset-4 transition-colors">מדיניות הפרטיות</a> שלנו.
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3 w-full lg:w-auto shrink-0 flex-wrap justify-end">
+                <button onclick="rejectAllCookies()" class="px-5 py-3 rounded-xl border border-white/10 text-slate-400 hover:text-white hover:bg-white/5 font-medium text-sm transition-all whitespace-nowrap">
+                    דחה הכל
+                </button>
+                <button onclick="declineCookies()" class="px-5 py-3 rounded-xl border border-white/10 text-slate-300 font-medium text-sm hover:bg-white/5 hover:text-white transition-all whitespace-nowrap">
+                    רק עוגיות הכרחיות
+                </button>
+                <button onclick="acceptCookies()" class="px-8 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-medium text-sm transition-all shadow-lg shadow-blue-900/20 whitespace-nowrap">
+                    אני מסכים, תודה
+                </button>
+            </div>
+
+            <button onclick="closeBanner()" class="absolute top-4 left-4 text-slate-500 hover:text-white transition-colors lg:hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="x"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Initialize Scripts -->
+    <script>
+        // Icons
+        lucide.createIcons();
+
+        // Cookie banner logic
+        const _cookie_banner = document.getElementById('cookie-banner');
+
+        // Hide banner if consent already exists
+        window.addEventListener('load', () => {
+            try {
+                const consent = localStorage.getItem('cookieConsent');
+                if (consent && _cookie_banner) {
+                    _cookie_banner.style.display = 'none';
+                }
+            } catch (e) {
+                // localStorage may be unavailable in some contexts
+                console.warn('cookieConsent check failed', e);
+            }
+        });
+
+        function acceptCookies() {
+            try { localStorage.setItem('cookieConsent', 'accepted'); } catch (e) {}
+            console.log('Cookies Accepted - Analytics Enabled');
+            closeBanner();
+        }
+
+        function declineCookies() {
+            try { localStorage.setItem('cookieConsent', 'necessary'); } catch (e) {}
+            console.log('Cookies - Necessary Only');
+            closeBanner();
+        }
+
+        function rejectAllCookies() {
+            try { localStorage.setItem('cookieConsent', 'rejected'); } catch (e) {}
+            console.log('Cookies - All Rejected');
+            closeBanner();
+        }
+
+        function closeBanner() {
+            if (!_cookie_banner) return;
+            const card = _cookie_banner.querySelector('.glass-card');
+            if (card) {
+                card.classList.remove('animate-slide-up');
+                card.classList.add('fade-out');
+            }
+            setTimeout(() => { _cookie_banner.style.display = 'none'; }, 400);
+        }
+
+        // --------------------------------------------------------
+        // CANVAS BACKGROUND ANIMATION (Dark Waves)
+        // --------------------------------------------------------
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let waves = [];
+
+        // Configuration
+        const waveCount = 5;
+        
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            initWaves();
+        }
+        window.addEventListener('resize', resize);
+
+        class Wave {
+            constructor(index, total) {
+                this.index = index;
+                this.total = total;
+                this.phase = Math.random() * Math.PI * 2;
+                // Waves move at slightly different speeds
+                this.speed = 0.002 + Math.random() * 0.004; 
+                // Color variation (Blueish/Dark tones)
+                const blue = 100 + Math.random() * 100; // 100-200
+                this.color = `rgba(${10 + index * 10}, ${20 + index * 10}, ${blue}, ${0.15 - (index * 0.02)})`;
+                this.y = height * (0.4 + (index / total) * 0.4); // Spread vertically
+                this.amplitude = 50 + Math.random() * 100;
+                this.frequency = 0.002 + Math.random() * 0.003;
+            }
+
+            update() {
+                this.phase += this.speed;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.moveTo(0, height); // Start bottom left
+                
+                // Draw wave sine curve
+                for (let x = 0; x <= width; x += 10) {
+                    const sine = Math.sin(x * this.frequency + this.phase);
+                    // Combine sine wave with a base Y position
+                    ctx.lineTo(x, this.y + sine * this.amplitude);
+                }
+
+                ctx.lineTo(width, height); // To bottom right
+                ctx.closePath();
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+        }
+
+        function initWaves() {
+            waves = [];
+            for (let i = 0; i < waveCount; i++) {
+                waves.push(new Wave(i, waveCount));
+            }
+        }
+        
+        // Initial setup
+        resize();
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, width, height);
+            
+            // Subtle composite operation for blending
+            ctx.globalCompositeOperation = 'source-over'; 
+
+            waves.forEach(wave => {
+                wave.update();
+                wave.draw();
+            });
+
+            requestAnimationFrame(animateCanvas);
+        }
+        animateCanvas();
+
+
+        // --------------------------------------------------------
+        // GSAP ANIMATIONS
+        // --------------------------------------------------------
+        document.addEventListener("DOMContentLoaded", (event) => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // 0. Background Entry Animation
+            gsap.to("#bg-canvas", { opacity: 1, duration: 2, ease: "power2.inOut" });
+
+            // 1. Hero Animation (Load)
+            const heroTl = gsap.timeline();
+            heroTl.fromTo(".gsap-hero-elem", 
+                { y: 30, opacity: 0 },
+                { y: 0, opacity: 1, duration: 0.8, stagger: 0.1 },
+                0
+            )
+            .to(".gsap-hero-image", {
+                opacity: 1,
+                duration: 1.5,
+                ease: "power2.out"
+            }, "-=0.5");
+
+            // 2. Section Titles Fade Up
+            gsap.utils.toArray('.gsap-fade-up').forEach(element => {
+                gsap.fromTo(element, 
+                    { y: 50, opacity: 0 },
+                    {
+                        scrollTrigger: {
+                            trigger: element,
+                            start: "top 85%",
+                        },
+                        y: 0,
+                        opacity: 1,
+                        duration: 0.8,
+                        ease: "power3.out"
+                    }
+                );
+            });
+
+            // 3. Services Stagger
+            gsap.fromTo(".service-card", 
+                { y: 50, opacity: 0 },
+                {
+                    scrollTrigger: {
+                        trigger: "#services",
+                        start: "top 75%",
+                    },
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.6,
+                    stagger: 0.2,
+                    ease: "power3.out"
+                }
+            );
+
+            // 4. Process Steps Stagger
+            gsap.fromTo(".process-step", 
+                { y: 30, opacity: 0 },
+                {
+                    scrollTrigger: {
+                        trigger: "#process",
+                        start: "top 75%",
+                    },
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.5,
+                    stagger: 0.15,
+                    ease: "back.out(1.7)"
+                }
+            );
+
+            // 5. NEW WORK SECTION ANIMATIONS (Panel Logic)
+            gsap.utils.toArray(".project-panel").forEach((panel) => {
+                const text = panel.querySelector(".project-text");
+                const visual = panel.querySelector(".project-visual");
+
+                gsap.to([text, visual], {
+                    scrollTrigger: {
+                        trigger: panel,
+                        start: "top center",
+                        end: "bottom center",
+                        toggleActions: "play none none reverse", // play on enter, reverse on leave back
+                    },
+                    y: 0,
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.8,
+                    stagger: 0.2,
+                    ease: "power3.out"
+                });
+            });
+
+            // 6. Pricing Cards Stagger (If exists, kept just in case)
+            if (document.querySelector(".pricing-card")) {
+                gsap.fromTo(".pricing-card", 
+                    { y: 50, opacity: 0, scale: 0.95 },
+                    {
+                        scrollTrigger: {
+                            trigger: "#pricing",
+                            start: "top 75%",
+                        },
+                        y: 0,
+                        opacity: 1,
+                        scale: 1,
+                        duration: 0.6,
+                        stagger: 0.2,
+                        ease: "power2.out"
+                    }
+                );
+            }
+
+            // 7. FAQ Items Stagger
+            gsap.fromTo(".faq-item", 
+                { y: 20, opacity: 0 },
+                {
+                    scrollTrigger: {
+                        trigger: "#faq",
+                        start: "top 80%",
+                    },
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.5,
+                    stagger: 0.1,
+                    ease: "power2.out"
+                }
+            );
+
+             // 8. CTA Content Stagger
+             gsap.fromTo(".cta-content", 
+                { y: 40, opacity: 0 },
+                {
+                    scrollTrigger: {
+                        trigger: ".cta-content",
+                        start: "top 80%",
+                    },
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    ease: "power3.out"
+                }
+            );
+        });
+    </script>
+</body>
+</html>
