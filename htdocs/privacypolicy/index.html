@@ -1,598 +1,809 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl" class="scroll-smooth">
+
 <head>
-    <!-- Unified Analytics Tracking Script -->
-<script>
-(function() {
-  var ua = window.UnifiedAnalytics = window.UnifiedAnalytics || {};
-  ua.siteId = "c5fa21afc6ac4401";
-  ua.key = "cb9a3ecad8e0670e4face4de8adc6751";
-  ua.endpoint = "https://wmwotnmvxslmhinhtqkw.supabase.co/functions/v1/collect";
-  
-  // Generate visitor ID
-  function getVisitorId() {
-    var id = localStorage.getItem('ua_vid');
-    if (!id) {
-      id = 'v_' + Math.random().toString(36).substr(2, 9) + Date.now().toString(36);
-      localStorage.setItem('ua_vid', id);
-    }
-    return id;
-  }
-  
-  // Generate session ID
-  function getSessionId() {
-    var session = sessionStorage.getItem('ua_sid');
-    if (!session) {
-      session = 's_' + Math.random().toString(36).substr(2, 9) + Date.now().toString(36);
-      sessionStorage.setItem('ua_sid', session);
-    }
-    return session;
-  }
-  
-  // Detect device type
-  function getDeviceType() {
-    var uaStr = navigator.userAgent;
-    if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(uaStr)) return 'tablet';
-    if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(uaStr)) return 'mobile';
-    return 'desktop';
-  }
+  <!-- Unified Analytics Tracking Script -->
+  <script>
+    (function () {
+      var ua = window.UnifiedAnalytics = window.UnifiedAnalytics || {};
+      ua.siteId = "c5fa21afc6ac4401";
+      ua.key = "cb9a3ecad8e0670e4face4de8adc6751";
+      ua.endpoint = "https://wmwotnmvxslmhinhtqkw.supabase.co/functions/v1/collect";
 
-  // Detect browser name/version (best-effort, comprehensive)
-  function getBrowserInfo() {
-    var uaStr = navigator.userAgent || '';
-    var name = 'Unknown';
-    var version = '';
-    var m;
-
-    // Order matters - check more specific browsers first
-    // Edge (Chromium-based)
-    m = uaStr.match(/Edg\/([\d.]+)/);
-    if (m) { return { name: 'Edge', version: m[1] }; }
-    // Edge Legacy
-    m = uaStr.match(/Edge\/([\d.]+)/);
-    if (m) { return { name: 'Edge', version: m[1] }; }
-    // Opera
-    m = uaStr.match(/OPR\/([\d.]+)/);
-    if (m) { return { name: 'Opera', version: m[1] }; }
-    m = uaStr.match(/Opera\/([\d.]+)/);
-    if (m) { return { name: 'Opera', version: m[1] }; }
-    // Brave
-    if (navigator.brave && typeof navigator.brave.isBrave === 'function') {
-      m = uaStr.match(/Chrome\/([\d.]+)/);
-      return { name: 'Brave', version: m ? m[1] : '' };
-    }
-    // Vivaldi
-    m = uaStr.match(/Vivaldi\/([\d.]+)/);
-    if (m) { return { name: 'Vivaldi', version: m[1] }; }
-    // Samsung Browser
-    m = uaStr.match(/SamsungBrowser\/([\d.]+)/);
-    if (m) { return { name: 'Samsung Browser', version: m[1] }; }
-    // UC Browser
-    m = uaStr.match(/UCBrowser\/([\d.]+)/);
-    if (m) { return { name: 'UC Browser', version: m[1] }; }
-    // Firefox
-    m = uaStr.match(/Firefox\/([\d.]+)/);
-    if (m) { return { name: 'Firefox', version: m[1] }; }
-    // Chrome (check after other Chromium-based browsers)
-    m = uaStr.match(/Chrome\/([\d.]+)/);
-    if (m && !/Edg\//.test(uaStr) && !/OPR\//.test(uaStr)) { 
-      return { name: 'Chrome', version: m[1] }; 
-    }
-    // Safari
-    if (/Safari\//.test(uaStr) && /Version\//.test(uaStr) && !/Chrome\//.test(uaStr)) {
-      m = uaStr.match(/Version\/([\d.]+)/);
-      return { name: 'Safari', version: m ? m[1] : '' };
-    }
-    // Internet Explorer
-    if (/Trident\//.test(uaStr)) {
-      m = uaStr.match(/rv:([\d.]+)/);
-      return { name: 'Internet Explorer', version: m ? m[1] : '11' };
-    }
-    m = uaStr.match(/MSIE ([\d.]+)/);
-    if (m) { return { name: 'Internet Explorer', version: m[1] }; }
-
-    return { name: name, version: version };
-  }
-
-  // Normalize URL - remove query params and hash (ES5 compatible)
-  function getNormalizedPageUrl() {
-    var href = window.location.href;
-    var qIndex = href.indexOf('?');
-    var hIndex = href.indexOf('#');
-    var end = href.length;
-    if (qIndex !== -1) {
-      end = qIndex;
-    } else if (hIndex !== -1) {
-      end = hIndex;
-    }
-    return href.substring(0, end);
-  }
-
-  // Build query string (ES5 compatible replacement for URLSearchParams)
-  function buildQueryString(params) {
-    var parts = [];
-    for (var key in params) {
-      if (params.hasOwnProperty(key)) {
-        parts.push(encodeURIComponent(key) + '=' + encodeURIComponent(params[key]));
+      // Generate visitor ID
+      function getVisitorId() {
+        var id = localStorage.getItem('ua_vid');
+        if (!id) {
+          id = 'v_' + Math.random().toString(36).substr(2, 9) + Date.now().toString(36);
+          localStorage.setItem('ua_vid', id);
+        }
+        return id;
       }
-    }
-    return parts.join('&');
-  }
 
-  // Find closest ancestor matching selector (ES5 polyfill for Element.closest)
-  function findClosest(el, selector) {
-    while (el && el !== document) {
-      var matches = el.matches || el.msMatchesSelector || el.webkitMatchesSelector;
-      if (matches) {
-        try {
-          if (matches.call(el, selector)) {
-            return el;
+      // Generate session ID
+      function getSessionId() {
+        var session = sessionStorage.getItem('ua_sid');
+        if (!session) {
+          session = 's_' + Math.random().toString(36).substr(2, 9) + Date.now().toString(36);
+          sessionStorage.setItem('ua_sid', session);
+        }
+        return session;
+      }
+
+      // Detect device type
+      function getDeviceType() {
+        var uaStr = navigator.userAgent;
+        if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(uaStr)) return 'tablet';
+        if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(uaStr)) return 'mobile';
+        return 'desktop';
+      }
+
+      // Detect browser name/version (best-effort, comprehensive)
+      function getBrowserInfo() {
+        var uaStr = navigator.userAgent || '';
+        var name = 'Unknown';
+        var version = '';
+        var m;
+
+        // Order matters - check more specific browsers first
+        // Edge (Chromium-based)
+        m = uaStr.match(/Edg\/([\d.]+)/);
+        if (m) { return { name: 'Edge', version: m[1] }; }
+        // Edge Legacy
+        m = uaStr.match(/Edge\/([\d.]+)/);
+        if (m) { return { name: 'Edge', version: m[1] }; }
+        // Opera
+        m = uaStr.match(/OPR\/([\d.]+)/);
+        if (m) { return { name: 'Opera', version: m[1] }; }
+        m = uaStr.match(/Opera\/([\d.]+)/);
+        if (m) { return { name: 'Opera', version: m[1] }; }
+        // Brave
+        if (navigator.brave && typeof navigator.brave.isBrave === 'function') {
+          m = uaStr.match(/Chrome\/([\d.]+)/);
+          return { name: 'Brave', version: m ? m[1] : '' };
+        }
+        // Vivaldi
+        m = uaStr.match(/Vivaldi\/([\d.]+)/);
+        if (m) { return { name: 'Vivaldi', version: m[1] }; }
+        // Samsung Browser
+        m = uaStr.match(/SamsungBrowser\/([\d.]+)/);
+        if (m) { return { name: 'Samsung Browser', version: m[1] }; }
+        // UC Browser
+        m = uaStr.match(/UCBrowser\/([\d.]+)/);
+        if (m) { return { name: 'UC Browser', version: m[1] }; }
+        // Firefox
+        m = uaStr.match(/Firefox\/([\d.]+)/);
+        if (m) { return { name: 'Firefox', version: m[1] }; }
+        // Chrome (check after other Chromium-based browsers)
+        m = uaStr.match(/Chrome\/([\d.]+)/);
+        if (m && !/Edg\//.test(uaStr) && !/OPR\//.test(uaStr)) {
+          return { name: 'Chrome', version: m[1] };
+        }
+        // Safari
+        if (/Safari\//.test(uaStr) && /Version\//.test(uaStr) && !/Chrome\//.test(uaStr)) {
+          m = uaStr.match(/Version\/([\d.]+)/);
+          return { name: 'Safari', version: m ? m[1] : '' };
+        }
+        // Internet Explorer
+        if (/Trident\//.test(uaStr)) {
+          m = uaStr.match(/rv:([\d.]+)/);
+          return { name: 'Internet Explorer', version: m ? m[1] : '11' };
+        }
+        m = uaStr.match(/MSIE ([\d.]+)/);
+        if (m) { return { name: 'Internet Explorer', version: m[1] }; }
+
+        return { name: name, version: version };
+      }
+
+      // Normalize URL - remove query params and hash (ES5 compatible)
+      function getNormalizedPageUrl() {
+        var href = window.location.href;
+        var qIndex = href.indexOf('?');
+        var hIndex = href.indexOf('#');
+        var end = href.length;
+        if (qIndex !== -1) {
+          end = qIndex;
+        } else if (hIndex !== -1) {
+          end = hIndex;
+        }
+        return href.substring(0, end);
+      }
+
+      // Build query string (ES5 compatible replacement for URLSearchParams)
+      function buildQueryString(params) {
+        var parts = [];
+        for (var key in params) {
+          if (params.hasOwnProperty(key)) {
+            parts.push(encodeURIComponent(key) + '=' + encodeURIComponent(params[key]));
           }
-        } catch (e) {
-          // selector not supported, skip
         }
+        return parts.join('&');
       }
-      el = el.parentElement || el.parentNode;
-    }
-    return null;
-  }
 
-  // Merge objects (ES5 compatible replacement for Object.assign)
-  function mergeObjects(target, source) {
-    if (source) {
-      for (var key in source) {
-        if (source.hasOwnProperty(key)) {
-          target[key] = source[key];
+      // Find closest ancestor matching selector (ES5 polyfill for Element.closest)
+      function findClosest(el, selector) {
+        while (el && el !== document) {
+          var matches = el.matches || el.msMatchesSelector || el.webkitMatchesSelector;
+          if (matches) {
+            try {
+              if (matches.call(el, selector)) {
+                return el;
+              }
+            } catch (e) {
+              // selector not supported, skip
+            }
+          }
+          el = el.parentElement || el.parentNode;
         }
+        return null;
       }
-    }
-    return target;
-  }
-  
-  // Send event
-  function track(type, data) {
-    var browser = getBrowserInfo();
-    var fullUrl = window.location.href;
-    var normalizedUrl = getNormalizedPageUrl();
 
-    var eventData = {
-      full_url: fullUrl,
-      browser_name: browser.name,
-      browser_version: browser.version
-    };
-    mergeObjects(eventData, data || {});
+      // Merge objects (ES5 compatible replacement for Object.assign)
+      function mergeObjects(target, source) {
+        if (source) {
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
 
-    var payload = {
-      site_id: ua.siteId,
-      key: ua.key,
-      event_type: type,
-      page_url: normalizedUrl,
-      page_title: document.title,
-      referrer: document.referrer,
-      user_agent: navigator.userAgent,
-      device_type: getDeviceType(),
-      visitor_id: getVisitorId(),
-      session_id: getSessionId(),
-      event_data: eventData,
-      timestamp: new Date().toISOString()
-    };
+      // Send event
+      function track(type, data) {
+        var browser = getBrowserInfo();
+        var fullUrl = window.location.href;
+        var normalizedUrl = getNormalizedPageUrl();
 
-    function tryPixelFallback() {
-      try {
-        var params = {
-          site_id: payload.site_id || '',
-          key: payload.key || '',
-          event_type: payload.event_type || '',
-          page_url: payload.page_url || '',
-          page_title: payload.page_title || '',
-          referrer: payload.referrer || '',
-          user_agent: payload.user_agent || '',
-          device_type: payload.device_type || '',
-          visitor_id: payload.visitor_id || '',
-          session_id: payload.session_id || '',
-          timestamp: payload.timestamp || '',
-          ed: JSON.stringify({
-            full_url: fullUrl,
-            browser_name: browser.name,
-            browser_version: browser.version
-          })
+        var eventData = {
+          full_url: fullUrl,
+          browser_name: browser.name,
+          browser_version: browser.version
+        };
+        mergeObjects(eventData, data || {});
+
+        var payload = {
+          site_id: ua.siteId,
+          key: ua.key,
+          event_type: type,
+          page_url: normalizedUrl,
+          page_title: document.title,
+          referrer: document.referrer,
+          user_agent: navigator.userAgent,
+          device_type: getDeviceType(),
+          visitor_id: getVisitorId(),
+          session_id: getSessionId(),
+          event_data: eventData,
+          timestamp: new Date().toISOString()
         };
 
-        var img = new Image();
-        img.src = ua.endpoint + '?' + buildQueryString(params);
-      } catch (e) {
-        // ignore
-      }
-    }
+        function tryPixelFallback() {
+          try {
+            var params = {
+              site_id: payload.site_id || '',
+              key: payload.key || '',
+              event_type: payload.event_type || '',
+              page_url: payload.page_url || '',
+              page_title: payload.page_title || '',
+              referrer: payload.referrer || '',
+              user_agent: payload.user_agent || '',
+              device_type: payload.device_type || '',
+              visitor_id: payload.visitor_id || '',
+              session_id: payload.session_id || '',
+              timestamp: payload.timestamp || '',
+              ed: JSON.stringify({
+                full_url: fullUrl,
+                browser_name: browser.name,
+                browser_version: browser.version
+              })
+            };
 
-    function sendViaFetch() {
-      try {
-        return fetch(ua.endpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-          credentials: 'omit'
-        }).then(function() {}, function() {
+            var img = new Image();
+            img.src = ua.endpoint + '?' + buildQueryString(params);
+          } catch (e) {
+            // ignore
+          }
+        }
+
+        function sendViaFetch() {
+          try {
+            return fetch(ua.endpoint, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload),
+              credentials: 'omit'
+            }).then(function () { }, function () {
+              if (type === 'pageview') tryPixelFallback();
+            });
+          } catch (e) {
+            if (type === 'pageview') tryPixelFallback();
+          }
+        }
+
+        try {
+          if (navigator.sendBeacon) {
+            var ok = navigator.sendBeacon(ua.endpoint, JSON.stringify(payload));
+            if (!ok) sendViaFetch();
+          } else {
+            sendViaFetch();
+          }
+        } catch (e) {
           if (type === 'pageview') tryPixelFallback();
+        }
+      }
+
+      ua.track = track;
+
+      // Track page view
+      track('pageview');
+
+      // Track scroll depth
+      var scrollMarks = [25, 50, 75, 100];
+      var scrollTracked = {};
+
+      function trackScroll() {
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        var scrollPercent = Math.round((scrollTop / docHeight) * 100);
+
+        for (var i = 0; i < scrollMarks.length; i++) {
+          var mark = scrollMarks[i];
+          if (scrollPercent >= mark && !scrollTracked[mark]) {
+            scrollTracked[mark] = true;
+            track('scroll', { depth: mark });
+          }
+        }
+      }
+
+      window.addEventListener('scroll', trackScroll, false);
+
+      // Track clicks with position for heatmaps
+      document.addEventListener('click', function (e) {
+        var el = findClosest(e.target, 'a, button, [data-track]');
+        if (!el) return;
+
+        // Get click position relative to document
+        var scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        var elText = el.textContent || el.innerText || '';
+        var data = {
+          tag: el.tagName.toLowerCase(),
+          text: elText.replace(/\s+/g, ' ').substring(0, 100),
+          href: el.href || null,
+          click_x: Math.round(e.clientX + scrollLeft),
+          click_y: Math.round(e.clientY + scrollTop),
+          viewport_width: window.innerWidth,
+          viewport_height: window.innerHeight
+        };
+
+        // Check for CTA clicks
+        var href = (el.href || '').toLowerCase();
+        if (href.indexOf('wa.me') !== -1 || href.indexOf('whatsapp') !== -1) {
+          data.cta_type = 'whatsapp';
+          track('cta_click', data);
+        } else if (href.indexOf('tel:') !== -1) {
+          data.cta_type = 'phone';
+          track('cta_click', data);
+        } else if (href.indexOf('mailto:') !== -1) {
+          data.cta_type = 'email';
+          track('cta_click', data);
+        } else {
+          track('click', data);
+        }
+      }, false);
+
+      // Track form submissions
+      document.addEventListener('submit', function (e) {
+        var form = e.target;
+        track('form_submit', {
+          form_id: form.id || null,
+          form_name: form.name || null,
+          form_action: form.action || null
         });
-      } catch (e) {
-        if (type === 'pageview') tryPixelFallback();
-      }
+      }, false);
+    })();
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>מדיניות פרטיות - רועי שוקרון</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+  <!-- GSAP Animation Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <!-- Google Fonts: Rubik -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* Base Styles matching Hero */
+    body {
+      font-family: 'Rubik', sans-serif;
     }
 
-    try {
-      if (navigator.sendBeacon) {
-        var ok = navigator.sendBeacon(ua.endpoint, JSON.stringify(payload));
-        if (!ok) sendViaFetch();
-      } else {
-        sendViaFetch();
-      }
-    } catch (e) {
-      if (type === 'pageview') tryPixelFallback();
+    ::-webkit-scrollbar {
+      width: 8px;
     }
-  }
-  
-  ua.track = track;
-  
-  // Track page view
-  track('pageview');
-  
-  // Track scroll depth
-  var scrollMarks = [25, 50, 75, 100];
-  var scrollTracked = {};
-  
-  function trackScroll() {
-    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    var scrollPercent = Math.round((scrollTop / docHeight) * 100);
-    
-    for (var i = 0; i < scrollMarks.length; i++) {
-      var mark = scrollMarks[i];
-      if (scrollPercent >= mark && !scrollTracked[mark]) {
-        scrollTracked[mark] = true;
-        track('scroll', { depth: mark });
-      }
+
+    ::-webkit-scrollbar-track {
+      background: #0a0a0a;
     }
-  }
-  
-  window.addEventListener('scroll', trackScroll, false);
-  
-  // Track clicks with position for heatmaps
-  document.addEventListener('click', function(e) {
-    var el = findClosest(e.target, 'a, button, [data-track]');
-    if (!el) return;
-    
-    // Get click position relative to document
-    var scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
-    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    
-    var elText = el.textContent || el.innerText || '';
-    var data = {
-      tag: el.tagName.toLowerCase(),
-      text: elText.replace(/\s+/g, ' ').substring(0, 100),
-      href: el.href || null,
-      click_x: Math.round(e.clientX + scrollLeft),
-      click_y: Math.round(e.clientY + scrollTop),
-      viewport_width: window.innerWidth,
-      viewport_height: window.innerHeight
-    };
-    
-    // Check for CTA clicks
-    var href = (el.href || '').toLowerCase();
-    if (href.indexOf('wa.me') !== -1 || href.indexOf('whatsapp') !== -1) {
-      data.cta_type = 'whatsapp';
-      track('cta_click', data);
-    } else if (href.indexOf('tel:') !== -1) {
-      data.cta_type = 'phone';
-      track('cta_click', data);
-    } else if (href.indexOf('mailto:') !== -1) {
-      data.cta_type = 'email';
-      track('cta_click', data);
-    } else {
-      track('click', data);
+
+    ::-webkit-scrollbar-thumb {
+      background: #333;
+      border-radius: 4px;
     }
-  }, false);
-  
-  // Track form submissions
-  document.addEventListener('submit', function(e) {
-    var form = e.target;
-    track('form_submit', {
-      form_id: form.id || null,
-      form_name: form.name || null,
-      form_action: form.action || null
-    });
-  }, false);
-})();
-</script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>מדיניות פרטיות - רועי שוקרון</title>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
-	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    
-    <!-- GSAP Animation Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
-    <!-- Google Fonts: Rubik -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    ::-webkit-scrollbar-thumb:hover {
+      background: #444;
+    }
 
-    <style>
-        /* Base Styles matching Hero */
-        body { font-family: 'Rubik', sans-serif; }
-        
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0a0a0a; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #444; }
-        
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
 
-        /* Content Typography */
-        .prose-custom h2 {
-            color: white;
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-        }
-        
-        .prose-custom h3 {
-            color: #e2e8f0; /* slate-200 */
-            font-size: 1.25rem;
-            font-weight: 500;
-            margin-top: 1.5rem;
-            margin-bottom: 0.75rem;
-        }
+    /* Content Typography */
+    .prose-custom h2 {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
 
-        .prose-custom p {
-            color: #94a3b8; /* slate-400 */
-            line-height: 1.8;
-            margin-bottom: 1rem;
-        }
+    .prose-custom h3 {
+      color: #e2e8f0;
+      /* slate-200 */
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
 
-        .prose-custom ul {
-            list-style-type: disc;
-            padding-right: 1.5rem;
-            margin-bottom: 1rem;
-            color: #94a3b8;
-        }
+    .prose-custom p {
+      color: #94a3b8;
+      /* slate-400 */
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
 
-        .prose-custom li {
-            margin-bottom: 0.5rem;
-        }
+    .prose-custom ul {
+      list-style-type: disc;
+      padding-right: 1.5rem;
+      margin-bottom: 1rem;
+      color: #94a3b8;
+    }
 
-        .prose-custom strong {
-            color: #cbd5e1; /* slate-300 */
-        }
-    </style>
+    .prose-custom li {
+      margin-bottom: 0.5rem;
+    }
+
+    .prose-custom strong {
+      color: #cbd5e1;
+      /* slate-300 */
+    }
+  </style>
 </head>
-<body class="bg-[#050505] text-slate-300 antialiased selection:bg-blue-500/30 selection:text-blue-200 overflow-x-hidden">
 
-    <!-- Background Effects Container -->
-    <div class="fixed inset-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-        <!-- Canvas for Dark Waves -->
-        <canvas id="bg-canvas"></canvas>
+<body
+  class="bg-[#050505] text-slate-300 antialiased selection:bg-blue-500/30 selection:text-blue-200 overflow-x-hidden">
 
-        <!-- Static Radial Gradients -->
-        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent via-[#050505]/50 to-[#050505]"></div>
-        <div class="absolute top-[-20%] left-[20%] w-[600px] h-[600px] bg-blue-900/10 rounded-full blur-[120px] mix-blend-screen"></div>
-        <div class="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-indigo-900/10 rounded-full blur-[100px] mix-blend-screen"></div>
+  <!-- Background Effects Container -->
+  <div class="fixed inset-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+    <!-- Canvas for Dark Waves -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Static Radial Gradients -->
+    <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent via-[#050505]/50 to-[#050505]">
+    </div>
+    <div
+      class="absolute top-[-20%] left-[20%] w-[600px] h-[600px] bg-blue-900/10 rounded-full blur-[120px] mix-blend-screen">
+    </div>
+    <div
+      class="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-indigo-900/10 rounded-full blur-[100px] mix-blend-screen">
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav
+    class="fixed z-50 w-full border-white/5 border-b top-0 backdrop-blur-md bg-[#050505]/80 transition-all duration-300">
+    <div class="flex h-24 max-w-7xl mx-auto px-6 items-center justify-between">
+      <a href="../index_optimized.html" class="block hover:opacity-80 transition-opacity">
+        <!-- LOGO -->
+        <img src="../logo.svg" alt="לוגו רועי שוקרון - בניית אתרים" class="h-14 w-auto object-contain" width="100"
+          height="56">
+      </a>
+
+      <!-- MENU -->
+      <div class="hidden md:flex items-center gap-8 text-lg font-medium text-slate-400">
+        <a href="../index_optimized.html#services" class="hover:text-white transition-colors relative group">
+          שירותים
+          <span class="absolute -bottom-1 right-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full"></span>
+        </a>
+        <a href="../index_optimized.html#process" class="hover:text-white transition-colors relative group">
+          תהליך
+          <span class="absolute -bottom-1 right-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full"></span>
+        </a>
+        <a href="../index_optimized.html#work" class="hover:text-white transition-colors relative group">
+          עבודות
+          <span class="absolute -bottom-1 right-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full"></span>
+        </a>
+        <a href="../index_optimized.html#faq" class="hover:text-white transition-colors relative group">
+          שאלות
+          <span class="absolute -bottom-1 right-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full"></span>
+        </a>
+        <a href="../articles.html" class="hover:text-white transition-colors relative group">
+          בלוג
+          <span class="absolute -bottom-1 right-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full"></span>
+        </a>
+      </div>
+
+      <!-- WhatsApp button -->
+      <a href="https://wa.me/972502808448" target="_blank" rel="noopener noreferrer"
+        class="flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2.5 rounded-lg text-base font-medium text-white transition-all hover:scale-105 active:scale-95">
+        וואטסאפ
+      </a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="pt-32 pb-24 px-6 relative z-10">
+    <div class="max-w-4xl mx-auto">
+
+      <!-- Title Section -->
+      <div class="text-center mb-12 gsap-fade-up">
+        <h1 class="text-4xl md:text-5xl font-bold text-white tracking-tight mb-4">מדיניות פרטיות</h1>
+        <p class="text-slate-500">עודכן לאחרונה: 26/01/2026</p>
+      </div>
+
+      <!-- Content Card -->
+      <div class="glass-card rounded-3xl p-8 md:p-12 prose-custom gsap-fade-up border border-white/5 shadow-2xl">
+
+        <p class="text-lg leading-relaxed mb-8 border-b border-white/5 pb-8">
+          ברוכים הבאים לאתר <strong>רועי שוקרון</strong> (להלן: "האתר").<br>
+          אנו מכבדים את פרטיותם של המשתמשים שלנו ומחויבים להגן על המידע האישי שנאסף אודותיהם. מטרת מדיניות פרטיות זו היא
+          להסביר בשקיפות אילו סוגי מידע אנו אוספים, כיצד אנו משתמשים בו, וכיצד אנו שומרים עליו, במיוחד לאור השימוש בכלי
+          ניתוח וניטור מתקדמים באתר.
+        </p>
+
+        <div class="space-y-8">
+          <section>
+            <h2>1. איסוף מידע</h2>
+            <p>האתר אינו דורש הרשמה או יצירת חשבון משתמש. עם זאת, בעת הגלישה באתר, אנו אוספים שני סוגים של מידע:</p>
+
+            <h3>א. מידע שאינו מזהה אישית (Non-Personal Information)</h3>
+            <p>אנו משתמשים במערכות אנליטיקה (כולל פיתוחים עצמיים וכלים צד-שלישי) כדי לאסוף מידע סטטיסטי וטכני אודות
+              השימוש באתר. מידע זה כולל:</p>
+            <ul>
+              <li><strong>נתוני גלישה:</strong> דפים שנצפו, זמני שהייה באתר, עמודי יציאה.</li>
+              <li><strong>אינטראקציות:</strong> מעקב אחר גלילה (Scroll Depth), הקלקות על כפתורים, קישורים ואלמנטים שונים
+                (כגון כפתורי יצירת קשר או מעבר לרשתות חברתיות).</li>
+              <li><strong>מידע טכני:</strong> סוג הדפדפן, סוג המכשיר (מובייל/דסקטופ), מערכת הפעלה, ורזולוציית מסך.</li>
+              <li><strong>ביצועים:</strong> מדדי טעינת אתר ונגישות.</li>
+            </ul>
+
+            <h3>ב. מידע אישי (Personal Information)</h3>
+            <p>מידע זה נאסף רק במידה ותבחר לספק אותו לנו מרצונך החופשי, למשל:</p>
+            <ul>
+              <li>מילוי טופס יצירת קשר (שם, כתובת אימייל, תוכן הפנייה).</li>
+              <li>כתובת IP (שעשויה להישמר לוגים של השרת או במערכות האנליטיקה לצרכי אבטחה וניתוח מיקום גס).</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>2. כלים וטכנולוגיות מעקב (Tracking & Analytics)</h2>
+            <p>אנו משתמשים בטכנולוגיות שונות כדי לנתח את חווית המשתמש ולשפר את האתר. חשוב לנו שתדע אילו כלים מופעלים:
+            </p>
+
+            <h3>מערכת ניטור פנימית (SaaS Analytics)</h3>
+            <p>האתר מפעיל סקריפט מעקב ייעודי שאוסף נתונים אודות אופן השימוש שלך באתר בזמן אמת. נתונים אלו כוללים זיהוי
+              אירועים כגון שליחת טפסים, לחיצה על כפתורי הנעה לפעולה (CTA), ואחוזי גלילה בעמוד.</p>
+
+            <h3>Microsoft Clarity</h3>
+            <p>אנו משתמשים בשירות Microsoft Clarity כדי להבין טוב יותר כיצד משתמשים חווים את האתר שלנו.</p>
+            <ul>
+              <li><strong>מה זה עושה?</strong> השירות עשוי לייצר "מפות חום" (Heatmaps) המראות היכן משתמשים מקליקים הכי
+                הרבה, וכן הקלטות של גלישות (Session Recordings) המציגות ויזואלית את תנועת העכבר והגלילה באתר.</li>
+              <li><strong>פרטיות:</strong> המידע הנאסף באמצעות Clarity הוא אנונימי ואינו מקושר לפרטים מזהים אישית שהזנת
+                (כמו שם בטופס).</li>
+            </ul>
+            <p>למידע נוסף, ניתן לעיין בהצהרת הפרטיות של Microsoft Clarity.</p>
+
+            <h3>עוגיות (Cookies)</h3>
+            <p>האתר עשוי להשתמש ב"עוגיות" (קבצי טקסט קטנים הנשמרים על המכשיר שלך) לצורך תפעול תקין, אבטחת מידע ואיסוף
+              נתונים סטטיסטיים. באפשרותך לשנות את הגדרות הדפדפן שלך בכל עת כדי לחסום קבלת עוגיות, אך ייתכן שחלקים מהאתר
+              לא יפעלו כראוי ללא הן.</p>
+          </section>
+
+          <section>
+            <h2>3. שימוש במידע</h2>
+            <p>המידע שאנו אוספים משמש למטרות הבאות:</p>
+            <ul>
+              <li><strong>שיפור חווית המשתמש:</strong> הבנה אילו תכנים מעניינים את הגולשים וכיצד לשפר את ממשק המשתמש
+                (UI/UX).</li>
+              <li><strong>ניתוח ביצועים:</strong> בדיקת מהירות האתר, תקינותו ונגישותו לכלל האוכלוסייה.</li>
+              <li><strong>יצירת קשר:</strong> מענה לפניות שנשלחו דרך טפסי האתר.</li>
+              <li><strong>אבטחה:</strong> מניעת הונאות ושימוש לרעה באתר.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>4. מסירת מידע לצד שלישי</h2>
+            <p>איננו מוכרים, משכירים או סוחרים במידע האישי שלך עם צדדים שלישיים.<br>אנו עשויים לשתף מידע רק במקרים
+              הבאים:</p>
+            <ul>
+              <li>עם ספקי שירות המסיעים לנו בתפעול האתר (כגון שירותי האחסון או כלי האנליטיקה שהוזכרו לעיל), הכפופים
+                להתחייבויות סודיות.</li>
+              <li>אם נידרש לעשות זאת על פי חוק או צו שיפוטי.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>5. אבטחת מידע</h2>
+            <p>אנו נוקטים באמצעי זהירות מקובלים כדי להגן על המידע הנאסף באתר. עם זאת, אין מערכת חסינה לחלוטין מפני
+              חדירות, ואיננו יכולים להבטיח אבטחה מוחלטת של המידע.</p>
+          </section>
+
+          <section>
+            <h2>6. זכויותיך</h2>
+            <p>בהתאם לחוק הגנת הפרטיות, שמורה לך הזכות לעיין במידע אישי המוחזק עליך (במידה וקיים כזה, כגון פניות עבר
+              בטופס יצירת קשר) ולבקש לתקנו או למחוק אותו. למימוש זכויות אלו, ניתן לפנות אלינו בפרטי ההתקשרות מטה.</p>
+          </section>
+
+          <section>
+            <h2>7. יצירת קשר</h2>
+            <p>בכל שאלה בנוגע למדיניות פרטיות זו או לשיטות איסוף הנתונים שלנו, ניתן לפנות אלינו:</p>
+            <ul class="list-none pr-0 space-y-4 mt-4">
+              <li class="flex items-center gap-3 text-slate-300">
+                <div
+                  class="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-400 border border-blue-500/20">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    data-lucide="mail">
+                    <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path>
+                    <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                  </svg>
+                </div>
+                <span>roi.chocron7@gmail.com</span>
+              </li>
+              <li class="flex items-center gap-3 text-slate-300">
+                <div
+                  class="w-10 h-10 rounded-full bg-green-500/10 flex items-center justify-center text-green-400 border border-green-500/20">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                    fill="currentColor">
+                    <path
+                      d="M12.04 2C6.58 2 2.15 6.44 2.15 11.9c0 1.96.52 3.87 1.52 5.55L2 22l4.7-1.63a9.9 9.9 0 0 0 5.34 1.55h.01c5.46 0 9.9-4.43 9.9-9.9C21.95 6.44 17.5 2 12.04 2zm5.77 14.3c-.24.68-1.2 1.25-1.93 1.4-.5.1-1.14.18-3.3-.7-2.76-1.15-4.54-3.95-4.68-4.13-.14-.18-1.12-1.5-1.12-2.86 0-1.36.7-2.03.95-2.3.25-.27.55-.34.73-.34.18 0 .36 0 .52.01.17.01.4-.07.62.47.24.6.8 2.06.87 2.2.07.14.12.3.02.48-.1.18-.15.3-.3.46-.15.16-.32.36-.45.48-.15.15-.3.31-.13.61.18.3.8 1.3 1.7 2.1 1.17 1.04 2.16 1.37 2.46 1.52.3.15.48.13.66-.08.18-.21.76-.88.96-1.18.2-.3.4-.25.67-.15.27.1 1.7.8 2 .95.3.15.5.23.58.36.07.13.07.75-.17 1.43z" />
+                  </svg>
+                </div>
+                <a href="https://wa.me/972502808448" target="_blank" rel="noopener noreferrer class="
+                  hover:text-green-400 transition-colors">יצירת קשר ב־WhatsApp</a>
+              </li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-16 bg-[#030303] relative z-40 border-t border-white/5" id="footer">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-12">
+
+      <div class="space-y-4">
+        <a href="../index_optimized.html" class="block">
+          <img src="../logo.svg" alt="לוגו רועי שוקרון - בונה אתרים" class="h-12 w-auto object-contain opacity-80"
+            width="100" height="48">
+        </a>
+      </div>
+
+      <div class="">
+        <h4 class="text-white font-semibold mb-4 text-lg">קישורים מהירים</h4>
+        <ul class="space-y-3 text-slate-500">
+          <li><a href="../index_optimized.html#work" class="hover:text-blue-400 transition-colors">עבודות</a></li>
+          <li><a href="../index_optimized.html#services" class="hover:text-blue-400 transition-colors">שירותים</a></li>
+          <li><a href="../index_optimized.html#process" class="hover:text-blue-400 transition-colors">תהליך העבודה</a>
+          </li>
+          <li><a href="../articles.html" class="hover:text-blue-400 transition-colors">בלוג</a></li>
+        </ul>
+      </div>
+
+      <div class="">
+        <h4 class="text-white font-semibold mb-4 text-lg">יצירת קשר</h4>
+        <ul class="space-y-3 text-slate-500">
+          <li class="flex items-center gap-2">
+            <i data-lucide="mail" class="w-5 h-5"></i>
+            <a href="mailto:roi.chocron7@gmail.com"
+              class="hover:text-white transition-colors">roi.chocron7@gmail.com</a>
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="phone" class="w-5 h-5"></i>
+            <a href="tel:0502808448" class="hover:text-white transition-colors">050-280-8448</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="">
+        <h4 class="text-white font-semibold mb-4 text-lg">רשתות חברתיות</h4>
+        <div class="flex gap-4">
+          <a href="https://www.instagram.com/roi.chocron?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+            target="_blank" rel="noopener noreferrer"
+            class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+            <i data-lucide="instagram" class="w-5 h-5"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/רועי-שוקרון-828079345" target="_blank" rel="noopener noreferrer"
+            class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+            <i data-lucide="linkedin" class="w-5 h-5"></i>
+          </a>
+          <a href="https://www.youtube.com/@%D7%A8%D7%95%D7%A2%D7%99%D7%A9%D7%95%D7%A7%D7%A8%D7%95%D7%9F55"
+            target="_blank" rel="noopener noreferrer"
+            class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+            <i data-lucide="youtube" class="w-5 h-5"></i>
+          </a>
+        </div>
+      </div>
     </div>
 
-    <!-- Navigation / Header -->
-    <nav class="fixed z-50 w-full border-white/5 border-b top-0 backdrop-blur-md bg-[#050505]/80">
-        <div class="flex h-20 max-w-7xl mx-auto px-6 items-center justify-between">
-            <a href="/index.html" class="block hover:opacity-80 transition-opacity">
-                <!-- LOGO -->
-                <img src="/logo.svg" alt="ROI Chocron Logo" class="h-10 w-auto object-contain">
-            </a>
-            
-            <a href="/index.html" class="flex items-center gap-2 text-sm font-medium text-slate-400 hover:text-white transition-colors group">
-                <span>חזרה לדף הבית</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transform transition-transform group-hover:-translate-x-1"><path d="m15 18-6-6 6-6"/></svg>
-            </a>
+    <div
+      class="max-w-7xl mx-auto px-6 pt-12 mt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-sm text-slate-600">
+      <p>רועי שוקרון - עיצוב ובניית אתרים</p>
+      <div class="flex gap-6 mt-4 md:mt-0">
+        <a href="../privacypolicy" class="hover:text-slate-400">מדיניות הפרטיות</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cookie Consent Banner -->
+  <div id="cookie-banner"
+    class="fixed bottom-0 left-0 right-0 z-50 p-4 md:p-6 flex justify-center items-end md:items-center pointer-events-none">
+    <div
+      class="glass-card w-full max-w-5xl rounded-2xl p-6 md:p-8 flex flex-col lg:flex-row gap-6 items-start lg:items-center justify-between pointer-events-auto border-t border-white/10 shadow-2xl">
+      <div class="flex gap-5 items-start">
+        <div
+          class="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center shrink-0 text-blue-400 border border-blue-500/20">
+          <i data-lucide="cookie" class="w-6 h-6"></i>
         </div>
-    </nav>
-
-    <!-- Main Content -->
-    <main class="pt-32 pb-24 px-6 relative z-10">
-        <div class="max-w-4xl mx-auto">
-            
-            <!-- Title Section -->
-            <div class="text-center mb-12 gsap-fade-up">
-                <h1 class="text-4xl md:text-5xl font-bold text-white tracking-tight mb-4">מדיניות פרטיות</h1>
-                <p class="text-slate-500">עודכן לאחרונה: 26/01/2026</p>
-            </div>
-
-            <!-- Content Card -->
-            <div class="glass-card rounded-3xl p-8 md:p-12 prose-custom gsap-fade-up border border-white/5 shadow-2xl">
-                
-                <p class="text-lg leading-relaxed mb-8 border-b border-white/5 pb-8">
-                    ברוכים הבאים לאתר <strong>רועי שוקרון</strong> (להלן: "האתר").<br>
-                    אנו מכבדים את פרטיותם של המשתמשים שלנו ומחויבים להגן על המידע האישי שנאסף אודותיהם. מטרת מדיניות פרטיות זו היא להסביר בשקיפות אילו סוגי מידע אנו אוספים, כיצד אנו משתמשים בו, וכיצד אנו שומרים עליו, במיוחד לאור השימוש בכלי ניתוח וניטור מתקדמים באתר.
-                </p>
-
-                <div class="space-y-8">
-                    <section>
-                        <h2>1. איסוף מידע</h2>
-                        <p>האתר אינו דורש הרשמה או יצירת חשבון משתמש. עם זאת, בעת הגלישה באתר, אנו אוספים שני סוגים של מידע:</p>
-                        
-                        <h3>א. מידע שאינו מזהה אישית (Non-Personal Information)</h3>
-                        <p>אנו משתמשים במערכות אנליטיקה (כולל פיתוחים עצמיים וכלים צד-שלישי) כדי לאסוף מידע סטטיסטי וטכני אודות השימוש באתר. מידע זה כולל:</p>
-                        <ul>
-                            <li><strong>נתוני גלישה:</strong> דפים שנצפו, זמני שהייה באתר, עמודי יציאה.</li>
-                            <li><strong>אינטראקציות:</strong> מעקב אחר גלילה (Scroll Depth), הקלקות על כפתורים, קישורים ואלמנטים שונים (כגון כפתורי יצירת קשר או מעבר לרשתות חברתיות).</li>
-                            <li><strong>מידע טכני:</strong> סוג הדפדפן, סוג המכשיר (מובייל/דסקטופ), מערכת הפעלה, ורזולוציית מסך.</li>
-                            <li><strong>ביצועים:</strong> מדדי טעינת אתר ונגישות.</li>
-                        </ul>
-
-                        <h3>ב. מידע אישי (Personal Information)</h3>
-                        <p>מידע זה נאסף רק במידה ותבחר לספק אותו לנו מרצונך החופשי, למשל:</p>
-                        <ul>
-                            <li>מילוי טופס יצירת קשר (שם, כתובת אימייל, תוכן הפנייה).</li>
-                            <li>כתובת IP (שעשויה להישמר לוגים של השרת או במערכות האנליטיקה לצרכי אבטחה וניתוח מיקום גס).</li>
-                        </ul>
-                    </section>
-
-                    <section>
-                        <h2>2. כלים וטכנולוגיות מעקב (Tracking & Analytics)</h2>
-                        <p>אנו משתמשים בטכנולוגיות שונות כדי לנתח את חווית המשתמש ולשפר את האתר. חשוב לנו שתדע אילו כלים מופעלים:</p>
-
-                        <h3>מערכת ניטור פנימית (SaaS Analytics)</h3>
-                        <p>האתר מפעיל סקריפט מעקב ייעודי שאוסף נתונים אודות אופן השימוש שלך באתר בזמן אמת. נתונים אלו כוללים זיהוי אירועים כגון שליחת טפסים, לחיצה על כפתורי הנעה לפעולה (CTA), ואחוזי גלילה בעמוד.</p>
-
-                        <h3>Microsoft Clarity</h3>
-                        <p>אנו משתמשים בשירות Microsoft Clarity כדי להבין טוב יותר כיצד משתמשים חווים את האתר שלנו.</p>
-                        <ul>
-                            <li><strong>מה זה עושה?</strong> השירות עשוי לייצר "מפות חום" (Heatmaps) המראות היכן משתמשים מקליקים הכי הרבה, וכן הקלטות של גלישות (Session Recordings) המציגות ויזואלית את תנועת העכבר והגלילה באתר.</li>
-                            <li><strong>פרטיות:</strong> המידע הנאסף באמצעות Clarity הוא אנונימי ואינו מקושר לפרטים מזהים אישית שהזנת (כמו שם בטופס).</li>
-                        </ul>
-                        <p>למידע נוסף, ניתן לעיין בהצהרת הפרטיות של Microsoft Clarity.</p>
-
-                        <h3>עוגיות (Cookies)</h3>
-                        <p>האתר עשוי להשתמש ב"עוגיות" (קבצי טקסט קטנים הנשמרים על המכשיר שלך) לצורך תפעול תקין, אבטחת מידע ואיסוף נתונים סטטיסטיים. באפשרותך לשנות את הגדרות הדפדפן שלך בכל עת כדי לחסום קבלת עוגיות, אך ייתכן שחלקים מהאתר לא יפעלו כראוי ללא הן.</p>
-                    </section>
-
-                    <section>
-                        <h2>3. שימוש במידע</h2>
-                        <p>המידע שאנו אוספים משמש למטרות הבאות:</p>
-                        <ul>
-                            <li><strong>שיפור חווית המשתמש:</strong> הבנה אילו תכנים מעניינים את הגולשים וכיצד לשפר את ממשק המשתמש (UI/UX).</li>
-                            <li><strong>ניתוח ביצועים:</strong> בדיקת מהירות האתר, תקינותו ונגישותו לכלל האוכלוסייה.</li>
-                            <li><strong>יצירת קשר:</strong> מענה לפניות שנשלחו דרך טפסי האתר.</li>
-                            <li><strong>אבטחה:</strong> מניעת הונאות ושימוש לרעה באתר.</li>
-                        </ul>
-                    </section>
-
-                    <section>
-                        <h2>4. מסירת מידע לצד שלישי</h2>
-                        <p>איננו מוכרים, משכירים או סוחרים במידע האישי שלך עם צדדים שלישיים.<br>אנו עשויים לשתף מידע רק במקרים הבאים:</p>
-                        <ul>
-                            <li>עם ספקי שירות המסיעים לנו בתפעול האתר (כגון שירותי האחסון או כלי האנליטיקה שהוזכרו לעיל), הכפופים להתחייבויות סודיות.</li>
-                            <li>אם נידרש לעשות זאת על פי חוק או צו שיפוטי.</li>
-                        </ul>
-                    </section>
-
-                    <section>
-                        <h2>5. אבטחת מידע</h2>
-                        <p>אנו נוקטים באמצעי זהירות מקובלים כדי להגן על המידע הנאסף באתר. עם זאת, אין מערכת חסינה לחלוטין מפני חדירות, ואיננו יכולים להבטיח אבטחה מוחלטת של המידע.</p>
-                    </section>
-
-                    <section>
-                        <h2>6. זכויותיך</h2>
-                        <p>בהתאם לחוק הגנת הפרטיות, שמורה לך הזכות לעיין במידע אישי המוחזק עליך (במידה וקיים כזה, כגון פניות עבר בטופס יצירת קשר) ולבקש לתקנו או למחוק אותו. למימוש זכויות אלו, ניתן לפנות אלינו בפרטי ההתקשרות מטה.</p>
-                    </section>
-
-                    <section>
-                        <h2>7. יצירת קשר</h2>
-                        <p>בכל שאלה בנוגע למדיניות פרטיות זו או לשיטות איסוף הנתונים שלנו, ניתן לפנות אלינו:</p>
-                        <ul class="list-none pr-0 space-y-4 mt-4">
-                            <li class="flex items-center gap-3 text-slate-300">
-                                <div class="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-400 border border-blue-500/20">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="mail"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path><rect x="2" y="4" width="20" height="16" rx="2"></rect></svg>
-                                </div>
-                                <span>roi.chocron7@gmail.com</span>
-                            </li>
-                            <li class="flex items-center gap-3 text-slate-300">
-                                <div class="w-10 h-10 rounded-full bg-green-500/10 flex items-center justify-center text-green-400 border border-green-500/20">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M12.04 2C6.58 2 2.15 6.44 2.15 11.9c0 1.96.52 3.87 1.52 5.55L2 22l4.7-1.63a9.9 9.9 0 0 0 5.34 1.55h.01c5.46 0 9.9-4.43 9.9-9.9C21.95 6.44 17.5 2 12.04 2zm5.77 14.3c-.24.68-1.2 1.25-1.93 1.4-.5.1-1.14.18-3.3-.7-2.76-1.15-4.54-3.95-4.68-4.13-.14-.18-1.12-1.5-1.12-2.86 0-1.36.7-2.03.95-2.3.25-.27.55-.34.73-.34.18 0 .36 0 .52.01.17.01.4-.07.62.47.24.6.8 2.06.87 2.2.07.14.12.3.02.48-.1.18-.15.3-.3.46-.15.16-.32.36-.45.48-.15.15-.3.31-.13.61.18.3.8 1.3 1.7 2.1 1.17 1.04 2.16 1.37 2.46 1.52.3.15.48.13.66-.08.18-.21.76-.88.96-1.18.2-.3.4-.25.67-.15.27.1 1.7.8 2 .95.3.15.5.23.58.36.07.13.07.75-.17 1.43z"/></svg>
-                                </div>
-                                <a href="https://wa.me/972502808448" target="_blank" rel="noopener noreferrer class="hover:text-green-400 transition-colors">יצירת קשר ב־WhatsApp</a></li>
-                        </ul>
-                    </section>
-                </div>
-            </div>
+        <div>
+          <h3 class="text-white font-semibold text-lg mb-1">אנחנו מעריכים את הפרטיות שלך</h3>
+          <p class="text-slate-400 text-sm leading-relaxed max-w-xl">
+            אנחנו משתמשים בעוגיות (Cookies) כדי לשפר את חווית הגלישה, לנתח את התנועה באתר ולהתאים אישית את התוכן עבורך.
+            למידע נוסף ניתן לקרוא את <a href="../privacypolicy"
+              class="text-blue-400 hover:text-blue-300 underline underline-offset-4 transition-colors">מדיניות
+              הפרטיות</a> שלנו.
+          </p>
         </div>
-    </main>
+      </div>
+      <div class="flex flex-col sm:flex-row gap-3 w-full lg:w-auto shrink-0 flex-wrap justify-end">
+        <button onclick="rejectAllCookies()"
+          class="px-5 py-3 rounded-xl border border-white/10 text-slate-400 hover:text-white hover:bg-white/5 font-medium text-sm transition-all whitespace-nowrap">דחה
+          הכל</button>
+        <button onclick="declineCookies()"
+          class="px-5 py-3 rounded-xl border border-white/10 text-slate-300 font-medium text-sm hover:bg-white/5 hover:text-white transition-all whitespace-nowrap">רק
+          עוגיות הכרחיות</button>
+        <button onclick="acceptCookies()"
+          class="px-8 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-medium text-sm transition-all shadow-lg shadow-blue-900/20 whitespace-nowrap">אני
+          מסכים, תודה</button>
+      </div>
+    </div>
+  </div>
 
-    <!-- Footer -->
-    <footer class="py-12 bg-[#030303] border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-6 text-center text-sm text-slate-600">
-            <p>© 2026 רועי שוקרון - כל הזכויות שמורות.</p>
-        </div>
-    </footer>
+  <!-- Initializations -->
+  <script>
+    // Icons
+    lucide.createIcons();
 
-    <!-- Initializations -->
-    <script>
-        // Icons
-        lucide.createIcons();
+    // Cookie banner logic
+    function acceptCookies() {
+      try { localStorage.setItem('cookieConsent', 'accepted'); } catch (e) { }
+      closeBanner();
+    }
 
-        // --------------------------------------------------------
-        // CANVAS BACKGROUND ANIMATION (Identical to Hero)
-        // --------------------------------------------------------
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
-        let width, height;
-        let waves = [];
-        const waveCount = 5;
-        
-        function resize() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-            initWaves();
+    function declineCookies() {
+      try { localStorage.setItem('cookieConsent', 'necessary'); } catch (e) { }
+      closeBanner();
+    }
+
+    function rejectAllCookies() {
+      try { localStorage.setItem('cookieConsent', 'rejected'); } catch (e) { }
+      closeBanner();
+    }
+
+    function closeBanner() {
+      const banner = document.getElementById('cookie-banner');
+      if (!banner) return;
+      const card = banner.querySelector('.glass-card');
+      if (card) {
+        card.classList.add('opacity-0', 'translate-y-4');
+        card.style.transition = 'all 0.4s ease';
+      }
+      setTimeout(() => { banner.style.display = 'none'; }, 400);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const banner = document.getElementById('cookie-banner');
+      try {
+        if (localStorage.getItem('cookieConsent') && banner) {
+          banner.style.display = 'none';
         }
-        window.addEventListener('resize', resize);
+      } catch (e) { }
+    });
 
-        class Wave {
-            constructor(index, total) {
-                this.index = index;
-                this.total = total;
-                this.phase = Math.random() * Math.PI * 2;
-                this.speed = 0.002 + Math.random() * 0.004; 
-                const blue = 100 + Math.random() * 100;
-                this.color = `rgba(${10 + index * 10}, ${20 + index * 10}, ${blue}, ${0.15 - (index * 0.02)})`;
-                this.y = height * (0.4 + (index / total) * 0.4); 
-                this.amplitude = 50 + Math.random() * 100;
-                this.frequency = 0.002 + Math.random() * 0.003;
-            }
-            update() { this.phase += this.speed; }
-            draw() {
-                ctx.beginPath();
-                ctx.moveTo(0, height);
-                for (let x = 0; x <= width; x += 10) {
-                    const sine = Math.sin(x * this.frequency + this.phase);
-                    ctx.lineTo(x, this.y + sine * this.amplitude);
-                }
-                ctx.lineTo(width, height);
-                ctx.closePath();
-                ctx.fillStyle = this.color;
-                ctx.fill();
-            }
-        }
+    // --------------------------------------------------------
+    // CANVAS BACKGROUND ANIMATION (Identical to Hero)
+    // --------------------------------------------------------
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let waves = [];
+    const waveCount = 5;
 
-        function initWaves() {
-            waves = [];
-            for (let i = 0; i < waveCount; i++) { waves.push(new Wave(i, waveCount)); }
-        }
-        
-        resize();
-        function animateCanvas() {
-            ctx.clearRect(0, 0, width, height);
-            ctx.globalCompositeOperation = 'source-over'; 
-            waves.forEach(wave => { wave.update(); wave.draw(); });
-            requestAnimationFrame(animateCanvas);
-        }
-        animateCanvas();
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      initWaves();
+    }
+    window.addEventListener('resize', resize);
 
-        // Simple Fade Up Animation for Content
-        gsap.fromTo(".gsap-fade-up", 
-            { y: 30, opacity: 0 },
-            { y: 0, opacity: 1, duration: 1, stagger: 0.2, ease: "power3.out" }
-        );
-    </script>
+    class Wave {
+      constructor(index, total) {
+        this.index = index;
+        this.total = total;
+        this.phase = Math.random() * Math.PI * 2;
+        this.speed = 0.002 + Math.random() * 0.004;
+        const blue = 100 + Math.random() * 100;
+        this.color = `rgba(${10 + index * 10}, ${20 + index * 10}, ${blue}, ${0.15 - (index * 0.02)})`;
+        this.y = height * (0.4 + (index / total) * 0.4);
+        this.amplitude = 50 + Math.random() * 100;
+        this.frequency = 0.002 + Math.random() * 0.003;
+      }
+      update() { this.phase += this.speed; }
+      draw() {
+        ctx.beginPath();
+        ctx.moveTo(0, height);
+        for (let x = 0; x <= width; x += 10) {
+          const sine = Math.sin(x * this.frequency + this.phase);
+          ctx.lineTo(x, this.y + sine * this.amplitude);
+        }
+        ctx.lineTo(width, height);
+        ctx.closePath();
+        ctx.fillStyle = this.color;
+        ctx.fill();
+      }
+    }
+
+    function initWaves() {
+      waves = [];
+      for (let i = 0; i < waveCount; i++) { waves.push(new Wave(i, waveCount)); }
+    }
+
+    resize();
+    function animateCanvas() {
+      ctx.clearRect(0, 0, width, height);
+      ctx.globalCompositeOperation = 'source-over';
+      waves.forEach(wave => { wave.update(); wave.draw(); });
+      requestAnimationFrame(animateCanvas);
+    }
+    animateCanvas();
+
+    // Simple Fade Up Animation for Content
+    gsap.fromTo(".gsap-fade-up",
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1, stagger: 0.2, ease: "power3.out" }
+    );
+  </script>
 </body>
+
 </html>

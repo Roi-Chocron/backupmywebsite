@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="כתבה - רועי שוקרון">
+
+    <title>כתבה - רועי שוקרון</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest" defer></script>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- Markdown Parser (Marked) -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- Google Fonts: Rubik -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Rubik', sans-serif;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #444;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Markdown Styling */
+        .markdown-body h1 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: white;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .markdown-body h2 {
+            font-size: 1.875rem;
+            font-weight: 600;
+            color: #f1f5f9;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.5rem;
+        }
+
+        .markdown-body h3 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #e2e8f0;
+            margin-top: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .markdown-body p {
+            color: #94a3b8;
+            font-size: 1.125rem;
+            line-height: 1.75;
+            margin-bottom: 1.25rem;
+        }
+
+        .markdown-body a {
+            color: #3b82f6;
+            text-decoration: underline;
+        }
+
+        .markdown-body ul {
+            list-style-type: disc;
+            padding-inline-start: 1.5rem;
+            color: #94a3b8;
+            margin-bottom: 1rem;
+        }
+
+        .markdown-body ol {
+            list-style-type: decimal;
+            padding-inline-start: 1.5rem;
+            color: #94a3b8;
+            margin-bottom: 1rem;
+        }
+
+        .markdown-body li {
+            margin-bottom: 0.5rem;
+        }
+
+        .markdown-body blockquote {
+            border-inline-start: 4px solid #3b82f6;
+            padding-inline-start: 1rem;
+            font-style: italic;
+            color: #64748b;
+            margin-bottom: 1rem;
+            background: rgba(59, 130, 246, 0.05);
+            padding: 1rem;
+        }
+
+        .markdown-body strong {
+            color: white;
+            font-weight: 600;
+        }
+
+        .fade-out {
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-[#050505] text-slate-300 antialiased selection:bg-blue-500/30 selection:text-blue-200 overflow-x-hidden">
+
+    <!-- Background Effects Container -->
+    <div class="fixed inset-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+        <div
+            class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent via-[#050505]/50 to-[#050505]">
+        </div>
+        <div
+            class="absolute top-[-20%] left-[20%] w-[600px] h-[600px] bg-blue-900/10 rounded-full blur-[120px] mix-blend-screen">
+        </div>
+        <div
+            class="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-indigo-900/10 rounded-full blur-[100px] mix-blend-screen">
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav
+        class="fixed z-50 w-full border-white/5 border-b top-0 backdrop-blur-md bg-[#050505]/80 transition-all duration-300">
+        <div class="flex h-24 max-w-7xl mx-auto px-6 items-center justify-between">
+            <a href="index_optimized.html" class="block hover:opacity-80 transition-opacity">
+                <!-- LOGO -->
+                <img src="logo.svg" alt="לוגו רועי שוקרון - בניית אתרים" class="h-14 w-auto object-contain" width="100"
+                    height="56">
+            </a>
+
+            <!-- MENU -->
+            <div class="hidden md:flex items-center gap-8 text-lg font-medium text-slate-400">
+                <a href="index_optimized.html#services" class="hover:text-white transition-colors relative group">
+                    שירותים
+                    <span
+                        class="absolute -bottom-1 right-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full"></span>
+                </a>
+                <a href="index_optimized.html#process" class="hover:text-white transition-colors relative group">
+                    תהליך
+                    <span
+                        class="absolute -bottom-1 right-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full"></span>
+                </a>
+                <a href="index_optimized.html#work" class="hover:text-white transition-colors relative group">
+                    עבודות
+                    <span
+                        class="absolute -bottom-1 right-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full"></span>
+                </a>
+                <a href="index_optimized.html#faq" class="hover:text-white transition-colors relative group">
+                    שאלות
+                    <span
+                        class="absolute -bottom-1 right-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full"></span>
+                </a>
+                <a href="articles.html" class="hover:text-white transition-colors relative group">
+                    בלוג
+                    <span
+                        class="absolute -bottom-1 right-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full"></span>
+                </a>
+            </div>
+
+            <!-- WhatsApp button -->
+            <a href="https://wa.me/972502808448" target="_blank" rel="noopener noreferrer"
+                class="flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2.5 rounded-lg text-base font-medium text-white transition-all hover:scale-105 active:scale-95">
+                וואטסאפ
+            </a>
+        </div>
+    </nav>
+
+    <!-- Loading State -->
+    <div id="loader" class="min-h-screen flex items-center justify-center pt-24 text-blue-500">
+        <div
+            class="inline-block animate-spin w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full mb-4">
+        </div>
+    </div>
+
+    <!-- Article Wrapper (Hidden initially) -->
+    <main id="article-wrapper" class="hidden relative pb-24">
+        <!-- Hero Background Cover (if has image) -->
+        <div id="article-cover" class="w-full h-[50vh] min-h-[400px] relative overflow-hidden flex items-end">
+            <div class="absolute inset-0 bg-[#050505] z-0" id="fallback-bg">
+                <div
+                    class="absolute top-[-20%] left-[20%] w-[600px] h-[600px] bg-blue-900/10 rounded-full blur-[120px] mix-blend-screen">
+                </div>
+            </div>
+            <img id="article-img" class="absolute inset-0 w-full h-full object-cover hidden z-0 opacity-40">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent z-10"></div>
+
+            <div class="max-w-4xl mx-auto px-6 w-full relative z-20 pb-12">
+                <h1 id="article-title" class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                </h1>
+                <div class="flex items-center gap-6 text-sm text-slate-400">
+                    <span id="article-date" class="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
+                            <line x1="16" x2="16" y1="2" y2="6" />
+                            <line x1="8" x2="8" y1="2" y2="6" />
+                            <line x1="3" x2="21" y1="10" y2="10" />
+                        </svg>
+                        <span></span>
+                    </span>
+                    <span id="article-views" class="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                            <circle cx="12" cy="12" r="3" />
+                        </svg>
+                        <span></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-4xl mx-auto px-6 pt-12 relative z-20">
+            <!-- Article Body -->
+            <div id="article-body" class="markdown-body mb-16">
+                <!-- Content gets injected here -->
+            </div>
+
+            <!-- Call to Action Middle / End -->
+            <div class="glass-card rounded-2xl p-8 border border-blue-500/20 bg-blue-900/5 my-12 text-center group">
+                <h3 class="text-2xl font-bold text-white mb-3">רוצים אתר משלכם שיביא תוצאות?</h3>
+                <p class="text-slate-400 mb-6 max-w-lg mx-auto">תנו לי לבנות לכם פלטפורמה חכמה, מהירה עם חוויית משתמש
+                    שתגרום ללקוחות להישאר.</p>
+                <a href="https://wa.me/972502808448" target="_blank"
+                    class="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-500 text-white px-8 py-3 rounded-xl font-medium transition-all hover:-translate-y-1 shadow-lg shadow-blue-600/20">
+                    צרו איתי קשר בוואטסאפ
+                </a>
+            </div>
+
+            <!-- Rate Article -->
+            <div class="border-t border-white/10 pt-10 pb-10 flex flex-col items-center">
+                <h4 class="text-lg font-medium text-white mb-4">האם הכתבה עניינה אותך?</h4>
+                <div class="flex items-center gap-4" id="vote-container">
+                    <button onclick="voteArticle('interested')"
+                        class="flex items-center gap-2 bg-white/5 hover:bg-emerald-500/20 border border-white/10 hover:border-emerald-500/50 px-6 py-2.5 rounded-full text-white transition-all">
+                        <span id="count-interested" class="text-emerald-400 font-bold ml-1">0</span>
+                        👍 עניין אותי
+                    </button>
+                    <button onclick="voteArticle('not_interested')"
+                        class="flex items-center gap-2 bg-white/5 hover:bg-red-500/20 border border-white/10 hover:border-red-500/50 px-6 py-2.5 rounded-full text-white transition-all">
+                        👎 פחות מעניין
+                        <span id="count-not-interested" class="text-red-400 font-bold mr-1">0</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Comments Section -->
+            <div class="mt-12 bg-[#080808] border border-white/5 rounded-3xl p-6 md:p-8">
+                <h3 class="text-2xl font-bold text-white mb-6">תגובות (<span id="comments-count">0</span>)</h3>
+
+                <!-- Add Comment Form -->
+                <form id="comment-form" onsubmit="submitComment(event)" class="mb-10 space-y-4">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <input type="text" id="comment-name" required placeholder="השם שלך (לא חובה להתחבר)"
+                            class="w-full bg-[#111] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors">
+                    </div>
+                    <textarea id="comment-content" required placeholder="מה דעתך על הכתבה?" rows="3"
+                        class="w-full bg-[#111] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors resize-none"></textarea>
+                    <button type="submit"
+                        class="bg-white/10 hover:bg-white/20 text-white px-6 py-3 rounded-xl font-medium transition-colors border border-white/10">
+                        שלח תגובה
+                    </button>
+                    <p id="comment-status" class="text-sm mt-2 hidden"></p>
+                </form>
+
+                <!-- Comments List -->
+                <div id="comments-list" class="space-y-6">
+                    <!-- Comments injected here -->
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-16 bg-[#030303] relative z-40 border-t border-white/5" id="footer">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-12">
+
+            <div class="space-y-4">
+                <a href="index_optimized.html" class="block">
+                    <img src="logo.svg" alt="לוגו רועי שוקרון - בונה אתרים"
+                        class="h-12 w-auto object-contain opacity-80" width="100" height="48">
+                </a>
+            </div>
+
+            <div class="">
+                <h4 class="text-white font-semibold mb-4 text-lg">קישורים מהירים</h4>
+                <ul class="space-y-3 text-slate-500">
+                    <li><a href="index_optimized.html#work" class="hover:text-blue-400 transition-colors">עבודות</a>
+                    </li>
+                    <li><a href="index_optimized.html#services"
+                            class="hover:text-blue-400 transition-colors">שירותים</a></li>
+                    <li><a href="index_optimized.html#process" class="hover:text-blue-400 transition-colors">תהליך
+                            העבודה</a></li>
+                    <li><a href="articles.html" class="hover:text-blue-400 transition-colors">בלוג</a></li>
+                </ul>
+            </div>
+
+            <div class="">
+                <h4 class="text-white font-semibold mb-4 text-lg">יצירת קשר</h4>
+                <ul class="space-y-3 text-slate-500">
+                    <li class="flex items-center gap-2">
+                        <i data-lucide="mail" class="w-5 h-5"></i>
+                        <a href="mailto:roi.chocron7@gmail.com"
+                            class="hover:text-white transition-colors">roi.chocron7@gmail.com</a>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <i data-lucide="phone" class="w-5 h-5"></i>
+                        <a href="tel:0502808448" class="hover:text-white transition-colors">050-280-8448</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="">
+                <h4 class="text-white font-semibold mb-4 text-lg">רשתות חברתיות</h4>
+                <div class="flex gap-4">
+                    <a href="https://www.instagram.com/roi.chocron?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                        target="_blank" rel="noopener noreferrer"
+                        class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+                        <i data-lucide="instagram" class="w-5 h-5"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/רועי-שוקרון-828079345" target="_blank"
+                        rel="noopener noreferrer"
+                        class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+                        <i data-lucide="linkedin" class="w-5 h-5"></i>
+                    </a>
+                    <a href="https://www.youtube.com/@%D7%A8%D7%95%D7%A2%D7%99%D7%A9%D7%95%D7%A7%D7%A8%D7%95%D7%9F55"
+                        target="_blank" rel="noopener noreferrer"
+                        class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+                        <i data-lucide="youtube" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="max-w-7xl mx-auto px-6 pt-12 mt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-sm text-slate-600">
+            <p>רועי שוקרון - עיצוב ובניית אתרים</p>
+            <div class="flex gap-6 mt-4 md:mt-0">
+                <a href="/privacypolicy" class="hover:text-slate-400">מדיניות הפרטיות</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cookie Consent Banner -->
+    <div id="cookie-banner"
+        class="fixed bottom-0 left-0 right-0 z-50 p-4 md:p-6 flex justify-center items-end md:items-center pointer-events-none">
+        <div
+            class="glass-card w-full max-w-5xl rounded-2xl p-6 md:p-8 flex flex-col lg:flex-row gap-6 items-start lg:items-center justify-between pointer-events-auto border-t border-white/10 shadow-2xl">
+            <div class="flex gap-5 items-start">
+                <div
+                    class="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center shrink-0 text-blue-400 border border-blue-500/20">
+                    <i data-lucide="cookie" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h3 class="text-white font-semibold text-lg mb-1">אנחנו מעריכים את הפרטיות שלך</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed max-w-xl">
+                        אנחנו משתמשים בעוגיות (Cookies) כדי לשפר את חווית הגלישה, לנתח את התנועה באתר ולהתאים אישית את
+                        התוכן עבורך.
+                        למידע נוסף ניתן לקרוא את <a href="/privacypolicy"
+                            class="text-blue-400 hover:text-blue-300 underline underline-offset-4 transition-colors">מדיניות
+                            הפרטיות</a> שלנו.
+                    </p>
+                </div>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-3 w-full lg:w-auto shrink-0 flex-wrap justify-end">
+                <button onclick="rejectAllCookies()"
+                    class="px-5 py-3 rounded-xl border border-white/10 text-slate-400 hover:text-white hover:bg-white/5 font-medium text-sm transition-all whitespace-nowrap">דחה
+                    הכל</button>
+                <button onclick="declineCookies()"
+                    class="px-5 py-3 rounded-xl border border-white/10 text-slate-300 font-medium text-sm hover:bg-white/5 hover:text-white transition-all whitespace-nowrap">רק
+                    עוגיות הכרחיות</button>
+                <button onclick="acceptCookies()"
+                    class="px-8 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-medium text-sm transition-all shadow-lg shadow-blue-900/20 whitespace-nowrap">אני
+                    מסכים, תודה</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = location.hostname === 'localhost' || location.hostname === '127.0.0.1'
+            ? 'api_articles.php'
+            : '/api_articles.php';
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const articleId = urlParams.get('id');
+
+        let hasVoted = false;
+        let votedComments = new Set();
+
+        async function loadArticle() {
+            if (!articleId) {
+                document.getElementById('loader').innerHTML = `<h2 class="text-xl text-white">כתבה לא נמצאה. <a href="articles.html" class="text-blue-500">חזרה לכתבות</a></h2>`;
+                return;
+            }
+
+            try {
+                // Check if already viewed in this session/browser
+                const viewedKey = `viewed_article_${articleId}`;
+                if (!sessionStorage.getItem(viewedKey)) {
+                    await incrementView(articleId);
+                    sessionStorage.setItem(viewedKey, 'true');
+                }
+
+                const response = await fetch(`${API_URL}?action=get_article&id=${articleId}`);
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    renderArticle(data.article);
+                    renderComments(data.comments);
+                    document.getElementById('loader').classList.add('hidden');
+                    document.getElementById('article-wrapper').classList.remove('hidden');
+                    injectCTAIntoMarkdown();
+                    if (typeof lucide !== 'undefined') lucide.createIcons();
+                } else {
+                    document.getElementById('loader').innerHTML = `<h2 class="text-xl text-white">כתבה לא נמצאה. <a href="articles.html" class="text-blue-500">חזרה לכתבות</a></h2>`;
+                }
+            } catch (err) {
+                console.error(err);
+                document.getElementById('loader').innerHTML = `<h2 class="text-xl text-red-500">שגיאה בטעינת הכתבה.</h2>`;
+            }
+        }
+
+        async function incrementView(id) {
+            try {
+                await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'increment_view', article_id: id })
+                });
+            } catch (e) {
+                console.error("Failed to increment view", e);
+            }
+        }
+
+        function renderArticle(a) {
+            document.title = a.title + " - רועי שוקרון";
+            document.getElementById('article-title').innerText = a.title;
+            const date = new Date(a.created_at);
+            document.querySelector('#article-date span').innerText = date.toLocaleDateString('he-IL', { day: '2-digit', month: '2-digit', year: 'numeric' });
+            document.querySelector('#article-views span').innerText = (a.views || 0) + ' צפיות';
+            if (a.image_url) {
+                const img = document.getElementById('article-img');
+                img.src = a.image_url;
+                img.classList.remove('hidden');
+            }
+            document.getElementById('article-body').innerHTML = marked.parse(a.content);
+            document.getElementById('count-interested').innerText = a.interested_count || 0;
+            document.getElementById('count-not-interested').innerText = a.not_interested_count || 0;
+        }
+
+        function renderComments(comments) {
+            document.getElementById('comments-count').innerText = comments.length;
+            const container = document.getElementById('comments-list');
+            container.innerHTML = '';
+            if (comments.length === 0) {
+                container.innerHTML = '<p class="text-slate-500 pt-4 text-center">אין תגובות עדיין. היו הראשונים להגיב!</p>';
+                return;
+            }
+            comments.forEach(c => {
+                const date = new Date(c.created_at).toLocaleDateString('he-IL', { day: '2-digit', month: '2-digit', year: 'numeric' });
+                container.innerHTML += `
+                    <div class="bg-[#111] p-5 rounded-2xl border border-white/5">
+                        <div class="flex items-center justify-between mb-3">
+                            <h4 class="font-bold text-white">${c.author_name}</h4>
+                            <span class="text-xs text-slate-500">${date}</span>
+                        </div>
+                        <p class="text-slate-300 mb-4 whitespace-pre-wrap">${c.content.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</p>
+                        <div class="flex items-center gap-3">
+                            <button onclick="voteComment(${c.id}, 'like')" class="flex items-center gap-1.5 text-xs text-slate-400 hover:text-blue-400 transition-colors bg-white/5 px-3 py-1.5 rounded-full border border-white/5 hover:border-blue-500/30">
+                                <i data-lucide="thumbs-up" class="w-3.5 h-3.5"></i>
+                                <span>${c.likes || 0}</span>
+                            </button>
+                            <button onclick="voteComment(${c.id}, 'dislike')" class="flex items-center gap-1.5 text-xs text-slate-400 hover:text-red-400 transition-colors bg-white/5 px-3 py-1.5 rounded-full border border-white/5 hover:border-red-500/30">
+                                <i data-lucide="thumbs-down" class="w-3.5 h-3.5"></i>
+                                <span>${c.dislikes || 0}</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
+        async function submitComment(e) {
+            e.preventDefault();
+            const name = document.getElementById('comment-name').value;
+            const content = document.getElementById('comment-content').value;
+            const status = document.getElementById('comment-status');
+            status.classList.remove('hidden', 'text-green-400', 'text-red-400');
+            status.innerText = "שולח...";
+            try {
+                const res = await fetch(`${API_URL}?action=add_comment`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ article_id: articleId, author_name: name, content: content })
+                });
+                const data = await res.json();
+                if (data.status === 'success') {
+                    status.classList.add('text-green-400');
+                    status.innerText = "התגובה נוספה בהצלחה!";
+                    document.getElementById('comment-content').value = "";
+                    loadArticle();
+                } else { throw new Error(data.message); }
+            } catch (err) {
+                status.classList.add('text-red-400');
+                status.innerText = "שגיאה: " + err.message;
+            }
+        }
+
+        async function voteArticle(type) {
+            if (hasVoted) return;
+            try {
+                const spanId = type === 'interested' ? 'count-interested' : 'count-not-interested';
+                const countSpan = document.getElementById(spanId);
+                countSpan.innerText = parseInt(countSpan.innerText) + 1;
+                hasVoted = true;
+                await fetch(`${API_URL}?action=vote_article`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ article_id: articleId, vote_type: type })
+                });
+            } catch (error) { }
+        }
+
+        async function voteComment(commentId, type) {
+            if (votedComments.has(commentId)) return;
+            votedComments.add(commentId);
+            try {
+                await fetch(`${API_URL}?action=vote_comment`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ comment_id: commentId, vote_type: type })
+                });
+                loadArticle();
+            } catch (error) { }
+        }
+
+        function injectCTAIntoMarkdown() {
+            const paras = document.querySelectorAll('#article-body p');
+            if (paras.length >= 3) {
+                const ctaHTML = `<div class="clear-both glass-card border-l-4 border-blue-500 rounded-lg p-6 my-8 flex flex-col md:flex-row items-center justify-between gap-6" style="background: rgba(59, 130, 246, 0.05);"><div><h4 class="text-white font-bold text-xl mb-2">רוצים שנסדר גם לכם נוכחות מקצועית ברשת?</h4><p class="text-slate-400 text-[15px] m-0">האתר שלכם הוא הפנים של העסק! תשקיעו בו בגישה שתציג אתכם כמו שצריך.</p></div><a href="https://wa.me/972502808448" target="_blank" class="whitespace-nowrap px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-medium transition-colors">אני רוצה לשמוע עוד</a></div>`;
+                paras[1].insertAdjacentHTML('afterend', ctaHTML);
+            }
+        }
+
+        function acceptCookies() {
+            try { localStorage.setItem('cookieConsent', 'accepted'); } catch (e) { }
+            closeBanner();
+        }
+
+        function declineCookies() {
+            try { localStorage.setItem('cookieConsent', 'necessary'); } catch (e) { }
+            closeBanner();
+        }
+
+        function rejectAllCookies() {
+            try { localStorage.setItem('cookieConsent', 'rejected'); } catch (e) { }
+            closeBanner();
+        }
+
+        function closeBanner() {
+            const banner = document.getElementById('cookie-banner');
+            if (!banner) return;
+            const card = banner.querySelector('.glass-card');
+            if (card) {
+                card.classList.add('fade-out');
+            }
+            setTimeout(() => { banner.style.display = 'none'; }, 400);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadArticle();
+            const banner = document.getElementById('cookie-banner');
+            try {
+                if (localStorage.getItem('cookieConsent') && banner) {
+                    banner.style.display = 'none';
+                }
+            } catch (e) { }
+        });
+    </script>
+</body>
+
+</html>

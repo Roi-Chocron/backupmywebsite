@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="כתבות ומאמרים - רועי שוקרון">
+
+    <title>כתבות וחדשות AI - רועי שוקרון</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- Google Fonts: Rubik -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Rubik', sans-serif;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #444;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body class="bg-[#050505] text-slate-300 antialiased selection:bg-blue-500/30 selection:text-blue-200">
+
+    <!-- Background Effects Container -->
+    <div class="fixed inset-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+        <!-- Canvas for Dark Waves -->
+        <canvas id="bg-canvas"></canvas>
+        <div
+            class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent via-[#050505]/50 to-[#050505]">
+        </div>
+        <div
+            class="absolute top-[-20%] left-[20%] w-[600px] h-[600px] bg-blue-900/10 rounded-full blur-[120px] mix-blend-screen">
+        </div>
+        <div
+            class="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-indigo-900/10 rounded-full blur-[100px] mix-blend-screen">
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav
+        class="fixed z-50 w-full border-white/5 border-b top-0 backdrop-blur-md bg-[#050505]/80 transition-all duration-300">
+        <div class="flex h-24 max-w-7xl mx-auto px-6 items-center justify-between">
+            <a href="index_optimized.html" class="block hover:opacity-80 transition-opacity">
+                <!-- LOGO -->
+                <img src="logo.svg" alt="לוגו רועי שוקרון - בניית אתרים" class="h-14 w-auto object-contain" width="100"
+                    height="56">
+            </a>
+
+            <!-- MENU -->
+            <div class="hidden md:flex items-center gap-8 text-lg font-medium text-slate-400">
+                <a href="index_optimized.html#services" class="hover:text-white transition-colors relative group">
+                    שירותים
+                    <span
+                        class="absolute -bottom-1 right-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full"></span>
+                </a>
+                <a href="index_optimized.html#process" class="hover:text-white transition-colors relative group">
+                    תהליך
+                    <span
+                        class="absolute -bottom-1 right-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full"></span>
+                </a>
+                <a href="index_optimized.html#work" class="hover:text-white transition-colors relative group">
+                    עבודות
+                    <span
+                        class="absolute -bottom-1 right-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full"></span>
+                </a>
+                <a href="index_optimized.html#faq" class="hover:text-white transition-colors relative group">
+                    שאלות
+                    <span
+                        class="absolute -bottom-1 right-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full"></span>
+                </a>
+                <a href="articles.html" class="text-white relative group">
+                    בלוג
+                    <span class="absolute -bottom-1 right-0 w-full h-0.5 bg-blue-500"></span>
+                </a>
+            </div>
+
+            <!-- WhatsApp button -->
+            <a href="https://wa.me/972502808448" target="_blank" rel="noopener noreferrer"
+                class="flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2.5 rounded-lg text-base font-medium text-white transition-all hover:scale-105 active:scale-95">
+                וואטסאפ
+            </a>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <header class="pt-48 pb-12 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 text-center z-10 relative">
+            <h1 class="text-5xl md:text-7xl font-bold text-white tracking-tight mb-6">
+                חדשות וכתבות AI
+            </h1>
+            <p class="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                התעדכנו בכל מה שחדש בעולם הבינה המלאכותית, כלים טרנדיים וטכנולוגיות חדשניות שישנו את העסק שלכם.
+            </p>
+        </div>
+    </header>
+
+    <!-- Articles List Section -->
+    <section class="py-12 pb-24 relative min-h-[50vh]">
+        <div class="max-w-7xl mx-auto px-6" id="articles-container">
+
+            <div id="loading" class="text-center py-20">
+                <div
+                    class="inline-block animate-spin w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full mb-4">
+                </div>
+                <p class="text-slate-400 text-lg">טוען כתבות חדשות...</p>
+            </div>
+
+            <div id="articles-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 hidden">
+                <!-- Articles will be injected here via JS -->
+            </div>
+
+            <div id="empty-state" class="text-center py-20 hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                    class="mx-auto text-slate-600 mb-4">
+                    <path d="M4 22h14a2 2 0 0 0 2-2V7.5L14.5 2H6a2 2 0 0 0-2 2v4" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <path d="M2 15h10" />
+                    <path d="m9 18 3-3-3-3" />
+                </svg>
+                <h3 class="text-xl font-medium text-white mb-2">אין כתבות כרגע</h3>
+                <p class="text-slate-400">הכתבות הראשונות בדרך...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-16 bg-[#030303] relative z-40 border-t border-white/5" id="footer">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-12">
+
+            <div class="space-y-4">
+                <a href="index_optimized.html" class="block">
+                    <img src="logo.svg" alt="לוגו רועי שוקרון - בונה אתרים"
+                        class="h-12 w-auto object-contain opacity-80" width="100" height="48">
+                </a>
+            </div>
+
+            <div class="">
+                <h4 class="text-white font-semibold mb-4 text-lg">קישורים מהירים</h4>
+                <ul class="space-y-3 text-slate-500">
+                    <li><a href="index_optimized.html#work" class="hover:text-blue-400 transition-colors">עבודות</a>
+                    </li>
+                    <li><a href="index_optimized.html#services"
+                            class="hover:text-blue-400 transition-colors">שירותים</a></li>
+                    <li><a href="index_optimized.html#process" class="hover:text-blue-400 transition-colors">תהליך
+                            העבודה</a></li>
+                    <li><a href="articles.html" class="hover:text-blue-400 transition-colors">בלוג</a></li>
+                </ul>
+            </div>
+
+            <div class="">
+                <h4 class="text-white font-semibold mb-4 text-lg">יצירת קשר</h4>
+                <ul class="space-y-3 text-slate-500">
+                    <li class="flex items-center gap-2">
+                        <i data-lucide="mail" class="w-5 h-5"></i>
+                        <a href="mailto:roi.chocron7@gmail.com"
+                            class="hover:text-white transition-colors">roi.chocron7@gmail.com</a>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <i data-lucide="phone" class="w-5 h-5"></i>
+                        <a href="tel:0502808448" class="hover:text-white transition-colors">050-280-8448</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="">
+                <h4 class="text-white font-semibold mb-4 text-lg">רשתות חברתיות</h4>
+                <div class="flex gap-4">
+                    <a href="https://www.instagram.com/roi.chocron?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                        target="_blank" rel="noopener noreferrer"
+                        class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+                        <i data-lucide="instagram" class="w-5 h-5"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/רועי-שוקרון-828079345" target="_blank"
+                        rel="noopener noreferrer"
+                        class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+                        <i data-lucide="linkedin" class="w-5 h-5"></i>
+                    </a>
+                    <a href="https://www.youtube.com/@%D7%A8%D7%95%D7%A2%D7%99%D7%A9%D7%95%D7%A7%D7%A8%D7%95%D7%9F55"
+                        target="_blank" rel="noopener noreferrer"
+                        class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+                        <i data-lucide="youtube" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="max-w-7xl mx-auto px-6 pt-12 mt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-sm text-slate-600">
+            <p>רועי שוקרון - עיצוב ובניית אתרים</p>
+            <div class="flex gap-6 mt-4 md:mt-0">
+                <a href="/privacypolicy" class="hover:text-slate-400">מדיניות הפרטיות</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cookie Consent Banner -->
+    <div id="cookie-banner"
+        class="fixed bottom-0 left-0 right-0 z-50 p-4 md:p-6 flex justify-center items-end md:items-center pointer-events-none">
+        <div
+            class="glass-card w-full max-w-5xl rounded-2xl p-6 md:p-8 flex flex-col lg:flex-row gap-6 items-start lg:items-center justify-between pointer-events-auto border-t border-white/10 shadow-2xl">
+            <div class="flex gap-5 items-start">
+                <div
+                    class="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center shrink-0 text-blue-400 border border-blue-500/20">
+                    <i data-lucide="cookie" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h3 class="text-white font-semibold text-lg mb-1">אנחנו מעריכים את הפרטיות שלך</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed max-w-xl">
+                        אנחנו משתמשים בעוגיות (Cookies) כדי לשפר את חווית הגלישה, לנתח את התנועה באתר ולהתאים אישית את
+                        התוכן עבורך.
+                        למידע נוסף ניתן לקרוא את <a href="/privacypolicy"
+                            class="text-blue-400 hover:text-blue-300 underline underline-offset-4 transition-colors">מדיניות
+                            הפרטיות</a> שלנו.
+                    </p>
+                </div>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-3 w-full lg:w-auto shrink-0 flex-wrap justify-end">
+                <button onclick="rejectAllCookies()"
+                    class="px-5 py-3 rounded-xl border border-white/10 text-slate-400 hover:text-white hover:bg-white/5 font-medium text-sm transition-all whitespace-nowrap">דחה
+                    הכל</button>
+                <button onclick="declineCookies()"
+                    class="px-5 py-3 rounded-xl border border-white/10 text-slate-300 font-medium text-sm hover:bg-white/5 hover:text-white transition-all whitespace-nowrap">רק
+                    עוגיות הכרחיות</button>
+                <button onclick="acceptCookies()"
+                    class="px-8 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-medium text-sm transition-all shadow-lg shadow-blue-900/20 whitespace-nowrap">אני
+                    מסכים, תודה</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // This line was removed as it was not in the provided new script block.
+            // document.getElementById('year').innerText = new Date().getFullYear(); 
+
+            fetchArticles();
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+
+            // Cookie banner logic
+            const _cookie_banner = document.getElementById('cookie-banner');
+            try {
+                const consent = localStorage.getItem('cookieConsent');
+                if (consent && _cookie_banner) {
+                    _cookie_banner.style.display = 'none';
+                }
+            } catch (e) { }
+        });
+
+        function acceptCookies() {
+            try { localStorage.setItem('cookieConsent', 'accepted'); } catch (e) { }
+            closeBanner();
+        }
+
+        function declineCookies() {
+            try { localStorage.setItem('cookieConsent', 'necessary'); } catch (e) { }
+            closeBanner();
+        }
+
+        function rejectAllCookies() {
+            try { localStorage.setItem('cookieConsent', 'rejected'); } catch (e) { }
+            closeBanner();
+        }
+
+        function closeBanner() {
+            const banner = document.getElementById('cookie-banner');
+            if (!banner) return;
+            const card = banner.querySelector('.glass-card');
+            if (card) {
+                card.classList.add('opacity-0', 'translate-y-4');
+                card.style.transition = 'all 0.4s ease';
+            }
+            setTimeout(() => { banner.style.display = 'none'; }, 400);
+        }
+
+        // Check environment to pick API url
+        const API_URL = location.hostname === 'localhost' || location.hostname === '127.0.0.1'
+            ? 'api_articles.php'
+            : '/api_articles.php';
+
+        async function fetchArticles() {
+            try {
+                const response = await fetch(`${API_URL}?action=get_articles`);
+                if (!response.ok) throw new Error('Network error');
+
+                const data = await response.json();
+                document.getElementById('loading').classList.add('hidden');
+
+                if (data.status === 'success' && data.articles && data.articles.length > 0) {
+                    const grid = document.getElementById('articles-grid');
+                    grid.classList.remove('hidden');
+
+                    data.articles.forEach(article => {
+                        grid.innerHTML += `
+                            <article class="glass-card rounded-3xl overflow-hidden group hover:bg-white/5 transition-all hover:border-blue-500/30 hover:-translate-y-1 flex flex-col">
+                                <a href="article.html?id=${article.id}" class="block h-48 overflow-hidden relative">
+                                    ${article.image_url
+                                ? `<img src="${article.image_url}" alt="${article.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">`
+                                : `<div class="w-full h-full bg-slate-800 flex items-center justify-center text-slate-600"><span class="text-xs">אין תמונה</span></div>`
+                            }
+                                </a>
+                                <div class="p-6 flex-1 flex flex-col">
+                                    <h3 class="text-xl font-semibold text-white mb-3 line-clamp-2">
+                                        <a href="article.html?id=${article.id}" class="hover:text-blue-400 transition-colors">${article.title}</a>
+                                    </h3>
+                                    <p class="text-slate-400 text-sm mb-4 line-clamp-3 w-full flex-1" style="direction: rtl;">
+                                        ${excerptMaker(article.excerpt)}...
+                                    </p>
+                                    <div class="flex items-center justify-between text-xs text-slate-500 border-t border-white/5 pt-4 mt-auto">
+                                        <span>${formatDate(article.created_at)}</span>
+                                        <span class="flex items-center gap-1">
+                                            <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+                                            ${article.views || 0}
+                                        </span>
+                                    </div>
+                                </div>
+                            </article>
+                        `;
+                    });
+                    lucide.createIcons();
+                } else {
+                    document.getElementById('empty-state').classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error("Error fetching articles:", error);
+                document.getElementById('loading').innerHTML = `<p class="text-red-400">שגיאה בטעינת הכתבות. ודא שה-API זמין.</p>`;
+            }
+        }
+
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('he-IL', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        }
+
+        function excerptMaker(text) {
+            if (!text) return "";
+            return text.replace(/[*#>`_-]/g, '').trim().substring(0, 100);
+        }
+    </script>
+</body>
+
+</html>
+```

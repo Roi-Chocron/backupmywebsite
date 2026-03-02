@@ -1,312 +1,367 @@
-        <!DOCTYPE html>
-        <html lang="he" dir="rtl">
-        <head>
-            <!-- Analytics Tracking Code -->
-<script>
-(function() {
-  'use strict';
-  var id = 'b86806be7d4e8e98';
-  var endpoint = 'https://vtbpfkuteansazuqslre.supabase.co/functions/v1/collect';
-  
-  function getFingerprint() {
-    var canvas = document.createElement('canvas');
-    var ctx = canvas.getContext('2d');
-    ctx.textBaseline = 'top';
-    ctx.font = '14px Arial';
-    ctx.fillText('analytics', 2, 2);
-    var hash = canvas.toDataURL().split('').reduce(function(a, b) {
-      a = ((a << 5) - a) + b.charCodeAt(0);
-      return a & a;
-    }, 0);
-    var nav = [navigator.userAgent, navigator.language, screen.width + 'x' + screen.height, new Date().getTimezoneOffset()].join('|');
-    return Math.abs(hash) + '_' + nav.split('').reduce(function(a, b) {
-      a = ((a << 5) - a) + b.charCodeAt(0);
-      return a & a;
-    }, 0);
-  }
-  
-  function getBrowser() {
-    var ua = navigator.userAgent;
-    if (ua.indexOf('Edg') > -1) return 'Edge';
-    if (ua.indexOf('Firefox') > -1) return 'Firefox';
-    if (ua.indexOf('Chrome') > -1) return 'Chrome';
-    if (ua.indexOf('Safari') > -1) return 'Safari';
-    if (ua.indexOf('Opera') > -1 || ua.indexOf('OPR') > -1) return 'Opera';
-    return 'Other';
-  }
-  
-  function getDevice() {
-    var ua = navigator.userAgent;
-    if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) return 'tablet';
-    if (/Mobile|iP(hone|od)|Android|BlackBerry|IEMobile/.test(ua)) return 'mobile';
-    return 'desktop';
-  }
-  
-  function getOS() {
-    var ua = navigator.userAgent;
-    if (ua.indexOf('Win') > -1) return 'Windows';
-    if (ua.indexOf('Mac') > -1) return 'MacOS';
-    if (ua.indexOf('Linux') > -1) return 'Linux';
-    if (ua.indexOf('Android') > -1) return 'Android';
-    if (ua.indexOf('like Mac') > -1) return 'iOS';
-    return 'Other';
-  }
-  
-  var start = Date.now();
-  var fp = getFingerprint();
-  var sent = false;
-  var geo = { country: '', city: '' };
-  
-  // Get geo info from client side
-  fetch('https://ipapi.co/json/', { mode: 'cors' })
-    .then(function(r) { return r.json(); })
-    .then(function(d) { 
-      geo.country = d.country_name || ''; 
-      geo.city = d.city || ''; 
-    })
-    .catch(function() {});
-  
-  function track(retry) {
-    if (sent && !retry) return;
-    var url = endpoint + '?t=' + id + '&u=' + encodeURIComponent(location.pathname + location.search) + '&r=' + encodeURIComponent(document.referrer) + '&f=' + fp + '&b=' + getBrowser() + '&o=' + getOS() + '&d=' + getDevice() + '&p=' + encodeURIComponent(document.title) + '&s=' + Math.round((Date.now() - start) / 1000) + '&c=' + encodeURIComponent(geo.country) + '&y=' + encodeURIComponent(geo.city) + '&_=' + Date.now();
-    
-    fetch(url, { method: 'GET', mode: 'cors', credentials: 'omit' })
-      .then(function(r) { 
-        if (r.ok) sent = true; 
-        else if (!retry) setTimeout(function() { track(true); }, 1000);
-      })
-      .catch(function() { 
-        if (!retry) setTimeout(function() { track(true); }, 1000);
-      });
-  }
-  
-  if (document.readyState === 'complete') {
-    setTimeout(track, 500);
-  } else {
-    window.addEventListener('load', function() { setTimeout(track, 500); });
-  }
-  window.addEventListener('beforeunload', function() { track(); });
-})();
-</script>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>404 - העמוד לא נמצא | רועי שוקרון</title>
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
 
-            <!-- Tailwind CSS -->
-            <script src="https://cdn.tailwindcss.com"></script>
+<head>
+    <!-- Analytics Tracking Code -->
+    <script>
+        (function () {
+            'use strict';
+            var id = 'b86806be7d4e8e98';
+            var endpoint = 'https://vtbpfkuteansazuqslre.supabase.co/functions/v1/collect';
 
-            <!-- Icons -->
-            <script src="https://unpkg.com/lucide@latest"></script>
-            <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-			<link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
-			<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+            function getFingerprint() {
+                var canvas = document.createElement('canvas');
+                var ctx = canvas.getContext('2d');
+                ctx.textBaseline = 'top';
+                ctx.font = '14px Arial';
+                ctx.fillText('analytics', 2, 2);
+                var hash = canvas.toDataURL().split('').reduce(function (a, b) {
+                    a = ((a << 5) - a) + b.charCodeAt(0);
+                    return a & a;
+                }, 0);
+                var nav = [navigator.userAgent, navigator.language, screen.width + 'x' + screen.height, new Date().getTimezoneOffset()].join('|');
+                return Math.abs(hash) + '_' + nav.split('').reduce(function (a, b) {
+                    a = ((a << 5) - a) + b.charCodeAt(0);
+                    return a & a;
+                }, 0);
+            }
 
-            <!-- GSAP Animation Library -->
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+            function getBrowser() {
+                var ua = navigator.userAgent;
+                if (ua.indexOf('Edg') > -1) return 'Edge';
+                if (ua.indexOf('Firefox') > -1) return 'Firefox';
+                if (ua.indexOf('Chrome') > -1) return 'Chrome';
+                if (ua.indexOf('Safari') > -1) return 'Safari';
+                if (ua.indexOf('Opera') > -1 || ua.indexOf('OPR') > -1) return 'Opera';
+                return 'Other';
+            }
 
-            <!-- Google Fonts: Rubik -->
-            <link rel="preconnect" href="https://fonts.googleapis.com">
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-            <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+            function getDevice() {
+                var ua = navigator.userAgent;
+                if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) return 'tablet';
+                if (/Mobile|iP(hone|od)|Android|BlackBerry|IEMobile/.test(ua)) return 'mobile';
+                return 'desktop';
+            }
 
-            <style>
-                /* Base Styles */
-                body { font-family: 'Rubik', sans-serif; }
+            function getOS() {
+                var ua = navigator.userAgent;
+                if (ua.indexOf('Win') > -1) return 'Windows';
+                if (ua.indexOf('Mac') > -1) return 'MacOS';
+                if (ua.indexOf('Linux') > -1) return 'Linux';
+                if (ua.indexOf('Android') > -1) return 'Android';
+                if (ua.indexOf('like Mac') > -1) return 'iOS';
+                return 'Other';
+            }
 
-                /* Glassmorphism utility */
-                .glass-card {
-                    background: rgba(255, 255, 255, 0.03);
-                    backdrop-filter: blur(12px);
-                    border: 1px solid rgba(255, 255, 255, 0.08);
-                }
+            var start = Date.now();
+            var fp = getFingerprint();
+            var sent = false;
+            var geo = { country: '', city: '' };
 
-                /* Canvas Background */
-                #bg-canvas {
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    z-index: -5;
-                }
+            // Get geo info from client side
+            fetch('https://ipapi.co/json/', { mode: 'cors' })
+                .then(function (r) { return r.json(); })
+                .then(function (d) {
+                    geo.country = d.country_name || '';
+                    geo.city = d.city || '';
+                })
+                .catch(function () { });
 
-                /* Glitch effect for 404 text */
-                .glitch-text {
-                    position: relative;
-                }
+            function track(retry) {
+                if (sent && !retry) return;
+                var url = endpoint + '?t=' + id + '&u=' + encodeURIComponent(location.pathname + location.search) + '&r=' + encodeURIComponent(document.referrer) + '&f=' + fp + '&b=' + getBrowser() + '&o=' + getOS() + '&d=' + getDevice() + '&p=' + encodeURIComponent(document.title) + '&s=' + Math.round((Date.now() - start) / 1000) + '&c=' + encodeURIComponent(geo.country) + '&y=' + encodeURIComponent(geo.city) + '&_=' + Date.now();
 
-                .glitch-text::before,
-                .glitch-text::after {
-                    content: attr(data-text);
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    opacity: 0.8;
-                }
-
-                .glitch-text::before {
-                    color: #3b82f6;
-                    z-index: -1;
-                    transform: translate(-2px, 2px);
-                    animation: glitch-anim-1 2s infinite linear alternate-reverse;
-                }
-
-                .glitch-text::after {
-                    color: #1d4ed8;
-                    z-index: -2;
-                    transform: translate(2px, -2px);
-                    animation: glitch-anim-2 3s infinite linear alternate-reverse;
-                }
-
-                @keyframes glitch-anim-1 {
-                    0% { clip-path: inset(20% 0 80% 0); }
-                    20% { clip-path: inset(60% 0 10% 0); }
-                    40% { clip-path: inset(40% 0 50% 0); }
-                    60% { clip-path: inset(80% 0 5% 0); }
-                    80% { clip-path: inset(10% 0 60% 0); }
-                    100% { clip-path: inset(30% 0 30% 0); }
-                }
-
-                @keyframes glitch-anim-2 {
-                    0% { clip-path: inset(10% 0 60% 0); }
-                    20% { clip-path: inset(30% 0 20% 0); }
-                    40% { clip-path: inset(70% 0 10% 0); }
-                    60% { clip-path: inset(20% 0 50% 0); }
-                    80% { clip-path: inset(50% 0 30% 0); }
-                    100% { clip-path: inset(10% 0 70% 0); }
-                }
-            </style>
-        </head>
-        <body class="bg-[#050505] text-slate-300 antialiased overflow-hidden h-screen flex flex-col items-center justify-center relative">
-
-            <!-- Background Effects Container -->
-            <div class="fixed inset-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-                <!-- Canvas for Dark Waves -->
-                <canvas id="bg-canvas"></canvas>
-
-                <!-- Static Radial Gradients -->
-                <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent via-[#050505]/50 to-[#050505]"></div>
-                <div class="absolute top-[-20%] left-[20%] w-[600px] h-[600px] bg-blue-900/10 rounded-full blur-[120px] mix-blend-screen"></div>
-                <div class="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-indigo-900/10 rounded-full blur-[100px] mix-blend-screen"></div>
-            </div>
-
-            <!-- Main Content -->
-            <div class="z-10 text-center px-6 max-w-2xl mx-auto flex flex-col items-center gap-8">
-
-                <!-- Logo -->
-                <div class="gsap-elem opacity-0 transform translate-y-4">
-                    <img src="/logo.svg" alt="ROI Chocron Logo" class="h-20 w-auto object-contain mx-auto opacity-90 hover:opacity-100 transition-opacity">
-                </div>
-
-                <!-- 404 Number -->
-                <h1 class="gsap-elem opacity-0 transform translate-y-4 text-9xl md:text-[12rem] font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-white/10 tracking-tighter leading-none glitch-text select-none" data-text="404">
-                    404
-                </h1>
-
-                <!-- Text Message -->
-                <div class="gsap-elem opacity-0 transform translate-y-4 space-y-4">
-                    <h2 class="text-2xl md:text-3xl font-semibold text-white">אופס! נראה שהלכת לאיבוד בחלל</h2>
-                    <p class="text-slate-400 text-lg max-w-md mx-auto">
-                        העמוד שחיפשת לא קיים או שהוסר. אל דאגה, הדרך חזרה הביתה קצרה מאוד.
-                    </p>
-                </div>
-
-                <!-- Home Button -->
-                <div class="gsap-elem opacity-0 transform translate-y-4 pt-4">
-                    <a href="/index.html" class="bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-xl font-medium flex items-center justify-center gap-2 transition-all shadow-lg shadow-blue-600/20 hover:shadow-blue-600/40 hover:-translate-y-1 group">                
-                        חזרה לדף הבית
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:-translate-x-1 transition-transform"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
-                    </a>
-                </div>
-
-            </div>
-
-            <!-- Scripts -->
-            <script>
-                // Icons
-                lucide.createIcons();
-
-                // --------------------------------------------------------
-                // CANVAS BACKGROUND ANIMATION (Copied from Hero)
-                // --------------------------------------------------------
-                const canvas = document.getElementById('bg-canvas');
-                const ctx = canvas.getContext('2d');
-                let width, height;
-                let waves = [];
-
-                const waveCount = 5;
-
-                function resize() {
-                    width = canvas.width = window.innerWidth;
-                    height = canvas.height = window.innerHeight;
-                    initWaves();
-                }
-                window.addEventListener('resize', resize);
-
-                class Wave {
-                    constructor(index, total) {
-                        this.index = index;
-                        this.total = total;
-                        this.phase = Math.random() * Math.PI * 2;
-                        this.speed = 0.002 + Math.random() * 0.004; 
-                        const blue = 100 + Math.random() * 100;
-                        this.color = `rgba(${10 + index * 10}, ${20 + index * 10}, ${blue}, ${0.15 - (index * 0.02)})`;
-                        this.y = height * (0.4 + (index / total) * 0.4);
-                        this.amplitude = 50 + Math.random() * 100;
-                        this.frequency = 0.002 + Math.random() * 0.003;
-                    }
-
-                    update() {
-                        this.phase += this.speed;
-                    }
-
-                    draw() {
-                        ctx.beginPath();
-                        ctx.moveTo(0, height);
-                        for (let x = 0; x <= width; x += 10) {
-                            const sine = Math.sin(x * this.frequency + this.phase);
-                            ctx.lineTo(x, this.y + sine * this.amplitude);
-                        }
-                        ctx.lineTo(width, height);
-                        ctx.closePath();
-                        ctx.fillStyle = this.color;
-                        ctx.fill();
-                    }
-                }
-
-                function initWaves() {
-                    waves = [];
-                    for (let i = 0; i < waveCount; i++) {
-                        waves.push(new Wave(i, waveCount));
-                    }
-                }
-
-                resize();
-
-                function animateCanvas() {
-                    ctx.clearRect(0, 0, width, height);
-                    ctx.globalCompositeOperation = 'source-over'; 
-                    waves.forEach(wave => {
-                        wave.update();
-                        wave.draw();
+                fetch(url, { method: 'GET', mode: 'cors', credentials: 'omit' })
+                    .then(function (r) {
+                        if (r.ok) sent = true;
+                        else if (!retry) setTimeout(function () { track(true); }, 1000);
+                    })
+                    .catch(function () {
+                        if (!retry) setTimeout(function () { track(true); }, 1000);
                     });
-                    requestAnimationFrame(animateCanvas);
-                }
-                animateCanvas();
+            }
 
-                // --------------------------------------------------------
-                // GSAP ENTRY ANIMATION
-                // --------------------------------------------------------
-                gsap.to(".gsap-elem", {
-                    y: 0,
-                    opacity: 1,
-                    duration: 1,
-                    stagger: 0.15,
-                    ease: "power3.out",
-                    delay: 0.2
-                });
-            </script>
-        </body>
-        </html>
+            if (document.readyState === 'complete') {
+                setTimeout(track, 500);
+            } else {
+                window.addEventListener('load', function () { setTimeout(track, 500); });
+            }
+            window.addEventListener('beforeunload', function () { track(); });
+        })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - העמוד לא נמצא | רועי שוקרון</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- GSAP Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <!-- Google Fonts: Rubik -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* Base Styles */
+        body {
+            font-family: 'Rubik', sans-serif;
+        }
+
+        /* Glassmorphism utility */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Canvas Background */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -5;
+        }
+
+        /* Glitch effect for 404 text */
+        .glitch-text {
+            position: relative;
+        }
+
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+
+        .glitch-text::before {
+            color: #3b82f6;
+            z-index: -1;
+            transform: translate(-2px, 2px);
+            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+        }
+
+        .glitch-text::after {
+            color: #1d4ed8;
+            z-index: -2;
+            transform: translate(2px, -2px);
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim-1 {
+            0% {
+                clip-path: inset(20% 0 80% 0);
+            }
+
+            20% {
+                clip-path: inset(60% 0 10% 0);
+            }
+
+            40% {
+                clip-path: inset(40% 0 50% 0);
+            }
+
+            60% {
+                clip-path: inset(80% 0 5% 0);
+            }
+
+            80% {
+                clip-path: inset(10% 0 60% 0);
+            }
+
+            100% {
+                clip-path: inset(30% 0 30% 0);
+            }
+        }
+
+        @keyframes glitch-anim-2 {
+            0% {
+                clip-path: inset(10% 0 60% 0);
+            }
+
+            20% {
+                clip-path: inset(30% 0 20% 0);
+            }
+
+            40% {
+                clip-path: inset(70% 0 10% 0);
+            }
+
+            60% {
+                clip-path: inset(20% 0 50% 0);
+            }
+
+            80% {
+                clip-path: inset(50% 0 30% 0);
+            }
+
+            100% {
+                clip-path: inset(10% 0 70% 0);
+            }
+        }
+    </style>
+</head>
+
+<body
+    class="bg-[#050505] text-slate-300 antialiased overflow-hidden h-screen flex flex-col items-center justify-center relative">
+
+    <!-- Background Effects Container -->
+    <div class="fixed inset-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+        <!-- Canvas for Dark Waves -->
+        <canvas id="bg-canvas"></canvas>
+
+        <!-- Static Radial Gradients -->
+        <div
+            class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent via-[#050505]/50 to-[#050505]">
+        </div>
+        <div
+            class="absolute top-[-20%] left-[20%] w-[600px] h-[600px] bg-blue-900/10 rounded-full blur-[120px] mix-blend-screen">
+        </div>
+        <div
+            class="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-indigo-900/10 rounded-full blur-[100px] mix-blend-screen">
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="z-10 text-center px-6 max-w-2xl mx-auto flex flex-col items-center gap-8">
+
+        <!-- Logo -->
+        <div class="gsap-elem opacity-0 transform translate-y-4">
+            <img src="/logo.svg" alt="ROI Chocron Logo"
+                class="h-20 w-auto object-contain mx-auto opacity-90 hover:opacity-100 transition-opacity">
+        </div>
+
+        <!-- 404 Number -->
+        <h1 class="gsap-elem opacity-0 transform translate-y-4 text-9xl md:text-[12rem] font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-white/10 tracking-tighter leading-none glitch-text select-none"
+            data-text="404">
+            404
+        </h1>
+
+        <!-- Text Message -->
+        <div class="gsap-elem opacity-0 transform translate-y-4 space-y-4">
+            <h2 class="text-2xl md:text-3xl font-semibold text-white">אופס! נראה שהלכת לאיבוד בחלל</h2>
+            <p class="text-slate-400 text-lg max-w-md mx-auto">
+                העמוד שחיפשת לא קיים או שהוסר. אל דאגה, הדרך חזרה הביתה קצרה מאוד.
+            </p>
+        </div>
+
+        <!-- Home Button -->
+        <div class="gsap-elem opacity-0 transform translate-y-4 pt-4">
+            <a href="/index_optimized.html"
+                class="bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-xl font-medium flex items-center justify-center gap-2 transition-all shadow-lg shadow-blue-600/20 hover:shadow-blue-600/40 hover:-translate-y-1 group">
+                חזרה לדף הבית
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="group-hover:-translate-x-1 transition-transform">
+                    <path d="m12 19-7-7 7-7" />
+                    <path d="M19 12H5" />
+                </svg>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Icons
+        lucide.createIcons();
+
+        // --------------------------------------------------------
+        // CANVAS BACKGROUND ANIMATION (Copied from Hero)
+        // --------------------------------------------------------
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let waves = [];
+
+        const waveCount = 5;
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            initWaves();
+        }
+        window.addEventListener('resize', resize);
+
+        class Wave {
+            constructor(index, total) {
+                this.index = index;
+                this.total = total;
+                this.phase = Math.random() * Math.PI * 2;
+                this.speed = 0.002 + Math.random() * 0.004;
+                const blue = 100 + Math.random() * 100;
+                this.color = `rgba(${10 + index * 10}, ${20 + index * 10}, ${blue}, ${0.15 - (index * 0.02)})`;
+                this.y = height * (0.4 + (index / total) * 0.4);
+                this.amplitude = 50 + Math.random() * 100;
+                this.frequency = 0.002 + Math.random() * 0.003;
+            }
+
+            update() {
+                this.phase += this.speed;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.moveTo(0, height);
+                for (let x = 0; x <= width; x += 10) {
+                    const sine = Math.sin(x * this.frequency + this.phase);
+                    ctx.lineTo(x, this.y + sine * this.amplitude);
+                }
+                ctx.lineTo(width, height);
+                ctx.closePath();
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+        }
+
+        function initWaves() {
+            waves = [];
+            for (let i = 0; i < waveCount; i++) {
+                waves.push(new Wave(i, waveCount));
+            }
+        }
+
+        resize();
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, width, height);
+            ctx.globalCompositeOperation = 'source-over';
+            waves.forEach(wave => {
+                wave.update();
+                wave.draw();
+            });
+            requestAnimationFrame(animateCanvas);
+        }
+        animateCanvas();
+
+        // --------------------------------------------------------
+        // GSAP ENTRY ANIMATION
+        // --------------------------------------------------------
+        gsap.to(".gsap-elem", {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            stagger: 0.15,
+            ease: "power3.out",
+            delay: 0.2
+        });
+    </script>
+</body>
+
+</html>
